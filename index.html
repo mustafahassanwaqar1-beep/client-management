@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Management System</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+    min-height: 100vh;
+    color: #fff;
+  }
+
+  /* ===== PAGES ===== */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ===== AUTH PAGE ===== */
+  .auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+
+  .auth-box {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 40px;
+    width: 100%;
+    max-width: 450px;
+  }
+
+  .auth-box h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 28px;
+    background: linear-gradient(to right, #e94560, #0f3460);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .logo {
+    text-align: center;
+    font-size: 50px;
+    margin-bottom: 10px;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #ccc;
+    font-size: 14px;
+  }
+
+  .form-group input, .form-group select {
+    width: 100%;
+    padding: 12px 15px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 15px;
+    outline: none;
+    transition: all 0.3s;
+  }
+
+  .form-group input:focus, .form-group select:focus {
+    border-color: #e94560;
+    background: rgba(255,255,255,0.12);
+  }
+
+  .form-group select option { background: #1a1a2e; color: #fff; }
+
+  .btn {
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-bottom: 10px;
+  }
+
+  .btn-primary {
+    background: linear-gradient(to right, #e94560, #c0392b);
+    color: #fff;
+  }
+
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(233,69,96,0.4); }
+
+  .btn-secondary {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+
+  .btn-secondary:hover { background: rgba(255,255,255,0.2); }
+
+  .switch-auth {
+    text-align: center;
+    margin-top: 15px;
+    color: #ccc;
+    font-size: 14px;
+  }
+
+  .switch-auth span {
+    color: #e94560;
+    cursor: pointer;
+    font-weight: 600;
+  }
+
+  /* ===== NAVBAR ===== */
+  .navbar {
+    background: rgba(0,0,0,0.3);
+    backdrop-filter: blur(10px);
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .navbar-brand {
+    font-size: 20px;
+    font-weight: 700;
+    color: #e94560;
+  }
+
+  .navbar-user {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .user-badge {
+    background: linear-gradient(to right, #e94560, #c0392b);
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .btn-logout {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #fff;
+    padding: 6px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.3s;
+  }
+
+  .btn-logout:hover { background: #e94560; }
+
+  /* ===== DASHBOARD ===== */
+  .dashboard {
+    padding: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+
+  .stat-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+    transition: all 0.3s;
+  }
+
+  .stat-card:hover { transform: translateY(-5px); border-color: #e94560; }
+  .stat-card .number { font-size: 40px; font-weight: 700; color: #e94560; }
+  .stat-card .label { color: #ccc; font-size: 14px; margin-top: 5px; }
+
+  /* ===== TABS ===== */
+  .tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+  }
+
+  .tab {
+    padding: 10px 25px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #ccc;
+  }
+
+  .tab.active {
+    background: linear-gradient(to right, #e94560, #c0392b);
+    color: #fff;
+    border-color: transparent;
+  }
+
+  /* ===== ADD CLIENT FORM ===== */
+  .card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 25px;
+  }
+
+  .card h3 {
+    font-size: 20px;
+    margin-bottom: 25px;
+    color: #e94560;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 15px;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+
+  /* ===== TABLE ===== */
+  .table-container {
+    overflow-x: auto;
+    border-radius: 15px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  thead tr {
+    background: linear-gradient(to right, #e94560, #c0392b);
+  }
+
+  thead th {
+    padding: 15px 12px;
+    text-align: left;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  tbody tr {
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    transition: all 0.3s;
+  }
+
+  tbody tr:hover { background: rgba(255,255,255,0.05); }
+
+  tbody td {
+    padding: 12px;
+    color: #ddd;
+    white-space: nowrap;
+  }
+
+  .badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .badge-repeat {
+    background: rgba(233,69,96,0.2);
+    color: #e94560;
+    border: 1px solid #e94560;
+  }
+
+  .badge-new {
+    background: rgba(46,213,115,0.2);
+    color: #2ed573;
+    border: 1px solid #2ed573;
+  }
+
+  /* ===== SEARCH ===== */
+  .search-box {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .search-box input {
+    flex: 1;
+    min-width: 200px;
+    padding: 12px 20px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 25px;
+    color: #fff;
+    font-size: 15px;
+    outline: none;
+  }
+
+  .search-box input:focus { border-color: #e94560; }
+
+  .btn-search {
+    padding: 12px 25px;
+    background: linear-gradient(to right, #e94560, #c0392b);
+    border: none;
+    border-radius: 25px;
+    color: #fff;
+    font-size: 15px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+
+  /* ===== ALERT ===== */
+  .alert {
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    display: none;
+  }
+
+  .alert-danger {
+    background: rgba(233,69,96,0.2);
+    border: 1px solid #e94560;
+    color: #e94560;
+  }
+
+  .alert-success {
+    background: rgba(46,213,115,0.2);
+    border: 1px solid #2ed573;
+    color: #2ed573;
+  }
+
+  .alert-warning {
+    background: rgba(255,165,0,0.2);
+    border: 1px solid orange;
+    color: orange;
+  }
+
+  /* ===== ADMIN AGENT LIST ===== */
+  .agent-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .agent-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 15px;
+    padding: 20px;
+    transition: all 0.3s;
+  }
+
+  .agent-card:hover { border-color: #e94560; transform: translateY(-3px); }
+  .agent-card h4 { color: #e94560; font-size: 18px; margin-bottom: 10px; }
+  .agent-card p { color: #ccc; font-size: 14px; margin-bottom: 5px; }
+
+  /* ===== LOADING ===== */
+  .loading {
+    text-align: center;
+    padding: 40px;
+    color: #ccc;
+    font-size: 16px;
+  }
+
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(255,255,255,0.1);
+    border-top-color: #e94560;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 15px;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ===== MODAL ===== */
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7);
+    z-index: 999;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .modal.show { display: flex; }
+
+  .modal-box {
+    background: #1a1a2e;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 30px;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+  }
+
+  .modal-box h3 { color: #e94560; font-size: 22px; margin-bottom: 15px; }
+  .modal-box p { color: #ccc; margin-bottom: 20px; line-height: 1.6; }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  @media (max-width: 600px) {
+    .dashboard { padding: 15px; }
+    .navbar { padding: 12px 15px; }
+    .card { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== LOGIN PAGE ========== -->
+<div id="loginPage" class="page active">
+  <div class="auth-container">
+    <div class="auth-box">
+      <div class="logo">🏢</div>
+      <h2>Client Management</h2>
+      
+      <div id="loginAlert" class="alert alert-danger"></div>
+      
+      <div class="form-group">
+        <label>📧 Email Address</label>
+        <input type="email" id="loginEmail" placeholder="Enter your email">
+      </div>
+      <div class="form-group">
+        <label>🔑 Password</label>
+        <input type="password" id="loginPassword" placeholder="Enter your password">
+      </div>
+      <button class="btn btn-primary" onclick="loginUser()">🚀 Login</button>
+      <div class="switch-auth">
+        New Agent? <span onclick="showPage('registerPage')">Register Here</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== REGISTER PAGE ========== -->
+<div id="registerPage" class="page">
+  <div class="auth-container">
+    <div class="auth-box">
+      <div class="logo">✨</div>
+      <h2>Agent Registration</h2>
+      
+      <div id="registerAlert" class="alert alert-danger"></div>
+      
+      <div class="form-group">
+        <label>👤 Full Name</label>
+        <input type="text" id="regName" placeholder="e.g. Laraib">
+      </div>
+      <div class="form-group">
+        <label>🏷️ Agent Code (S-01, S-02...)</label>
+        <input type="text" id="regCode" placeholder="e.g. S-01">
+      </div>
+      <div class="form-group">
+        <label>📧 Email Address</label>
+        <input type="email" id="regEmail" placeholder="Enter your email">
+      </div>
+      <div class="form-group">
+        <label>🔑 Password (min 6 characters)</label>
+        <input type="password" id="regPassword" placeholder="Create password">
+      </div>
+      <button class="btn btn-primary" onclick="registerUser()">✅ Create Account</button>
+      <div class="switch-auth">
+        Already have account? <span onclick="showPage('loginPage')">Login Here</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== AGENT DASHBOARD ========== -->
+<div id="agentPage" class="page">
+  <nav class="navbar">
+    <div class="navbar-brand">🏢 CMS</div>
+    <div class="navbar-user">
+      <span class="user-badge" id="agentBadge">Agent</span>
+      <button class="btn-logout" onclick="logoutUser()">Logout</button>
+    </div>
+  </nav>
+  
+  <div class="dashboard">
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="number" id="agentTotalClients">0</div>
+        <div class="label">My Total Clients</div>
+      </div>
+      <div class="stat-card">
+        <div class="number" id="agentTodayClients">0</div>
+        <div class="label">Today's Clients</div>
+      </div>
+      <div class="stat-card">
+        <div class="number" id="agentRepeatClients">0</div>
+        <div class="label">Repeat Clients</div>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab('addClient', this)">➕ Add Client</div>
+      <div class="tab" onclick="switchTab('myClients', this)">📋 My Clients</div>
+      <div class="tab" onclick="switchTab('searchClient', this)">🔍 Search</div>
+    </div>
+
+    <!-- Add Client Tab -->
+    <div id="addClient" class="tab-content active">
+      <div class="card">
+        <h3>➕ Add New Client</h3>
+        <div id="addClientAlert" class="alert"></div>
+        <div id="repeatWarning" class="alert alert-warning">
+          ⚠️ WARNING: This client number already exists! This is a REPEATED client!
+        </div>
+        
+        <div class="form-grid">
+          <div class="form-group">
+            <label>📅 Date</label>
+            <input type="date" id="clientDate">
+          </div>
+          <div class="form-group">
+            <label>📱 Client Phone Number</label>
+            <input type="text" id="clientPhone" placeholder="e.g. 03001234567" 
+                   oninput="checkRepeat(this.value)">
+          </div>
+          <div class="form-group">
+            <label>👤 Client Name</label>
+            <input type="text" id="clientName" placeholder="Client full name">
+          </div>
+          <div class="form-group">
+            <label>🎂 Client Age</label>
+            <input type="number" id="clientAge" placeholder="e.g. 25">
+          </div>
+          <div class="form-group">
+            <label>📍 Client Location</label>
+            <input type="text" id="clientLocation" placeholder="City/Area">
+          </div>
+          <div class="form-group">
+            <label>💼 Client Profession</label>
+            <input type="text" id="clientProfession" placeholder="e.g. Business">
+          </div>
+          <div class="form-group">
+            <label>🔗 Client Facebook Link</label>
+            <input type="text" id="clientFacebook" placeholder="Facebook profile URL">
+          </div>
+          <div class="form-group">
+            <label>📱 Platform</label>
+            <select id="clientPlatform">
+              <option value="">Select Platform</option>
+              <option>Facebook</option>
+              <option>Instagram</option>
+              <option>WhatsApp</option>
+              <option>TikTok</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>🧑 Model Name</label>
+            <input type="text" id="modelName" placeholder="Model name">
+          </div>
+          <div class="form-group">
+            <label>🎂 Model Age</label>
+            <input type="number" id="modelAge" placeholder="Model age">
+          </div>
+          <div class="form-group">
+            <label>📍 Model Location</label>
+            <input type="text" id="modelLocation" placeholder="Model location">
+          </div>
+        </div>
+        
+        <br>
+        <button class="btn btn-primary" onclick="addClient()" style="max-width:300px">
+          ✅ Save Client
+        </button>
+      </div>
+    </div>
+
+    <!-- My Clients Tab -->
+    <div id="myClients" class="tab-content">
+      <div class="card">
+        <h3>📋 My Clients List</h3>
+        <div class="loading" id="myClientsLoading">
+          <div class="spinner"></div>
+          Loading clients...
+        </div>
+        <div class="table-container">
+          <table id="myClientsTable">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Date</th>
+                <th>Phone</th>
+                <th>Client Name</th>
+                <th>Age</th>
+                <th>Location</th>
+                <th>Profession</th>
+                <th>Facebook</th>
+                <th>Platform</th>
+                <th>Model</th>
+                <th>Model Age</th>
+                <th>Model Location</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="myClientsBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Search Tab -->
+    <div id="searchClient" class="tab-content">
+      <div class="card">
+        <h3>🔍 Search Client by Phone</h3>
+        <div class="search-box">
+          <input type="text" id="searchPhone" placeholder="Enter client phone number...">
+          <button class="btn-search" onclick="searchClient()">🔍 Search</button>
+        </div>
+        <div id="searchResults"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== ADMIN DASHBOARD ========== -->
+<div id="adminPage" class="page">
+  <nav class="navbar">
+    <div class="navbar-brand">🔐 Admin Panel</div>
+    <div class="navbar-user">
+      <span class="user-badge">👑 ADMIN</span>
+      <button class="btn-logout" onclick="logoutUser()">Logout</button>
+    </div>
+  </nav>
+
+  <div class="dashboard">
+    <!-- Admin Stats -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="number" id="adminTotalClients">0</div>
+        <div class="label">Total Clients</div>
+      </div>
+      <div class="stat-card">
+        <div class="number" id="adminTodayClients">0</div>
+        <div class="label">Today's Clients</div>
+      </div>
+      <div class="stat-card">
+        <div class="number" id="adminTotalAgents">0</div>
+        <div class="label">Total Agents</div>
+      </div>
+      <div class="stat-card">
+        <div class="number" id="adminRepeatClients">0</div>
+        <div class="label">Repeat Clients</div>
+      </div>
+    </div>
+
+    <!-- Admin Tabs -->
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab('adminOverview', this)">📊 Overview</div>
+      <div class="tab" onclick="switchTab('adminAllClients', this)">👥 All Clients</div>
+      <div class="tab" onclick="switchTab('adminAgents', this)">🧑‍💼 Agents</div>
+      <div class="tab" onclick="switchTab('adminSearch', this)">🔍 Search</div>
+    </div>
+
+    <!-- Overview Tab -->
+    <div id="adminOverview" class="tab-content active">
+      <div class="card">
+        <h3>📊 Today's Agent Performance</h3>
+        <div class="agent-grid" id="todayPerformance">
+          <div class="loading"><div class="spinner"></div>Loading...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- All Clients Tab -->
+    <div id="adminAllClients" class="tab-content">
+      <div class="card">
+        <h3>👥 All Clients</h3>
+        <div class="loading" id="adminClientsLoading">
+          <div class="spinner"></div>Loading...
+        </div>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Date</th>
+                <th>Agent</th>
+                <th>Phone</th>
+                <th>Client Name</th>
+                <th>Age</th>
+                <th>Location</th>
+                <th>Profession</th>
+                <th>Platform</th>
+                <th>Model</th>
+                <th>Model Age</th>
+                <th>Model Location</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="adminClientsBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Agents Tab -->
+    <div id="adminAgents" class="tab-content">
+      <div class="card">
+        <h3>🧑‍💼 All Registered Agents</h3>
+        <div class="agent-grid" id="agentsList">
+          <div class="loading"><div class="spinner"></div>Loading...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Admin Search Tab -->
+    <div id="adminSearch" class="tab-content">
+      <div class="card">
+        <h3>🔍 Search Client by Phone</h3>
+        <div class="search-box">
+          <input type="text" id="adminSearchPhone" placeholder="Enter phone number...">
+          <button class="btn-search" onclick="adminSearchClient()">🔍 Search</button>
+        </div>
+        <div id="adminSearchResults"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Repeat Modal -->
+<div class="modal" id="repeatModal">
+  <div class="modal-box">
+    <h3>⚠️ Repeated Client!</h3>
+    <p id="repeatModalMsg">This client already exists in the system!</p>
+    <button class="btn btn-primary" onclick="closeModal()">Understood</button>
+  </div>
+</div>
+
+<!-- Firebase SDK -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, 
+           signOut, onAuthStateChanged } 
+    from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+  import { getFirestore, collection, addDoc, getDocs, query, where, 
+           orderBy, doc, setDoc, getDoc, Timestamp } 
+    from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+  // Firebase Config
+  const firebaseConfig = {
+    apiKey: "AIzaSyBSR-uU2yUIaBb50tneY1jB49EG1UWQb6c",
+    authDomain: "client-management-system-cf3fa.firebaseapp.com",
+    projectId: "client-management-system-cf3fa",
+    storageBucket: "client-management-system-cf3fa.firebasestorage.app",
+    messagingSenderId: "23621940406",
+    appId: "1:23621940406:web:3b0ddaad0269cf4251a217"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  // ADMIN CONFIG
+  const ADMIN_EMAIL = "admin@cms.com";
+  const ADMIN_PASSWORD = "admin123456";
+
+  let currentUser = null;
+  let currentUserData = null;
+  let allClientsData = [];
+
+  // ===== AUTH STATE =====
+  onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      currentUser = user;
+      if (user.email === ADMIN_EMAIL) {
+        currentUserData = { name: "Admin", code: "ADMIN", role: "admin" };
+        showPage('adminPage');
+        loadAdminData();
+      } else {
+        const userDoc = await getDoc(doc(db, "agents", user.uid));
+        if (userDoc.exists()) {
+          currentUserData = userDoc.data();
+          document.getElementById('agentBadge').textContent = 
+            `${currentUserData.name} ${currentUserData.code}`;
+          showPage('agentPage');
+          loadAgentClients();
+          setTodayDate();
+        }
+      }
+    } else {
+      currentUser = null;
+      currentUserData = null;
+      showPage('loginPage');
+    }
+  });
+
+  // ===== SHOW PAGE =====
+  window.showPage = function(pageId) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(pageId).classList.add('active');
+  }
+
+  // ===== SET TODAY DATE =====
+  function setTodayDate() {
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('clientDate').value = today;
+  }
+
+  // ===== REGISTER =====
+  window.registerUser = async function() {
+    const name = document.getElementById('regName').value.trim();
+    const code = document.getElementById('regCode').value.trim().toUpperCase();
+    const email = document.getElementById('regEmail').value.trim();
+    const password = document.getElementById('regPassword').value;
+
+    if (!name || !code || !email || !password) {
+      showAlert('registerAlert', 'Please fill all fields!', 'danger');
+      return;
+    }
+
+    if (password.length < 6) {
+      showAlert('registerAlert', 'Password must be at least 6 characters!', 'danger');
+      return;
+    }
+
+    try {
+      const userCred = await createUserWithEmailAndPassword(auth, email, password);
+      await setDoc(doc(db, "agents", userCred.user.uid), {
+        name: name,
+        code: code,
+        email: email,
+        agentId: userCred.user.uid,
+        displayName: `${name} ${code}`,
+        createdAt: Timestamp.now(),
+        role: 'agent'
+      });
+      showAlert('registerAlert', '✅ Account created successfully!', 'success');
+    } catch (err) {
+      showAlert('registerAlert', `❌ ${err.message}`, 'danger');
+    }
+  }
+
+  // ===== LOGIN =====
+  window.loginUser = async function() {
+    const email = document.getElementById('loginEmail').value.trim();
+    const password = document.getElementById('loginPassword').value;
+
+    if (!email || !password) {
+      showAlert('loginAlert', 'Please enter email and password!', 'danger');
+      return;
+    }
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (err) {
+      showAlert('loginAlert', '❌ Invalid email or password!', 'danger');
+    }
+  }
+
+  // ===== LOGOUT =====
+  window.logoutUser = async function() {
+    await signOut(auth);
+  }
+
+  // ===== CHECK REPEAT =====
+  window.checkRepeat = async function(phone) {
+    if (phone.length < 7) {
+      document.getElementById('repeatWarning').style.display = 'none';
+      return;
+    }
+    const q = query(collection(db, "clients"), where("clientPhone", "==", phone));
+    const snap = await getDocs(q);
+    if (!snap.empty) {
+      document.getElementById('repeatWarning').style.display = 'block';
+    } else {
+      document.getElementById('repeatWarning').style.display = 'none';
+    }
+  }
+
+  // ===== ADD CLIENT =====
+  window.addClient = async function() {
+    const phone = document.getElementById('clientPhone').value.trim();
+    const name = document.getElementById('clientName').value.trim();
+    const date = document.getElementById('clientDate').value;
+
+    if (!phone || !name || !date) {
+      showAlert('addClientAlert', '❌ Please fill required fields (Date, Phone, Name)!', 'danger');
+      return;
+    }
+
+    // Check repeat
+    const q = query(collection(db, "clients"), where("clientPhone", "==", phone));
+    const snap = await getDocs(q);
+    const isRepeat = !snap.empty;
+
+    let repeatInfo = "";
+    if (isRepeat) {
+      snap.forEach(d => {
+        const data = d.data();
+        repeatInfo += `Agent: ${data.agentName} ${data.agentCode}, Date: ${data.date}\n`;
+      });
+    }
+
+    try {
+      await addDoc(collection(db, "clients"), {
+        date: date,
+        agentId: currentUser.uid,
+        agentName: currentUserData.name,
+        agentCode: currentUserData.code,
+        agentDisplay: currentUserData.displayName,
+        clientPhone: phone,
+        clientName: name,
+        clientAge: document.getElementById('clientAge').value,
+        clientLocation: document.getElementById('clientLocation').value,
+        clientProfession: document.getElementById('clientProfession').value,
+        clientFacebook: document.getElementById('clientFacebook').value,
+        platform: document.getElementById('clientPlatform').value,
+        modelName: document.getElementById('modelName').value,
+        modelAge: document.getElementById('modelAge').value,
+        modelLocation: document.getElementById('modelLocation').value,
+        isRepeat: isRepeat,
+        createdAt: Timestamp.now()
+      });
+
+      if (isRepeat) {
+        document.getElementById('repeatModalMsg').innerHTML = 
+          `⚠️ This client is REPEATED!<br><br><strong>Previously added by:</strong><br>${repeatInfo.replace(/\n/g, '<br>')}`;
+        document.getElementById('repeatModal').classList.add('show');
+      }
+
+      showAlert('addClientAlert', '✅ Client saved successfully!', 'success');
+      clearClientForm();
+      loadAgentClients();
+    } catch (err) {
+      showAlert('addClientAlert', `❌ Error: ${err.message}`, 'danger');
+    }
+  }
+
+  // ===== CLEAR FORM =====
+  function clearClientForm() {
+    document.getElementById('clientPhone').value = '';
+    document.getElementById('clientName').value = '';
+    document.getElementById('clientAge').value = '';
+    document.getElementById('clientLocation').value = '';
+    document.getElementById('clientProfession').value = '';
+    document.getElementById('clientFacebook').value = '';
+    document.getElementById('clientPlatform').value = '';
+    document.getElementById('modelName').value = '';
+    document.getElementById('modelAge').value = '';
+    document.getElementById('modelLocation').value = '';
+    document.getElementById('repeatWarning').style.display = 'none';
+    setTodayDate();
+  }
+
+  // ===== LOAD AGENT CLIENTS =====
+  window.loadAgentClients = async function() {
+    const q = query(
+      collection(db, "clients"), 
+      where("agentId", "==", currentUser.uid)
+    );
+    const snap = await getDocs(q);
+    const clients = [];
+    snap.forEach(d => clients.push({id: d.id, ...d.data()}));
+    
+    // Sort by date
+    clients.sort((a,b) => b.createdAt?.seconds - a.createdAt?.seconds);
+
+    const today = new Date().toISOString().split('T')[0];
+    const todayClients = clients.filter(c => c.date === today);
+    const repeatClients = clients.filter(c => c.isRepeat);
+
+    document.getElementById('agentTotalClients').textContent = clients.length;
+    document.getElementById('agentTodayClients').textContent = todayClients.length;
+    document.getElementById('agentRepeatClients').textContent = repeatClients.length;
+
+    document.getElementById('myClientsLoading').style.display = 'none';
+
+    const tbody = document.getElementById('myClientsBody');
+    tbody.innerHTML = '';
+    clients.forEach((c, i) => {
+      tbody.innerHTML += `
+        <tr>
+          <td>${i+1}</td>
+          <td>${c.date}</td>
+          <td>${c.clientPhone}</td>
+          <td>${c.clientName}</td>
+          <td>${c.clientAge || '-'}</td>
+          <td>${c.clientLocation || '-'}</td>
+          <td>${c.clientProfession || '-'}</td>
+          <td>${c.clientFacebook ? `<a href="${c.clientFacebook}" target="_blank" style="color:#e94560">View</a>` : '-'}</td>
+          <td>${c.platform || '-'}</td>
+          <td>${c.modelName || '-'}</td>
+          <td>${c.modelAge || '-'}</td>
+          <td>${c.modelLocation || '-'}</td>
+          <td><span class="badge ${c.isRepeat ? 'badge-repeat' : 'badge-new'}">${c.isRepeat ? '🔄 Repeat' : '✅ New'}</span></td>
+        </tr>`;
+    });
+  }
+
+  // ===== SEARCH CLIENT (Agent) =====
+  window.searchClient = async function() {
+    const phone = document.getElementById('searchPhone').value.trim();
+    if (!phone) return;
+
+    const q = query(collection(db, "clients"), where("clientPhone", "==", phone));
+    const snap = await getDocs(q);
+    const results = document.getElementById('searchResults');
+
+    if (snap.empty) {
+      results.innerHTML = '<div class="alert alert-success" style="display:block">✅ No client found with this number - This is a NEW client!</div>';
+      return;
+    }
+
+    let html = `<div class="alert alert-warning" style="display:block">⚠️ ${snap.size} record(s) found - REPEATED CLIENT!</div>`;
+    html += '<div class="table-container"><table><thead><tr><th>Date</th><th>Agent</th><th>Client Name</th><th>Platform</th><th>Model</th></tr></thead><tbody>';
+    
+    snap.forEach(d => {
+      const c = d.data();
+      html += `<tr>
+        <td>${c.date}</td>
+        <td>${c.agentDisplay || c.agentName}</td>
+        <td>${c.clientName}</td>
+        <td>${c.platform || '-'}</td>
+        <td>${c.modelName || '-'}</td>
+      </tr>`;
+    });
+    html += '</tbody></table></div>';
+    results.innerHTML = html;
+  }
+
+  // ===== LOAD ADMIN DATA =====
+  window.loadAdminData = async function() {
+    const clientsSnap = await getDocs(collection(db, "clients"));
+    const agentsSnap = await getDocs(collection(db, "agents"));
+    
+    allClientsData = [];
+    clientsSnap.forEach(d => allClientsData.push({id: d.id, ...d.data()}));
+    allClientsData.sort((a,b) => b.createdAt?.seconds - a.createdAt?.seconds);
+
+    const today = new Date().toISOString().split('T')[0];
+    const todayClients = allClientsData.filter(c => c.date === today);
+    const repeatClients = allClientsData.filter(c => c.isRepeat);
+
+    document.getElementById('adminTotalClients').textContent = allClientsData.length;
+    document.getElementById('adminTodayClients').textContent = todayClients.length;
+    document.getElementById('adminTotalAgents').textContent = agentsSnap.size;
+    document.getElementById('adminRepeatClients').textContent = repeatClients.length;
+
+    // Today Performance
+    const agentTodayMap = {};
+    todayClients.forEach(c => {
+      const key = c.agentDisplay || `${c.agentName} ${c.agentCode}`;
+      if (!agentTodayMap[key]) agentTodayMap[key] = 0;
+      agentTodayMap[key]++;
+    });
+
+    const perfDiv = document.getElementById('todayPerformance');
+    if (Object.keys(agentTodayMap).length === 0) {
+      perfDiv.innerHTML = '<p style="color:#ccc;padding:20px">No clients added today yet.</p>';
+    } else {
+      perfDiv.innerHTML = Object.entries(agentTodayMap).map(([agent, count]) => `
+        <div class="agent-card">
+          <h4>🧑‍💼 ${agent}</h4>
+          <p>📊 Clients Added Today: <strong style="color:#e94560;font-size:24px">${count}</strong></p>
+        </div>
+      `).join('');
+    }
+
+    // All Clients Table
+    document.getElementById('adminClientsLoading').style.display = 'none';
+    const tbody = document.getElementById('adminClientsBody');
+    tbody.innerHTML = '';
+    allClientsData.forEach((c, i) => {
+      tbody.innerHTML += `
+        <tr>
+          <td>${i+1}</td>
+          <td>${c.date}</td>
+          <td>${c.agentDisplay || c.agentName}</td>
+          <td>${c.clientPhone}</td>
+          <td>${c.clientName}</td>
+          <td>${c.clientAge || '-'}</td>
+          <td>${c.clientLocation || '-'}</td>
+          <td>${c.clientProfession || '-'}</td>
+          <td>${c.platform || '-'}</td>
+          <td>${c.modelName || '-'}</td>
+          <td>${c.modelAge || '-'}</td>
+          <td>${c.modelLocation || '-'}</td>
+          <td><span class="badge ${c.isRepeat ? 'badge-repeat' : 'badge-new'}">${c.isRepeat ? '🔄 Repeat' : '✅ New'}</span></td>
+        </tr>`;
+    });
+
+    // Agents List
+    const agentsDiv = document.getElementById('agentsList');
+    agentsDiv.innerHTML = '';
+    const agentClientCount = {};
+    allClientsData.forEach(c => {
+      if (!agentClientCount[c.agentId]) agentClientCount[c.agentId] = 0;
+      agentClientCount[c.agentId]++;
+    });
+
+    agentsSnap.forEach(d => {
+      const a = d.data();
+      const count = agentClientCount[a.agentId] || 0;
+      agentsDiv.innerHTML += `
+        <div class="agent-card">
+          <h4>🧑‍💼 ${a.displayName || a.name}</h4>
+          <p>📧 ${a.email}</p>
+          <p>🏷️ Code: ${a.code}</p>
+          <p>📊 Total Clients: <strong style="color:#e94560">${count}</strong></p>
+        </div>`;
+    });
+  }
+
+  // ===== ADMIN SEARCH =====
+  window.adminSearchClient = async function() {
+    const phone = document.getElementById('adminSearchPhone').value.trim();
+    if (!phone) return;
+
+    const q = query(collection(db, "clients"), where("clientPhone", "==", phone));
+    const snap = await getDocs(q);
+    const results = document.getElementById('adminSearchResults');
+
+    if (snap.empty) {
+      results.innerHTML = '<div class="alert alert-success" style="display:block">✅ No client found - This is a NEW client!</div>';
+      return;
+    }
+
+    let html = `<div class="alert alert-warning" style="display:block">⚠️ ${snap.size} record(s) found!</div>`;
+    html += '<div class="table-container"><table><thead><tr><th>Date</th><th>Agent</th><th>Client Name</th><th>Age</th><th>Location</th><th>Platform</th><th>Model</th><th>Status</th></tr></thead><tbody>';
+    
+    snap.forEach(d => {
+      const c = d.data();
+      html += `<tr>
+        <td>${c.date}</td>
+        <td>${c.agentDisplay || c.agentName}</td>
+        <td>${c.clientName}</td>
+        <td>${c.clientAge || '-'}</td>
+        <td>${c.clientLocation || '-'}</td>
+        <td>${c.platform || '-'}</td>
+        <td>${c.modelName || '-'}</td>
+        <td><span class="badge badge-repeat">🔄 Repeat</span></td>
+      </tr>`;
+    });
+    html += '</tbody></table></div>';
+    results.innerHTML = html;
+  }
+
+  // ===== SWITCH TAB =====
+  window.switchTab = function(tabId, el) {
+    const parent = el.closest('.dashboard');
+    parent.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    parent.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById(tabId).classList.add('active');
+  }
+
+  // ===== CLOSE MODAL =====
+  window.closeModal = function() {
+    document.getElementById('repeatModal').classList.remove('show');
+  }
+
+  // ===== SHOW ALERT =====
+  function showAlert(id, msg, type) {
+    const el = document.getElementById(id);
+    el.textContent = msg;
+    el.className = `alert alert-${type}`;
+    el.style.display = 'block';
+    setTimeout(() => { el.style.display = 'none'; }, 4000);
+  }
+</script>
+</body>
+</html>
