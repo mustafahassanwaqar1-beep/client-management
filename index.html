@@ -108,8 +108,6 @@ tbody tr.archived{opacity:.6;background:rgba(149,165,166,.05)}
 .section-title{margin-bottom:12px;font-size:16px;display:flex;align-items:center;gap:8px}
 .section-title.today{color:#2ecc71}
 .section-title.overall{color:#3498db}
-
-/* TARGET BANNER */
 .target-banner{background:linear-gradient(135deg,rgba(233,69,96,.2),rgba(243,156,18,.2));border:2px solid #e94560;border-radius:20px;padding:25px;margin-bottom:25px;position:relative;overflow:hidden}
 .target-banner::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(to right,#e94560,#f39c12,#2ecc71);animation:slide 3s infinite}
 @keyframes slide{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
@@ -133,23 +131,18 @@ tbody tr.archived{opacity:.6;background:rgba(149,165,166,.05)}
 .target-item.completed .percentage{background:#2ecc71;color:#fff}
 .target-item.partial .percentage{background:#f39c12;color:#fff}
 .target-item.failed .percentage{background:#e74c3c;color:#fff}
-
 .overall-progress{background:rgba(0,0,0,.3);padding:15px;border-radius:10px;margin-top:10px}
 .overall-progress .bar-wrap{background:rgba(255,255,255,.05);height:25px;border-radius:15px;overflow:hidden;margin-top:8px;position:relative}
 .overall-progress .bar{height:100%;background:linear-gradient(to right,#e74c3c,#f39c12,#2ecc71);border-radius:15px;transition:width 1s;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:13px;min-width:50px}
-
 .target-msg{margin-top:15px;padding:15px;border-radius:10px;text-align:center;font-weight:600;font-size:15px}
 .target-msg.success{background:rgba(46,204,113,.2);color:#2ecc71;border:1px solid #2ecc71}
 .target-msg.warn{background:rgba(243,156,18,.2);color:#f39c12;border:1px solid #f39c12}
 .target-msg.fail{background:rgba(231,76,60,.2);color:#e74c3c;border:1px solid #e74c3c}
-
-/* TARGET SET FORM */
 .target-set-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:20px;margin-bottom:15px}
 .target-set-card h4{color:#e94560;margin-bottom:15px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
 .target-progress-summary{font-size:12px;color:#bbb;background:rgba(0,0,0,.2);padding:8px 12px;border-radius:8px;margin-bottom:10px}
 .target-progress-summary.achieved{color:#2ecc71}
 .target-progress-summary.failed{color:#e74c3c}
-
 @media(max-width:600px){
 .dashboard{padding:12px}.navbar{padding:10px 12px}.card{padding:15px}.stat-card .number{font-size:20px}
 .target-banner{padding:18px}.target-banner h2{font-size:17px}
@@ -158,7 +151,6 @@ tbody tr.archived{opacity:.6;background:rgba(149,165,166,.05)}
 </head>
 <body>
 
-<!-- LOGIN -->
 <div id="loginPage" class="page active">
 <div class="auth-container"><div class="auth-box">
 <div class="logo">🏢</div><h2>Client Management Pro</h2>
@@ -169,7 +161,6 @@ tbody tr.archived{opacity:.6;background:rgba(149,165,166,.05)}
 <div class="switch-auth">New Agent? <span onclick="showPage('registerPage')">Register Here</span></div>
 </div></div></div>
 
-<!-- REGISTER -->
 <div id="registerPage" class="page">
 <div class="auth-container"><div class="auth-box">
 <div class="logo">✨</div><h2>Agent Registration</h2>
@@ -182,7 +173,6 @@ tbody tr.archived{opacity:.6;background:rgba(149,165,166,.05)}
 <div class="switch-auth">Have account? <span onclick="showPage('loginPage')">Login</span></div>
 </div></div></div>
 
-<!-- AGENT PAGE -->
 <div id="agentPage" class="page">
 <nav class="navbar">
 <div class="navbar-brand">🏢 CMS Pro</div>
@@ -191,23 +181,25 @@ tbody tr.archived{opacity:.6;background:rgba(149,165,166,.05)}
 <button class="btn btn-danger btn-sm" onclick="logoutUser()">Logout</button>
 </div></nav>
 <div class="dashboard">
-
-<!-- TARGET BANNER (TOP) -->
 <div id="targetBanner"></div>
-
 <h3 class="section-title today">📅 TODAY'S ACTIVITY</h3>
 <div class="stats-grid">
 <div class="stat-card green"><div class="number" id="aTodayNew">0</div><div class="label">New Clients</div></div>
 <div class="stat-card green"><div class="number" id="aTodayTask">0</div><div class="label">Tasks Done</div></div>
-<div class="stat-card green"><div class="number" id="aTodayDeposit">₹0</div><div class="label">Deposits</div></div>
-<div class="stat-card green"><div class="number" id="aActiveClients">0</div><div class="label">Active Clients</div></div>
+<div class="stat-card green"><div class="number" id="aTodayDeposit">₹0</div><div class="label">Today Deposits</div></div>
+<div class="stat-card orange"><div class="number" id="aTodayWD">₹0</div><div class="label">Today Withdrawal</div></div>
 </div>
 <h3 class="section-title overall">📊 OVERALL PROGRESS</h3>
 <div class="stats-grid">
 <div class="stat-card blue"><div class="number" id="aTotalClients">0</div><div class="label">Total Clients</div></div>
+<div class="stat-card blue"><div class="number" id="aActiveClients">0</div><div class="label">Active Clients</div></div>
 <div class="stat-card blue"><div class="number" id="aTotalTasks">0</div><div class="label">Total Tasks</div></div>
-<div class="stat-card blue"><div class="number" id="aTotalDeposit">₹0</div><div class="label">Total Deposits</div></div>
 <div class="stat-card orange"><div class="number" id="aKilled">0</div><div class="label">Killed/Archived</div></div>
+</div>
+<div class="stats-grid">
+<div class="stat-card green"><div class="number" id="aTotalDeposit">₹0</div><div class="label">Total Deposits</div></div>
+<div class="stat-card orange"><div class="number" id="aTotalWD">₹0</div><div class="label">Total Withdrawal</div></div>
+<div class="stat-card green"><div class="number" id="aLeftAmount">₹0</div><div class="label">💰 LEFT AMOUNT</div></div>
 </div>
 <div id="agentWarnings"></div>
 <div class="tabs">
@@ -318,7 +310,6 @@ tbody tr.archived{opacity:.6;background:rgba(149,165,166,.05)}
 </div><div id="searchResults"></div></div></div>
 </div></div>
 
-<!-- ADMIN PAGE -->
 <div id="adminPage" class="page">
 <nav class="navbar">
 <div class="navbar-brand">🔐 Admin Panel</div>
@@ -380,16 +371,15 @@ tbody tr.archived{opacity:.6;background:rgba(149,165,166,.05)}
 </div>
 
 <div id="admOverview" class="tab-content active">
-<div class="card"><h3>📊 Today's Performance</h3><div id="admTodayPerf"></div></div>
+<div class="card"><h3>📊 Today's Performance <button class="btn btn-info btn-sm" onclick="loadAdminDashboard()">🔄 Refresh</button></h3><div id="admTodayPerf"></div></div>
 <div class="card"><h3>🚨 Pending Day 5+ Clients (Need Action!)</h3><div id="admPendingClients"></div></div>
 </div>
 
-<!-- TARGETS TAB -->
 <div id="admTargets" class="tab-content">
 <div class="card">
 <h3>🎯 Set Today's Targets for Each Agent</h3>
 <div id="admTargetAlert" class="alert"></div>
-<p style="color:#bbb;margin-bottom:15px;font-size:13px">⚡ Targets save karte hi agent ko dikhne lagega aur unhe follow karna hoga!</p>
+<p style="color:#bbb;margin-bottom:15px;font-size:13px">⚡ Targets save karte hi agent ko dikhne lagega!</p>
 <div id="admTargetsList"></div>
 </div></div>
 
@@ -437,7 +427,6 @@ tbody tr.archived{opacity:.6;background:rgba(149,165,166,.05)}
 <div id="admSearchResults"></div></div></div>
 </div></div>
 
-<!-- MODALS -->
 <div class="modal" id="clientModal">
 <div class="modal-box">
 <button class="modal-close" onclick="closeModal('clientModal')">✕</button>
@@ -551,7 +540,6 @@ $('clientDate').value=today();$('repeatWarning').classList.remove('show');loadAg
 
 function calcDay(d){return Math.floor((new Date()-new Date(d))/(864e5))+1}
 
-// ===== TARGET SYSTEM - AGENT VIEW =====
 async function loadAgentTarget(clients){
 const t=today();
 const targetId=`${currentUser.uid}_${t}`;
@@ -560,7 +548,7 @@ const tDoc=await getDoc(doc(db,"targets",targetId));
 if(!tDoc.exists()){
 $('targetBanner').innerHTML=`<div class="target-banner no-target">
 <h2>⚪ NO TARGET SET FOR TODAY</h2>
-<p style="color:#bbb">Admin ne abhi tak aaj ka target set nahi kiya. Wait karein...</p>
+<p style="color:#bbb">Admin ne abhi tak aaj ka target set nahi kiya.</p>
 </div>`;
 return}
 
@@ -585,15 +573,10 @@ const cls=(p)=>p>=100?'completed':p>=50?'partial':'failed';
 const bannerCls=overall>=100?'achieved':overall<50?'failed':'';
 
 let msg='';
-if(overall>=100){
-msg='<div class="target-msg success">🎉🏆 TARGET ACHIEVED! "I know you can do it, PROUD OF YOU!" ⭐⭐⭐</div>'
-}else if(overall>=75){
-msg='<div class="target-msg warn">⚡ Almost there! Push harder to complete your target!</div>'
-}else if(overall>=50){
-msg='<div class="target-msg warn">⚠️ You\'re halfway. Speed up! Don\'t disappoint me!</div>'
-}else{
-msg='<div class="target-msg fail">😤 YOU MUST FOLLOW YOUR TARGET! Don\'t fail me today!</div>'
-}
+if(overall>=100)msg='<div class="target-msg success">🎉🏆 TARGET ACHIEVED! "I know you can do it, PROUD OF YOU!" ⭐⭐⭐</div>';
+else if(overall>=75)msg='<div class="target-msg warn">⚡ Almost there! Push harder to complete your target!</div>';
+else if(overall>=50)msg='<div class="target-msg warn">⚠️ You\'re halfway. Speed up! Don\'t disappoint me!</div>';
+else msg='<div class="target-msg fail">😤 YOU MUST FOLLOW YOUR TARGET! Don\'t fail me today!</div>';
 
 $('targetBanner').innerHTML=`<div class="target-banner ${bannerCls}">
 <h2>🎯 YOUR TODAY'S TARGET (MUST FOLLOW!) <span style="font-size:13px;color:#bbb;font-weight:400">Set by Admin</span></h2>
@@ -627,13 +610,26 @@ async function loadAgentDashboard(){
 const snap=await getDocs(query(collection(db,"clients"),where("agentId","==",currentUser.uid)));
 const clients=[];snap.forEach(d=>clients.push({id:d.id,...d.data()}));
 const t=today();
+
+// TODAY STATS - FIXED: All deposit types tracked separately
+const todayDep1=clients.filter(c=>c.depositDate===t).reduce((s,c)=>s+Number(c.depositAmount||0),0);
+const todayDep2=clients.filter(c=>c.secondDepositDate===t).reduce((s,c)=>s+Number(c.secondDeposit||0),0);
+const todayWDAmt=clients.filter(c=>c.withdrawalDate===t).reduce((s,c)=>s+Number(c.withdrawal||0),0);
+const todayTotalDep=todayDep1+todayDep2;
+
 $('aTodayNew').textContent=clients.filter(c=>c.date===t).length;
 $('aTodayTask').textContent=clients.filter(c=>c.taskCompleteDate===t).length;
-$('aTodayDeposit').textContent='₹'+clients.filter(c=>c.depositDate===t).reduce((s,c)=>s+Number(c.depositAmount||0),0).toLocaleString();
+$('aTodayDeposit').textContent='₹'+todayTotalDep.toLocaleString();
+$('aTodayWD').textContent='₹'+todayWDAmt.toLocaleString();
 $('aActiveClients').textContent=clients.filter(c=>(c.clientStatus||'active')==='active').length;
 $('aTotalClients').textContent=clients.length;
 $('aTotalTasks').textContent=clients.filter(c=>c.taskStatus==='complete').length;
-$('aTotalDeposit').textContent='₹'+clients.reduce((s,c)=>s+Number(c.depositAmount||0)+Number(c.secondDeposit||0),0).toLocaleString();
+
+const totalDep=clients.reduce((s,c)=>s+Number(c.depositAmount||0)+Number(c.secondDeposit||0),0);
+const totalWD=clients.reduce((s,c)=>s+Number(c.withdrawal||0),0);
+$('aTotalDeposit').textContent='₹'+totalDep.toLocaleString();
+$('aTotalWD').textContent='₹'+totalWD.toLocaleString();
+$('aLeftAmount').textContent='₹'+(totalDep-totalWD).toLocaleString();
 $('aKilled').textContent=clients.filter(c=>c.clientStatus==='killed'||c.clientStatus==='archived').length;
 
 await loadAgentTarget(clients);
@@ -662,7 +658,8 @@ return`<div class="client-row ${rc}">
 <div class="client-info">
 <span><strong>Platform:</strong> ${c.platform||'-'}</span><span><strong>Model:</strong> ${c.modelName||'-'}</span>
 <span><strong>Location:</strong> ${c.clientLocation||'-'}</span><span><strong>Task:</strong> ${c.taskStatus||'pending'}</span>
-<span><strong>1st Dep:</strong> ₹${c.depositAmount||0}</span><span><strong>2nd Dep:</strong> ₹${c.secondDeposit||0}</span></div>
+<span><strong>1st Dep:</strong> ₹${c.depositAmount||0}</span><span><strong>2nd Dep:</strong> ₹${c.secondDeposit||0}</span>
+<span><strong>WD:</strong> ₹${c.withdrawal||0}</span></div>
 <div class="progress-grid">${pg.map(p=>`<div class="progress-item ${c[p.k]?'done':'pending'}">${c[p.k]?'✅':'❌'} ${p.l}</div>`).join('')}</div>
 ${st==='active'?`<div style="margin-top:10px"><button class="btn btn-info btn-sm" onclick="openClientModal('${c.id}')">⚙️ Manage</button></div>`:''}</div>`}
 
@@ -693,21 +690,42 @@ $('modalContent').innerHTML=`<div class="form-grid">
 <button class="btn btn-warning" onclick="closeModal('clientModal')">Cancel</button></div>`;
 $('clientModal').classList.add('show')};
 
+// ===== FIXED: SAVE CLIENT - Now tracks date for deposit/withdrawal updates =====
 window.saveClient=async id=>{
 const d=await getDoc(doc(db,"clients",id));const old=d.data();const newTS=$('m_ts').value;const newCS=$('m_cs').value;
+const newDep1=Number($('m_dep').value)||0;
+const newDep2=Number($('m_dep2').value)||0;
+const newWD=Number($('m_wd').value)||0;
+const oldDep1=Number(old.depositAmount)||0;
+const oldDep2=Number(old.secondDeposit)||0;
+const oldWD=Number(old.withdrawal)||0;
+
 if(newTS==='complete'&&old.taskStatus!=='complete'){
 const miss=[];if($('m_ss').value!=='true')miss.push('Screenshot');if($('m_st').value!=='true')miss.push('Story');
 if($('m_ac').value!=='true')miss.push('Audio Call');if($('m_vm').value!=='true')miss.push('Voice Message');
 if(miss.length)showInfo('⚠️ Warning!',`Missing: ❌ ${miss.join(', ')}<br><br><strong style="color:#f39c12">Admin alert jayega!</strong>`)}
+
 const up={screenshotShared:$('m_ss').value==='true',storyShared:$('m_st').value==='true',audioCall:$('m_ac').value==='true',
 voiceMessage:$('m_vm').value==='true',videoCall:$('m_vc').value==='true',modelName:$('m_model').value,
 expectedTaskDay:$('m_etd').value,firstDepositDay:$('m_fdd').value,secondDepositDay:$('m_sdd').value,
-taskStatus:newTS,depositAmount:Number($('m_dep').value)||0,secondDeposit:Number($('m_dep2').value)||0,
-withdrawal:Number($('m_wd').value)||0,bonus20:$('m_b20').value==='true',clientStatus:newCS,notes:$('m_notes').value};
+taskStatus:newTS,depositAmount:newDep1,secondDeposit:newDep2,
+withdrawal:newWD,bonus20:$('m_b20').value==='true',clientStatus:newCS,notes:$('m_notes').value};
+
 if(newTS==='complete'&&old.taskStatus!=='complete')up.taskCompleteDate=today();
-if(Number($('m_dep').value)>0&&!old.depositDate)up.depositDate=today();
+
+// FIX: Track today's date whenever amounts are added/changed
+if(newDep1!==oldDep1&&newDep1>0)up.depositDate=today();
+if(newDep2!==oldDep2&&newDep2>0)up.secondDepositDate=today();
+if(newWD!==oldWD&&newWD>0)up.withdrawalDate=today();
+
 if((newCS==='archived'||newCS==='killed')&&old.clientStatus==='active')up.statusChangeDate=today();
-await updateDoc(doc(db,"clients",id),up);closeModal('clientModal');loadClientMgmt();loadAgentDashboard()};
+
+await updateDoc(doc(db,"clients",id),up);
+closeModal('clientModal');
+loadClientMgmt();
+loadAgentDashboard();
+showInfo('✅ Saved!','Client details updated! Admin panel mein turant show ho jayega.');
+};
 
 window.searchClient=async()=>{
 const phone=$('searchPhone').value.trim();if(!phone)return;
@@ -808,8 +826,8 @@ if(!snap.empty){const r=snap.docs[0].data();
 $('reportMsg').value=r.msg||'';
 $('reportOutput').innerHTML=`<div class="alert alert-info show">ℹ️ Aaj ki report save hai. Update kar sakte hain.</div><div class="report-box" id="reportText">${r.text}</div>`}}
 
-// ===== ADMIN =====
-async function loadAdminDashboard(){
+// ===== ADMIN DASHBOARD - FIXED =====
+window.loadAdminDashboard=async function(){
 const cSnap=await getDocs(collection(db,"clients"));const aSnap=await getDocs(collection(db,"agents"));
 const accSnap=await getDocs(collection(db,"accounts"));const rSnap=await getDocs(collection(db,"reports"));
 allClientsCache=[];cSnap.forEach(d=>allClientsCache.push({id:d.id,...d.data()}));
@@ -818,9 +836,11 @@ const t=today();
 const todayNew=allClientsCache.filter(c=>c.date===t).length;
 const todayArchive=allClientsCache.filter(c=>(c.clientStatus==='archived'||c.clientStatus==='killed')&&c.statusChangeDate===t).length;
 const todayTask=allClientsCache.filter(c=>c.taskCompleteDate===t).length;
+
+// FIX: Each money type has its own date field
 const todayDep1=allClientsCache.filter(c=>c.depositDate===t).reduce((s,c)=>s+Number(c.depositAmount||0),0);
-const todayDep2=allClientsCache.filter(c=>c.depositDate===t).reduce((s,c)=>s+Number(c.secondDeposit||0),0);
-const todayWD=allClientsCache.filter(c=>c.depositDate===t).reduce((s,c)=>s+Number(c.withdrawal||0),0);
+const todayDep2=allClientsCache.filter(c=>c.secondDepositDate===t).reduce((s,c)=>s+Number(c.secondDeposit||0),0);
+const todayWD=allClientsCache.filter(c=>c.withdrawalDate===t).reduce((s,c)=>s+Number(c.withdrawal||0),0);
 const todayTotalDep=todayDep1+todayDep2;
 const todayLeft=todayTotalDep-todayWD;
 
@@ -882,7 +902,6 @@ $('admPendingClients').innerHTML=h;
 }else $('admPendingClients').innerHTML='<p style="color:#2ecc71;padding:15px">✅ No pending Day 5+ clients!</p>';
 }
 
-// ===== ADMIN TARGETS =====
 async function loadAdminTargets(){
 const aSnap=await getDocs(collection(db,"agents"));
 const cSnap=await getDocs(collection(db,"clients"));
@@ -1033,7 +1052,6 @@ if(!reps.length){$('admReportsList').innerHTML='<p style="color:#bbb;padding:20p
 let h='';reps.forEach(r=>{h+=`<div class="card" style="margin-bottom:10px;padding:15px"><h4 style="color:#e94560">📝 ${r.agentName}</h4><div class="report-box" style="margin-top:10px">${r.text}</div></div>`});
 $('admReportsList').innerHTML=h}
 
-// ===== LEADERBOARD WITH TARGETS =====
 async function loadLeaderboard(){
 const aSnap=await getDocs(collection(db,"agents"));
 const cSnap=await getDocs(collection(db,"clients"));
