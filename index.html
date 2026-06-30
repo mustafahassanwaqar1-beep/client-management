@@ -108,8 +108,51 @@ tbody tr.archived{opacity:.6;background:rgba(149,165,166,.05)}
 .section-title{margin-bottom:12px;font-size:16px;display:flex;align-items:center;gap:8px}
 .section-title.today{color:#2ecc71}
 .section-title.overall{color:#3498db}
+
+/* TARGET BANNER */
+.target-banner{background:linear-gradient(135deg,rgba(233,69,96,.2),rgba(243,156,18,.2));border:2px solid #e94560;border-radius:20px;padding:25px;margin-bottom:25px;position:relative;overflow:hidden}
+.target-banner::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(to right,#e94560,#f39c12,#2ecc71);animation:slide 3s infinite}
+@keyframes slide{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.target-banner h2{color:#e94560;font-size:20px;margin-bottom:15px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.target-banner.achieved{background:linear-gradient(135deg,rgba(46,204,113,.2),rgba(39,174,96,.2));border-color:#2ecc71}
+.target-banner.achieved h2{color:#2ecc71}
+.target-banner.failed{background:linear-gradient(135deg,rgba(231,76,60,.3),rgba(192,57,43,.3));border-color:#e74c3c}
+.target-banner.failed h2{color:#e74c3c}
+.target-banner.no-target{background:rgba(149,165,166,.1);border-color:#95a5a6}
+.target-banner.no-target h2{color:#95a5a6}
+.target-items{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;margin-bottom:15px}
+.target-item{background:rgba(0,0,0,.3);padding:15px;border-radius:10px;text-align:center}
+.target-item .label{color:#bbb;font-size:12px;margin-bottom:8px}
+.target-item .progress-text{font-size:20px;font-weight:700;color:#fff;margin-bottom:8px}
+.target-item .progress-text .done{color:#2ecc71}
+.target-item .progress-text .target{color:#e94560}
+.target-item .percentage{font-size:13px;font-weight:600;padding:3px 10px;border-radius:12px;display:inline-block}
+.target-item.completed{background:rgba(46,204,113,.15);border:1px solid #2ecc71}
+.target-item.partial{background:rgba(243,156,18,.15);border:1px solid #f39c12}
+.target-item.failed{background:rgba(231,76,60,.15);border:1px solid #e74c3c}
+.target-item.completed .percentage{background:#2ecc71;color:#fff}
+.target-item.partial .percentage{background:#f39c12;color:#fff}
+.target-item.failed .percentage{background:#e74c3c;color:#fff}
+
+.overall-progress{background:rgba(0,0,0,.3);padding:15px;border-radius:10px;margin-top:10px}
+.overall-progress .bar-wrap{background:rgba(255,255,255,.05);height:25px;border-radius:15px;overflow:hidden;margin-top:8px;position:relative}
+.overall-progress .bar{height:100%;background:linear-gradient(to right,#e74c3c,#f39c12,#2ecc71);border-radius:15px;transition:width 1s;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:13px;min-width:50px}
+
+.target-msg{margin-top:15px;padding:15px;border-radius:10px;text-align:center;font-weight:600;font-size:15px}
+.target-msg.success{background:rgba(46,204,113,.2);color:#2ecc71;border:1px solid #2ecc71}
+.target-msg.warn{background:rgba(243,156,18,.2);color:#f39c12;border:1px solid #f39c12}
+.target-msg.fail{background:rgba(231,76,60,.2);color:#e74c3c;border:1px solid #e74c3c}
+
+/* TARGET SET FORM */
+.target-set-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:20px;margin-bottom:15px}
+.target-set-card h4{color:#e94560;margin-bottom:15px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.target-progress-summary{font-size:12px;color:#bbb;background:rgba(0,0,0,.2);padding:8px 12px;border-radius:8px;margin-bottom:10px}
+.target-progress-summary.achieved{color:#2ecc71}
+.target-progress-summary.failed{color:#e74c3c}
+
 @media(max-width:600px){
 .dashboard{padding:12px}.navbar{padding:10px 12px}.card{padding:15px}.stat-card .number{font-size:20px}
+.target-banner{padding:18px}.target-banner h2{font-size:17px}
 }
 </style>
 </head>
@@ -148,6 +191,10 @@ tbody tr.archived{opacity:.6;background:rgba(149,165,166,.05)}
 <button class="btn btn-danger btn-sm" onclick="logoutUser()">Logout</button>
 </div></nav>
 <div class="dashboard">
+
+<!-- TARGET BANNER (TOP) -->
+<div id="targetBanner"></div>
+
 <h3 class="section-title today">📅 TODAY'S ACTIVITY</h3>
 <div class="stats-grid">
 <div class="stat-card green"><div class="number" id="aTodayNew">0</div><div class="label">New Clients</div></div>
@@ -230,7 +277,6 @@ tbody tr.archived{opacity:.6;background:rgba(149,165,166,.05)}
 <div id="dailyReport" class="tab-content">
 <div class="card"><h3>📝 Daily Report - Manual Entry</h3>
 <div id="reportAlert" class="alert"></div>
-<p style="color:#bbb;margin-bottom:15px;font-size:13px">📝 Numbers manually bharo, phir Save aur Copy karo</p>
 <h4 style="color:#2ecc71;margin-bottom:10px;font-size:14px">📊 Client Stats</h4>
 <div class="form-grid">
 <div class="form-group"><label>Today new client add</label><input type="number" id="r_newClient" value="0"></div>
@@ -282,7 +328,6 @@ tbody tr.archived{opacity:.6;background:rgba(149,165,166,.05)}
 </div></nav>
 <div class="dashboard">
 
-<!-- TODAY SECTION -->
 <h3 class="section-title today">📅 TODAY OVERVIEW</h3>
 <div class="stats-grid">
 <div class="stat-card green"><div class="number" id="admTodayNew">0</div><div class="label">Today New Clients</div></div>
@@ -301,7 +346,6 @@ tbody tr.archived{opacity:.6;background:rgba(149,165,166,.05)}
 <div class="stat-card green"><div class="number" id="admTodayLeft">₹0</div><div class="label">💰 TODAY LEFT AMOUNT</div></div>
 </div>
 
-<!-- OVERALL SECTION -->
 <h3 class="section-title overall">📊 OVERALL PROGRESS</h3>
 <div class="stats-grid">
 <div class="stat-card blue"><div class="number" id="admTotalClients">0</div><div class="label">Total Clients</div></div>
@@ -325,6 +369,7 @@ tbody tr.archived{opacity:.6;background:rgba(149,165,166,.05)}
 
 <div class="tabs">
 <div class="tab active" onclick="switchTab('admOverview',this)">📊 Overview</div>
+<div class="tab" onclick="switchTab('admTargets',this)">🎯 Set Targets</div>
 <div class="tab" onclick="switchTab('admAgents',this)">🧑‍💼 Agents</div>
 <div class="tab" onclick="switchTab('admClients',this)">👥 Client Details</div>
 <div class="tab" onclick="switchTab('admMaintenance',this)">🔄 Maintenance</div>
@@ -338,6 +383,15 @@ tbody tr.archived{opacity:.6;background:rgba(149,165,166,.05)}
 <div class="card"><h3>📊 Today's Performance</h3><div id="admTodayPerf"></div></div>
 <div class="card"><h3>🚨 Pending Day 5+ Clients (Need Action!)</h3><div id="admPendingClients"></div></div>
 </div>
+
+<!-- TARGETS TAB -->
+<div id="admTargets" class="tab-content">
+<div class="card">
+<h3>🎯 Set Today's Targets for Each Agent</h3>
+<div id="admTargetAlert" class="alert"></div>
+<p style="color:#bbb;margin-bottom:15px;font-size:13px">⚡ Targets save karte hi agent ko dikhne lagega aur unhe follow karna hoga!</p>
+<div id="admTargetsList"></div>
+</div></div>
 
 <div id="admAgents" class="tab-content">
 <div class="card"><h3>🧑‍💼 All Agents Performance</h3>
@@ -373,7 +427,7 @@ tbody tr.archived{opacity:.6;background:rgba(149,165,166,.05)}
 <div id="admReportsList"></div></div></div>
 
 <div id="admLeaderboard" class="tab-content">
-<div class="card"><h3>🏆 Top Performers</h3>
+<div class="card"><h3>🏆 Today's Heroes & Failures (Based on Targets)</h3>
 <div id="leaderboardList"></div></div></div>
 
 <div id="admSearch" class="tab-content">
@@ -434,6 +488,7 @@ if(tabId==='clientMgmt')loadClientMgmt();
 if(tabId==='socialAccounts')loadAccounts();
 if(tabId==='dailyMaintenance'){loadAccountsDropdown();loadMaintenanceHistory()}
 if(tabId==='dailyReport')loadPreviousReport();
+if(tabId==='admTargets')loadAdminTargets();
 if(tabId==='admAgents')loadAdminAgents();
 if(tabId==='admClients')loadAdminClients();
 if(tabId==='admMaintenance')loadAdminMaintenance();
@@ -496,6 +551,78 @@ $('clientDate').value=today();$('repeatWarning').classList.remove('show');loadAg
 
 function calcDay(d){return Math.floor((new Date()-new Date(d))/(864e5))+1}
 
+// ===== TARGET SYSTEM - AGENT VIEW =====
+async function loadAgentTarget(clients){
+const t=today();
+const targetId=`${currentUser.uid}_${t}`;
+const tDoc=await getDoc(doc(db,"targets",targetId));
+
+if(!tDoc.exists()){
+$('targetBanner').innerHTML=`<div class="target-banner no-target">
+<h2>⚪ NO TARGET SET FOR TODAY</h2>
+<p style="color:#bbb">Admin ne abhi tak aaj ka target set nahi kiya. Wait karein...</p>
+</div>`;
+return}
+
+const target=tDoc.data();
+const todayNew=clients.filter(c=>c.date===t).length;
+const todayTask=clients.filter(c=>c.taskCompleteDate===t).length;
+const todayDep=clients.filter(c=>c.depositDate===t&&Number(c.depositAmount||0)>0).length;
+
+const tNew=Number(target.newClients)||0;
+const tTask=Number(target.tasks)||0;
+const tDep=Number(target.deposits)||0;
+
+const pNew=tNew>0?Math.min(100,Math.round((todayNew/tNew)*100)):0;
+const pTask=tTask>0?Math.min(100,Math.round((todayTask/tTask)*100)):0;
+const pDep=tDep>0?Math.min(100,Math.round((todayDep/tDep)*100)):0;
+
+const totalT=tNew+tTask+tDep;
+const totalD=Math.min(tNew,todayNew)+Math.min(tTask,todayTask)+Math.min(tDep,todayDep);
+const overall=totalT>0?Math.round((totalD/totalT)*100):0;
+
+const cls=(p)=>p>=100?'completed':p>=50?'partial':'failed';
+const bannerCls=overall>=100?'achieved':overall<50?'failed':'';
+
+let msg='';
+if(overall>=100){
+msg='<div class="target-msg success">🎉🏆 TARGET ACHIEVED! "I know you can do it, PROUD OF YOU!" ⭐⭐⭐</div>'
+}else if(overall>=75){
+msg='<div class="target-msg warn">⚡ Almost there! Push harder to complete your target!</div>'
+}else if(overall>=50){
+msg='<div class="target-msg warn">⚠️ You\'re halfway. Speed up! Don\'t disappoint me!</div>'
+}else{
+msg='<div class="target-msg fail">😤 YOU MUST FOLLOW YOUR TARGET! Don\'t fail me today!</div>'
+}
+
+$('targetBanner').innerHTML=`<div class="target-banner ${bannerCls}">
+<h2>🎯 YOUR TODAY'S TARGET (MUST FOLLOW!) <span style="font-size:13px;color:#bbb;font-weight:400">Set by Admin</span></h2>
+<div class="target-items">
+<div class="target-item ${cls(pNew)}">
+<div class="label">📋 New Clients</div>
+<div class="progress-text"><span class="done">${todayNew}</span> / <span class="target">${tNew}</span></div>
+<span class="percentage">${pNew}%</span>
+</div>
+<div class="target-item ${cls(pTask)}">
+<div class="label">✅ Tasks Complete</div>
+<div class="progress-text"><span class="done">${todayTask}</span> / <span class="target">${tTask}</span></div>
+<span class="percentage">${pTask}%</span>
+</div>
+<div class="target-item ${cls(pDep)}">
+<div class="label">💰 First Deposits</div>
+<div class="progress-text"><span class="done">${todayDep}</span> / <span class="target">${tDep}</span></div>
+<span class="percentage">${pDep}%</span>
+</div>
+</div>
+<div class="overall-progress">
+<div style="display:flex;justify-content:space-between;color:#fff;font-size:13px;font-weight:600">
+<span>Overall Progress</span><span>${overall}% Achieved</span>
+</div>
+<div class="bar-wrap"><div class="bar" style="width:${overall}%">${overall}%</div></div>
+</div>
+${msg}
+</div>`}
+
 async function loadAgentDashboard(){
 const snap=await getDocs(query(collection(db,"clients"),where("agentId","==",currentUser.uid)));
 const clients=[];snap.forEach(d=>clients.push({id:d.id,...d.data()}));
@@ -508,6 +635,9 @@ $('aTotalClients').textContent=clients.length;
 $('aTotalTasks').textContent=clients.filter(c=>c.taskStatus==='complete').length;
 $('aTotalDeposit').textContent='₹'+clients.reduce((s,c)=>s+Number(c.depositAmount||0)+Number(c.secondDeposit||0),0).toLocaleString();
 $('aKilled').textContent=clients.filter(c=>c.clientStatus==='killed'||c.clientStatus==='archived').length;
+
+await loadAgentTarget(clients);
+
 let w='';
 const d5=clients.filter(c=>(c.clientStatus||'active')==='active'&&calcDay(c.addedDate||c.date)>=5);
 if(d5.length)w+=`<div class="alert alert-warning show">⏰ <strong>${d5.length} client(s) Day 5+</strong> - Task karwao!</div>`;
@@ -678,14 +808,13 @@ if(!snap.empty){const r=snap.docs[0].data();
 $('reportMsg').value=r.msg||'';
 $('reportOutput').innerHTML=`<div class="alert alert-info show">ℹ️ Aaj ki report save hai. Update kar sakte hain.</div><div class="report-box" id="reportText">${r.text}</div>`}}
 
-// ===== ADMIN DASHBOARD =====
+// ===== ADMIN =====
 async function loadAdminDashboard(){
 const cSnap=await getDocs(collection(db,"clients"));const aSnap=await getDocs(collection(db,"agents"));
 const accSnap=await getDocs(collection(db,"accounts"));const rSnap=await getDocs(collection(db,"reports"));
 allClientsCache=[];cSnap.forEach(d=>allClientsCache.push({id:d.id,...d.data()}));
 const t=today();
 
-// TODAY STATS
 const todayNew=allClientsCache.filter(c=>c.date===t).length;
 const todayArchive=allClientsCache.filter(c=>(c.clientStatus==='archived'||c.clientStatus==='killed')&&c.statusChangeDate===t).length;
 const todayTask=allClientsCache.filter(c=>c.taskCompleteDate===t).length;
@@ -705,7 +834,6 @@ $('admTodayTotalDep').textContent='₹'+todayTotalDep.toLocaleString();
 $('admTodayTotalWD').textContent='₹'+todayWD.toLocaleString();
 $('admTodayLeft').textContent='₹'+todayLeft.toLocaleString();
 
-// OVERALL STATS
 const totalClients=allClientsCache.length;
 const totalArchive=allClientsCache.filter(c=>c.clientStatus==='archived'||c.clientStatus==='killed').length;
 const totalTask=allClientsCache.filter(c=>c.taskStatus==='complete').length;
@@ -728,12 +856,10 @@ $('admTotalWD').textContent='₹'+ovWD.toLocaleString();
 $('admLeftAmount').textContent='₹'+leftAmount.toLocaleString();
 $('admActiveAccounts').textContent=activeA.length;
 
-// MISSING REPORTS
 const reported=new Set();rSnap.forEach(d=>{if(d.data().date===t)reported.add(d.data().agentId)});
 const missing=aSnap.size-reported.size;
 $('admMissingReports').textContent=missing;
 
-// WARNINGS
 let w='';
 if(missing>0){const m=[];aSnap.forEach(d=>{if(!reported.has(d.data().agentId))m.push(d.data().displayName||d.data().name)});
 w+=`<div class="alert alert-danger show">⚠️ <strong>${missing} agents report missing:</strong> ${m.join(', ')}</div>`}
@@ -741,12 +867,10 @@ const d7=allClientsCache.filter(c=>(c.clientStatus||'active')==='active'&&calcDa
 if(d7.length)w+=`<div class="alert alert-danger show">🚨 <strong>${d7.length} clients on Day 7+!</strong> Urgent action needed!</div>`;
 $('adminWarnings').innerHTML=w;
 
-// TODAY PERFORMANCE
 const todayCs=allClientsCache.filter(c=>c.date===t);
 const pm={};todayCs.forEach(c=>{const k=c.agentDisplay||c.agentName;pm[k]=(pm[k]||0)+1});
-$('admTodayPerf').innerHTML=Object.keys(pm).length?`<div class="agent-grid">${Object.entries(pm).map(([k,v])=>`<div class="agent-card"><h4>🧑‍💼 ${k}</h4><p>📊 New Clients Today: <strong style="color:#e94560;font-size:22px">${v}</strong></p></div>`).join('')}</div>`:'<p style="color:#bbb;padding:15px">No clients added today.</p>';
+$('admTodayPerf').innerHTML=Object.keys(pm).length?`<div class="agent-grid">${Object.entries(pm).map(([k,v])=>`<div class="agent-card"><h4>🧑‍💼 ${k}</h4><p>📊 New Today: <strong style="color:#e94560;font-size:22px">${v}</strong></p></div>`).join('')}</div>`:'<p style="color:#bbb;padding:15px">No clients today.</p>';
 
-// PENDING DAY 5+ CLIENTS
 const pending=allClientsCache.filter(c=>(c.clientStatus||'active')==='active'&&calcDay(c.addedDate||c.date)>=5&&c.taskStatus!=='complete');
 if(pending.length){
 let h='';pending.forEach(c=>{const day=calcDay(c.addedDate||c.date);const dc=day>=7?'danger':'warning';
@@ -757,6 +881,59 @@ ${miss.length?`<div class="alert alert-warning show" style="margin:8px 0">⚠️
 $('admPendingClients').innerHTML=h;
 }else $('admPendingClients').innerHTML='<p style="color:#2ecc71;padding:15px">✅ No pending Day 5+ clients!</p>';
 }
+
+// ===== ADMIN TARGETS =====
+async function loadAdminTargets(){
+const aSnap=await getDocs(collection(db,"agents"));
+const cSnap=await getDocs(collection(db,"clients"));
+const t=today();
+const allClients=[];cSnap.forEach(d=>allClients.push(d.data()));
+
+let h='';
+for(const d of aSnap.docs){
+const a=d.data();
+const targetId=`${a.agentId}_${t}`;
+const tDoc=await getDoc(doc(db,"targets",targetId));
+const target=tDoc.exists()?tDoc.data():{newClients:0,tasks:0,deposits:0};
+
+const myClients=allClients.filter(c=>c.agentId===a.agentId);
+const todayNew=myClients.filter(c=>c.date===t).length;
+const todayTask=myClients.filter(c=>c.taskCompleteDate===t).length;
+const todayDep=myClients.filter(c=>c.depositDate===t&&Number(c.depositAmount||0)>0).length;
+
+const tNew=Number(target.newClients)||0,tTask=Number(target.tasks)||0,tDep=Number(target.deposits)||0;
+const totalT=tNew+tTask+tDep;
+const totalD=Math.min(tNew,todayNew)+Math.min(tTask,todayTask)+Math.min(tDep,todayDep);
+const overall=totalT>0?Math.round((totalD/totalT)*100):0;
+
+let summaryClass='',summaryMsg='';
+if(totalT===0){summaryMsg='⚪ No target set yet'}
+else if(overall>=100){summaryClass='achieved';summaryMsg=`✅ ACHIEVED! ${overall}% - Today: ${todayNew}/${tNew} clients, ${todayTask}/${tTask} tasks, ${todayDep}/${tDep} deposits`}
+else{summaryClass='failed';summaryMsg=`📊 Progress: ${overall}% - Today: ${todayNew}/${tNew} clients, ${todayTask}/${tTask} tasks, ${todayDep}/${tDep} deposits`}
+
+h+=`<div class="target-set-card">
+<h4>🧑‍💼 ${a.displayName||a.name} <span class="badge ${overall>=100?'badge-active':overall>=50?'badge-warning':'badge-kill'}">${overall}%</span></h4>
+<div class="target-progress-summary ${summaryClass}">${summaryMsg}</div>
+<div class="form-grid">
+<div class="form-group"><label>📋 New Clients Target</label><input type="number" id="tgt_${a.agentId}_new" value="${tNew}" min="0"></div>
+<div class="form-group"><label>✅ Tasks Target</label><input type="number" id="tgt_${a.agentId}_task" value="${tTask}" min="0"></div>
+<div class="form-group"><label>💰 First Deposits Target</label><input type="number" id="tgt_${a.agentId}_dep" value="${tDep}" min="0"></div>
+</div>
+<button class="btn btn-primary btn-sm" onclick="saveTarget('${a.agentId}','${(a.displayName||a.name).replace(/'/g,"\\'")}')">💾 Set Target</button>
+</div>`}
+
+if(!aSnap.size)h='<p style="color:#bbb;padding:20px">No agents registered yet.</p>';
+$('admTargetsList').innerHTML=h}
+
+window.saveTarget=async(agentId,agentName)=>{
+const t=today();
+const targetId=`${agentId}_${t}`;
+const newClients=Number($(`tgt_${agentId}_new`).value)||0;
+const tasks=Number($(`tgt_${agentId}_task`).value)||0;
+const deposits=Number($(`tgt_${agentId}_dep`).value)||0;
+await setDoc(doc(db,"targets",targetId),{agentId,agentName,date:t,newClients,tasks,deposits,setAt:Timestamp.now()});
+showAlert('admTargetAlert',`✅ Target set for ${agentName}!`,'success');
+loadAdminTargets()};
 
 async function loadAdminAgents(){
 const a=await getDocs(collection(db,"agents"));const c=await getDocs(collection(db,"clients"));
@@ -770,11 +947,11 @@ if(x.clientStatus==='archived'||x.clientStatus==='killed')ar[x.agentId]=(ar[x.ag
 let h='';a.forEach(d=>{const x=d.data();const left=(ds[x.agentId]||0)-(ws[x.agentId]||0);
 h+=`<div class="agent-card"><h4>🧑‍💼 ${x.displayName||x.name}</h4>
 <p>📧 ${x.email}</p><p>🏷️ Code: ${x.code}</p>
-<p>👥 Total Clients: <strong style="color:#e94560">${cc[x.agentId]||0}</strong></p>
+<p>👥 Total: <strong style="color:#e94560">${cc[x.agentId]||0}</strong></p>
 <p>🟢 Active: <strong style="color:#2ecc71">${ac[x.agentId]||0}</strong> | 📦 Dead: <strong style="color:#95a5a6">${ar[x.agentId]||0}</strong></p>
 <p>✅ Tasks: <strong style="color:#2ecc71">${tc[x.agentId]||0}</strong></p>
 <p>💰 Deposits: <strong style="color:#f39c12">₹${(ds[x.agentId]||0).toLocaleString()}</strong></p>
-<p>💸 Withdrawal: <strong style="color:#e74c3c">₹${(ws[x.agentId]||0).toLocaleString()}</strong></p>
+<p>💸 WD: <strong style="color:#e74c3c">₹${(ws[x.agentId]||0).toLocaleString()}</strong></p>
 <p>📊 LEFT: <strong style="color:#2ecc71;font-size:16px">₹${left.toLocaleString()}</strong></p></div>`});
 $('admAgentsList').innerHTML=h}
 
@@ -856,21 +1033,86 @@ if(!reps.length){$('admReportsList').innerHTML='<p style="color:#bbb;padding:20p
 let h='';reps.forEach(r=>{h+=`<div class="card" style="margin-bottom:10px;padding:15px"><h4 style="color:#e94560">📝 ${r.agentName}</h4><div class="report-box" style="margin-top:10px">${r.text}</div></div>`});
 $('admReportsList').innerHTML=h}
 
+// ===== LEADERBOARD WITH TARGETS =====
 async function loadLeaderboard(){
-const snap=await getDocs(collection(db,"clients"));const s={};
-snap.forEach(d=>{const c=d.data();const k=c.agentDisplay||c.agentName;
-if(!s[k])s[k]={clients:0,tasks:0,deposits:0,wd:0};
-s[k].clients++;if(c.taskStatus==='complete')s[k].tasks++;
-s[k].deposits+=Number(c.depositAmount||0)+Number(c.secondDeposit||0);
-s[k].wd+=Number(c.withdrawal||0)});
-const sorted=Object.entries(s).sort((a,b)=>b[1].deposits-a[1].deposits);
+const aSnap=await getDocs(collection(db,"agents"));
+const cSnap=await getDocs(collection(db,"clients"));
+const t=today();
+const allClients=[];cSnap.forEach(d=>allClients.push(d.data()));
+
+const results=[];
+for(const d of aSnap.docs){
+const a=d.data();
+const targetId=`${a.agentId}_${t}`;
+const tDoc=await getDoc(doc(db,"targets",targetId));
+const target=tDoc.exists()?tDoc.data():null;
+
+const myClients=allClients.filter(c=>c.agentId===a.agentId);
+const todayNew=myClients.filter(c=>c.date===t).length;
+const todayTask=myClients.filter(c=>c.taskCompleteDate===t).length;
+const todayDep=myClients.filter(c=>c.depositDate===t&&Number(c.depositAmount||0)>0).length;
+
+let overall=0,hasTarget=false;
+if(target){
+const tNew=Number(target.newClients)||0,tTask=Number(target.tasks)||0,tDep=Number(target.deposits)||0;
+const totalT=tNew+tTask+tDep;
+const totalD=Math.min(tNew,todayNew)+Math.min(tTask,todayTask)+Math.min(tDep,todayDep);
+overall=totalT>0?Math.round((totalD/totalT)*100):0;
+hasTarget=totalT>0;
+}
+results.push({name:a.displayName||a.name,overall,hasTarget,todayNew,todayTask,todayDep,target});
+}
+
+const winners=results.filter(r=>r.hasTarget&&r.overall>=100).sort((a,b)=>b.overall-a.overall);
+const partial=results.filter(r=>r.hasTarget&&r.overall>0&&r.overall<100).sort((a,b)=>b.overall-a.overall);
+const failed=results.filter(r=>r.hasTarget&&r.overall===0).sort((a,b)=>a.name.localeCompare(b.name));
+const noTarget=results.filter(r=>!r.hasTarget);
+
+let h='';
+if(winners.length){
+h+='<h4 style="color:#2ecc71;margin-bottom:15px;font-size:18px">🏆 TODAY\'S HEROES (TARGET ACHIEVED) 🏆</h4><div class="agent-grid">';
 const m=['🥇','🥈','🥉'];
-$('leaderboardList').innerHTML='<div class="agent-grid">'+sorted.map(([n,s],i)=>`<div class="agent-card"><h4>${m[i]||'#'+(i+1)} ${n}</h4>
-<p>👥 Clients: ${s.clients}</p>
-<p>✅ Tasks: ${s.tasks}</p>
-<p>💰 Deposits: <strong style="color:#f39c12">₹${s.deposits.toLocaleString()}</strong></p>
-<p>💸 Withdrawal: <strong style="color:#e74c3c">₹${s.wd.toLocaleString()}</strong></p>
-<p>📊 LEFT: <strong style="color:#2ecc71;font-size:16px">₹${(s.deposits-s.wd).toLocaleString()}</strong></p></div>`).join('')+'</div>'}
+winners.forEach((r,i)=>{
+const msgs=['🌟 PROUD OF YOU! Superstar! ⭐⭐⭐','👏 Excellent work! Keep it up! ⭐⭐','✅ Target complete! Well done! ⭐'];
+h+=`<div class="agent-card" style="border-color:#2ecc71;background:rgba(46,204,113,.1)"><h4>${m[i]||'#'+(i+1)} ${r.name} <span class="badge badge-active">${r.overall}%</span></h4>
+<p style="color:#2ecc71;font-weight:600;margin:10px 0">"${msgs[i]||msgs[2]}"</p>
+<p>📋 Clients: ${r.todayNew}/${r.target.newClients}</p>
+<p>✅ Tasks: ${r.todayTask}/${r.target.tasks}</p>
+<p>💰 Deposits: ${r.todayDep}/${r.target.deposits}</p></div>`});
+h+='</div>';
+}
+
+if(partial.length){
+h+='<h4 style="color:#f39c12;margin:25px 0 15px;font-size:18px">⚡ IN PROGRESS (Keep Going!) ⚡</h4><div class="agent-grid">';
+partial.forEach(r=>{
+h+=`<div class="agent-card" style="border-color:#f39c12"><h4>${r.name} <span class="badge badge-warning">${r.overall}%</span></h4>
+<p style="color:#f39c12;margin:10px 0">⏰ Hurry up! Complete your target!</p>
+<p>📋 Clients: ${r.todayNew}/${r.target.newClients}</p>
+<p>✅ Tasks: ${r.todayTask}/${r.target.tasks}</p>
+<p>💰 Deposits: ${r.todayDep}/${r.target.deposits}</p></div>`});
+h+='</div>';
+}
+
+if(failed.length){
+h+='<h4 style="color:#e74c3c;margin:25px 0 15px;font-size:18px">😤 TODAY\'S FAILURES (DISAPPOINTING!) 😤</h4><div class="agent-grid">';
+const insults=['😤 DISAPPOINTED! You failed me!','💀 SHAMEFUL! Did nothing today!','😡 VERY DISAPPOINTED! Wake up!','🚨 PATHETIC! Where is your effort?'];
+failed.forEach((r,i)=>{
+h+=`<div class="agent-card" style="border-color:#e74c3c;background:rgba(231,76,60,.1)"><h4>🔴 ${r.name} <span class="badge badge-kill">${r.overall}%</span></h4>
+<p style="color:#e74c3c;font-weight:600;margin:10px 0">"${insults[i%insults.length]}"</p>
+<p>📋 Clients: ${r.todayNew}/${r.target.newClients}</p>
+<p>✅ Tasks: ${r.todayTask}/${r.target.tasks}</p>
+<p>💰 Deposits: ${r.todayDep}/${r.target.deposits}</p></div>`});
+h+='</div>';
+}
+
+if(noTarget.length){
+h+='<h4 style="color:#95a5a6;margin:25px 0 15px;font-size:15px">⚪ NO TARGET SET</h4><div class="agent-grid">';
+noTarget.forEach(r=>{h+=`<div class="agent-card"><h4>${r.name}</h4><p style="color:#bbb">Set target for this agent</p></div>`});
+h+='</div>';
+}
+
+if(!h)h='<p style="color:#bbb;padding:20px">No agents registered yet.</p>';
+$('leaderboardList').innerHTML=h}
 
 window.adminSearchClient=async()=>{
 const phone=$('admSearchPhone').value.trim();if(!phone)return;
