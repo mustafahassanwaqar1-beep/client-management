@@ -3,170 +3,188 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Client Management System Pro</title>
+<title>CMS Pro - Client Management System</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
-body{background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);min-height:100vh;color:#fff}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#0a0a1a;min-height:100vh;color:#e0e0e0}
 .page{display:none}.page.active{display:block}
-.auth-container{display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px}
-.auth-box{background:rgba(255,255,255,0.05);backdrop-filter:blur(15px);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:40px;width:100%;max-width:450px}
-.auth-box h2{text-align:center;margin-bottom:30px;font-size:26px;background:linear-gradient(to right,#e94560,#f39c12);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.logo{text-align:center;font-size:50px;margin-bottom:10px}
-.form-group{margin-bottom:18px}
-.form-group label{display:block;margin-bottom:6px;color:#bbb;font-size:13px;font-weight:500}
-.form-group input,.form-group select,.form-group textarea{width:100%;padding:11px 14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;color:#fff;font-size:14px;outline:none;transition:.3s}
-.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:#e94560;background:rgba(255,255,255,0.1)}
+.auth-container{display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px;background:radial-gradient(circle at 30% 50%,rgba(233,69,96,.15),transparent 50%),radial-gradient(circle at 70% 50%,rgba(52,152,219,.15),transparent 50%)}
+.auth-box{background:rgba(255,255,255,.03);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.08);border-radius:24px;padding:45px;width:100%;max-width:440px;box-shadow:0 25px 50px rgba(0,0,0,.5)}
+.auth-box h2{text-align:center;margin-bottom:35px;font-size:28px;font-weight:800;background:linear-gradient(135deg,#e94560,#3498db);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.logo{text-align:center;font-size:55px;margin-bottom:8px;filter:drop-shadow(0 0 20px rgba(233,69,96,.5))}
+.form-group{margin-bottom:20px}
+.form-group label{display:block;margin-bottom:8px;color:#999;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:1px}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:13px 16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;color:#fff;font-size:14px;font-family:'Inter',sans-serif;outline:none;transition:all .3s}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:#e94560;background:rgba(255,255,255,.07);box-shadow:0 0 20px rgba(233,69,96,.15)}
 .form-group select option{background:#1a1a2e}
-.form-group textarea{resize:vertical;min-height:80px;font-family:inherit}
-.btn{padding:11px 22px;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:.3s}
-.btn-primary{background:linear-gradient(to right,#e94560,#c0392b);color:#fff}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 5px 20px rgba(233,69,96,.4)}
-.btn-success{background:linear-gradient(to right,#27ae60,#2ecc71);color:#fff}
-.btn-warning{background:linear-gradient(to right,#f39c12,#e67e22);color:#fff}
-.btn-danger{background:linear-gradient(to right,#c0392b,#e74c3c);color:#fff}
-.btn-info{background:linear-gradient(to right,#3498db,#2980b9);color:#fff}
-.btn-sm{padding:6px 12px;font-size:12px}
-.btn-block{width:100%;padding:13px;font-size:15px}
-.switch-auth{text-align:center;margin-top:15px;color:#bbb;font-size:13px}
-.switch-auth span{color:#e94560;cursor:pointer;font-weight:600}
-.navbar{background:rgba(0,0,0,.4);backdrop-filter:blur(15px);padding:12px 25px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,.08);position:sticky;top:0;z-index:100;flex-wrap:wrap;gap:10px}
-.navbar-brand{font-size:18px;font-weight:700;color:#e94560}
-.navbar-user{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.user-badge{background:linear-gradient(to right,#e94560,#c0392b);padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600}
-.dashboard{padding:20px;max-width:1500px;margin:0 auto}
-.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px;margin-bottom:20px}
-.stat-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:18px;text-align:center;transition:.3s}
-.stat-card:hover{transform:translateY(-3px);border-color:#e94560}
-.stat-card .number{font-size:24px;font-weight:700;color:#e94560}
-.stat-card .label{color:#bbb;font-size:11px;margin-top:5px}
+.form-group textarea{resize:vertical;min-height:80px}
+.btn{padding:12px 24px;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;transition:all .3s;font-family:'Inter',sans-serif;letter-spacing:.5px}
+.btn-primary{background:linear-gradient(135deg,#e94560,#c0392b);color:#fff;box-shadow:0 4px 15px rgba(233,69,96,.3)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(233,69,96,.4)}
+.btn-success{background:linear-gradient(135deg,#27ae60,#2ecc71);color:#fff}
+.btn-warning{background:linear-gradient(135deg,#f39c12,#e67e22);color:#fff}
+.btn-danger{background:linear-gradient(135deg,#c0392b,#e74c3c);color:#fff}
+.btn-info{background:linear-gradient(135deg,#3498db,#2980b9);color:#fff}
+.btn-sm{padding:6px 12px;font-size:11px;border-radius:8px}
+.btn-block{width:100%;padding:14px;font-size:15px}
+.switch-auth{text-align:center;margin-top:20px;color:#777;font-size:13px}
+.switch-auth span{color:#e94560;cursor:pointer;font-weight:700}
+.navbar{background:rgba(10,10,26,.95);backdrop-filter:blur(20px);padding:14px 28px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,.05);position:sticky;top:0;z-index:100;flex-wrap:wrap;gap:10px}
+.navbar-brand{font-size:20px;font-weight:800;background:linear-gradient(135deg,#e94560,#3498db);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.navbar-user{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.user-badge{background:linear-gradient(135deg,#e94560,#c0392b);padding:7px 16px;border-radius:20px;font-size:12px;font-weight:700;box-shadow:0 2px 10px rgba(233,69,96,.3)}
+.dashboard{padding:24px;max-width:1500px;margin:0 auto}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-bottom:22px}
+.stat-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:20px;text-align:center;transition:all .3s}
+.stat-card:hover{transform:translateY(-4px);border-color:rgba(233,69,96,.3);box-shadow:0 10px 30px rgba(0,0,0,.3)}
+.stat-card .number{font-size:26px;font-weight:800;color:#e94560}
+.stat-card .label{color:#888;font-size:11px;margin-top:6px;font-weight:500;text-transform:uppercase;letter-spacing:.5px}
 .stat-card.green .number{color:#2ecc71}
 .stat-card.orange .number{color:#f39c12}
 .stat-card.blue .number{color:#3498db}
 .stat-card.red .number{color:#e74c3c}
 .stat-card.purple .number{color:#9b59b6}
-.tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
-.tab{padding:9px 18px;border-radius:20px;cursor:pointer;font-size:13px;font-weight:600;transition:.3s;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#bbb}
-.tab.active{background:linear-gradient(to right,#e94560,#c0392b);color:#fff;border-color:transparent}
+.tabs{display:flex;gap:6px;margin-bottom:22px;flex-wrap:wrap;padding:6px;background:rgba(255,255,255,.02);border-radius:16px;border:1px solid rgba(255,255,255,.05)}
+.tab{padding:10px 20px;border-radius:12px;cursor:pointer;font-size:12px;font-weight:700;transition:all .3s;background:transparent;border:none;color:#777}
+.tab:hover{color:#fff;background:rgba(255,255,255,.05)}
+.tab.active{background:linear-gradient(135deg,#e94560,#c0392b);color:#fff;box-shadow:0 4px 15px rgba(233,69,96,.3)}
 .tab-content{display:none}.tab-content.active{display:block}
-.card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:15px;padding:25px;margin-bottom:20px}
-.card h3{font-size:18px;margin-bottom:20px;color:#e94560;border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
-.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px}
-.table-container{overflow-x:auto;border-radius:10px}
+.card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:20px;padding:28px;margin-bottom:22px;box-shadow:0 4px 20px rgba(0,0,0,.2)}
+.card h3{font-size:18px;margin-bottom:22px;color:#fff;border-bottom:1px solid rgba(255,255,255,.06);padding-bottom:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;font-weight:700}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.table-container{overflow-x:auto;border-radius:12px}
 table{width:100%;border-collapse:collapse;font-size:12px}
-thead tr{background:linear-gradient(to right,#e94560,#c0392b)}
-thead th{padding:12px 10px;text-align:left;font-weight:600;white-space:nowrap;font-size:11px}
-tbody tr{border-bottom:1px solid rgba(255,255,255,.05);transition:.3s}
-tbody tr:hover{background:rgba(255,255,255,.04)}
-tbody td{padding:10px;color:#ddd;white-space:nowrap}
-tbody tr.killed{opacity:.5;background:rgba(231,76,60,.05)}
-tbody tr.archived{opacity:.6;background:rgba(149,165,166,.05)}
-.badge{padding:3px 10px;border-radius:15px;font-size:11px;font-weight:600;display:inline-block;margin:2px}
-.badge-active{background:rgba(46,204,113,.2);color:#2ecc71;border:1px solid #2ecc71}
-.badge-repeat{background:rgba(233,69,96,.2);color:#e94560;border:1px solid #e94560}
-.badge-new{background:rgba(46,204,113,.2);color:#2ecc71;border:1px solid #2ecc71}
-.badge-archive{background:rgba(149,165,166,.2);color:#95a5a6;border:1px solid #95a5a6}
-.badge-kill{background:rgba(231,76,60,.2);color:#e74c3c;border:1px solid #e74c3c}
-.badge-ban{background:rgba(231,76,60,.2);color:#e74c3c;border:1px solid #e74c3c}
-.badge-warning{background:rgba(243,156,18,.2);color:#f39c12;border:1px solid #f39c12}
-.badge-pending{background:rgba(243,156,18,.2);color:#f39c12;border:1px solid #f39c12}
-.badge-complete{background:rgba(46,204,113,.2);color:#2ecc71;border:1px solid #2ecc71}
-.badge-notint{background:rgba(231,76,60,.2);color:#e74c3c;border:1px solid #e74c3c}
-.badge-deposit-done{background:rgba(155,89,182,.2);color:#9b59b6;border:1px solid #9b59b6}
-.badge-deposit-pending{background:rgba(52,73,94,.3);color:#95a5a6;border:1px solid #95a5a6}
-.search-box{display:flex;gap:10px;margin-bottom:15px;flex-wrap:wrap}
-.search-box input{flex:1;min-width:200px;padding:11px 18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:25px;color:#fff;font-size:14px;outline:none}
+thead tr{background:linear-gradient(135deg,#e94560,#c0392b)}
+thead th{padding:13px 12px;text-align:left;font-weight:700;white-space:nowrap;font-size:11px;letter-spacing:.5px}
+tbody tr{border-bottom:1px solid rgba(255,255,255,.03);transition:all .3s}
+tbody tr:hover{background:rgba(255,255,255,.03)}
+tbody td{padding:11px 12px;color:#ccc;white-space:nowrap}
+tbody tr.killed{opacity:.4}
+tbody tr.archived{opacity:.5}
+.badge{padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;display:inline-block;margin:2px}
+.badge-active{background:rgba(46,204,113,.15);color:#2ecc71;border:1px solid rgba(46,204,113,.3)}
+.badge-archive{background:rgba(149,165,166,.15);color:#95a5a6;border:1px solid rgba(149,165,166,.3)}
+.badge-kill{background:rgba(231,76,60,.15);color:#e74c3c;border:1px solid rgba(231,76,60,.3)}
+.badge-ban{background:rgba(231,76,60,.15);color:#e74c3c;border:1px solid rgba(231,76,60,.3)}
+.badge-warning{background:rgba(243,156,18,.15);color:#f39c12;border:1px solid rgba(243,156,18,.3)}
+.badge-pending{background:rgba(243,156,18,.15);color:#f39c12;border:1px solid rgba(243,156,18,.3)}
+.badge-complete{background:rgba(46,204,113,.15);color:#2ecc71;border:1px solid rgba(46,204,113,.3)}
+.badge-notint{background:rgba(231,76,60,.15);color:#e74c3c;border:1px solid rgba(231,76,60,.3)}
+.badge-deposit-done{background:rgba(155,89,182,.15);color:#9b59b6;border:1px solid rgba(155,89,182,.3)}
+.badge-deposit-pending{background:rgba(52,73,94,.2);color:#7f8c8d;border:1px solid rgba(127,140,141,.2)}
+.badge-repeat{background:rgba(233,69,96,.15);color:#e94560;border:1px solid rgba(233,69,96,.3)}
+.search-box{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+.search-box input{flex:1;min-width:200px;padding:12px 20px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:30px;color:#fff;font-size:14px;outline:none;font-family:'Inter',sans-serif}
 .search-box input:focus{border-color:#e94560}
-.filter-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:15px;padding:12px;background:rgba(0,0,0,.2);border-radius:10px}
-.filter-tag{padding:6px 14px;border-radius:20px;cursor:pointer;font-size:12px;font-weight:600;transition:.3s;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:#bbb;user-select:none}
-.filter-tag:hover{background:rgba(255,255,255,.1);color:#fff}
-.filter-tag.active{background:linear-gradient(to right,#e94560,#c0392b);color:#fff;border-color:transparent}
-.filter-tag.day{background:rgba(52,152,219,.15);border-color:#3498db;color:#3498db}
-.filter-tag.day.active{background:linear-gradient(to right,#3498db,#2980b9);color:#fff}
-.filter-tag.task{background:rgba(46,204,113,.15);border-color:#2ecc71;color:#2ecc71}
-.filter-tag.task.active{background:linear-gradient(to right,#2ecc71,#27ae60);color:#fff}
-.filter-tag.deposit{background:rgba(155,89,182,.15);border-color:#9b59b6;color:#9b59b6}
-.filter-tag.deposit.active{background:linear-gradient(to right,#9b59b6,#8e44ad);color:#fff}
-.filter-tag.pending{background:rgba(231,76,60,.15);border-color:#e74c3c;color:#e74c3c}
-.filter-tag.pending.active{background:linear-gradient(to right,#e74c3c,#c0392b);color:#fff}
-.filter-tag .count{background:rgba(255,255,255,.2);padding:1px 8px;border-radius:10px;margin-left:6px;font-size:10px}
-.filter-title{color:#bbb;font-size:11px;font-weight:700;text-transform:uppercase;margin:8px 0 5px;width:100%}
-.alert{padding:13px 18px;border-radius:10px;margin-bottom:15px;font-weight:500;font-size:13px;display:none}
+.filter-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;padding:14px;background:rgba(0,0,0,.2);border-radius:14px;border:1px solid rgba(255,255,255,.04)}
+.filter-tag{padding:7px 16px;border-radius:20px;cursor:pointer;font-size:11px;font-weight:700;transition:all .3s;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:#888;user-select:none}
+.filter-tag:hover{background:rgba(255,255,255,.08);color:#fff}
+.filter-tag.active{background:linear-gradient(135deg,#e94560,#c0392b);color:#fff;border-color:transparent;box-shadow:0 2px 10px rgba(233,69,96,.3)}
+.filter-tag.day.active{background:linear-gradient(135deg,#3498db,#2980b9)}
+.filter-tag.task.active{background:linear-gradient(135deg,#2ecc71,#27ae60)}
+.filter-tag.deposit.active{background:linear-gradient(135deg,#9b59b6,#8e44ad)}
+.filter-tag.pending.active{background:linear-gradient(135deg,#e74c3c,#c0392b)}
+.filter-tag .count{background:rgba(255,255,255,.25);padding:2px 8px;border-radius:10px;margin-left:6px;font-size:10px}
+.filter-title{color:#666;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;margin:6px 0 4px;width:100%}
+.filter-count-header{color:#e94560;font-size:13px;font-weight:700;padding:12px;background:rgba(233,69,96,.08);border-radius:10px;margin-bottom:14px;text-align:center;border:1px solid rgba(233,69,96,.15)}
+.alert{padding:14px 20px;border-radius:12px;margin-bottom:16px;font-weight:600;font-size:13px;display:none}
 .alert.show{display:block}
-.alert-danger{background:rgba(231,76,60,.15);border:1px solid #e74c3c;color:#e74c3c}
-.alert-success{background:rgba(46,204,113,.15);border:1px solid #2ecc71;color:#2ecc71}
-.alert-warning{background:rgba(243,156,18,.15);border:1px solid #f39c12;color:#f39c12}
-.alert-info{background:rgba(52,152,219,.15);border:1px solid #3498db;color:#3498db}
-.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.8);z-index:999;justify-content:center;align-items:center;padding:20px;overflow-y:auto}
+.alert-danger{background:rgba(231,76,60,.1);border:1px solid rgba(231,76,60,.2);color:#e74c3c}
+.alert-success{background:rgba(46,204,113,.1);border:1px solid rgba(46,204,113,.2);color:#2ecc71}
+.alert-warning{background:rgba(243,156,18,.1);border:1px solid rgba(243,156,18,.2);color:#f39c12}
+.alert-info{background:rgba(52,152,219,.1);border:1px solid rgba(52,152,219,.2);color:#3498db}
+.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.85);z-index:999;justify-content:center;align-items:center;padding:20px;overflow-y:auto}
 .modal.show{display:flex}
-.modal-box{background:#1a1a2e;border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:25px;max-width:700px;width:100%;max-height:90vh;overflow-y:auto}
-.modal-box h3{color:#e94560;font-size:20px;margin-bottom:15px}
-.modal-close{float:right;background:rgba(255,255,255,.1);border:none;color:#fff;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:16px}
-.agent-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:15px}
-.agent-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:18px;transition:.3s}
-.agent-card:hover{border-color:#e94560;transform:translateY(-3px)}
-.agent-card h4{color:#e94560;font-size:16px;margin-bottom:10px}
-.agent-card p{color:#bbb;font-size:13px;margin-bottom:5px}
-.client-row{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:15px;margin-bottom:10px;transition:.3s}
-.client-row.killed{opacity:.5;background:rgba(231,76,60,.05)}
-.client-row.archived{opacity:.6;background:rgba(149,165,166,.05)}
-.client-row h4{color:#e94560;font-size:15px;margin-bottom:8px}
-.client-info{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;font-size:12px;color:#bbb;margin-bottom:10px}
-.client-info span strong{color:#fff}
-.status-badges{display:flex;flex-wrap:wrap;gap:5px;margin:8px 0}
-.progress-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-top:8px}
-.progress-item{background:rgba(0,0,0,.2);padding:6px 10px;border-radius:6px;font-size:11px;text-align:center}
-.progress-item.done{background:rgba(46,204,113,.2);color:#2ecc71}
-.progress-item.pending{background:rgba(231,76,60,.15);color:#e74c3c}
-.day-badge{background:linear-gradient(to right,#3498db,#2980b9);padding:3px 10px;border-radius:12px;font-size:11px;font-weight:700;display:inline-block;margin-right:5px}
-.day-badge.warning{background:linear-gradient(to right,#f39c12,#e67e22)}
-.day-badge.danger{background:linear-gradient(to right,#e74c3c,#c0392b);animation:pulse 1.5s infinite}
+.modal-box{background:#12122a;border:1px solid rgba(255,255,255,.08);border-radius:24px;padding:30px;max-width:700px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 25px 50px rgba(0,0,0,.5)}
+.modal-box h3{color:#e94560;font-size:20px;margin-bottom:18px;font-weight:800}
+.modal-close{float:right;background:rgba(255,255,255,.06);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px;transition:.3s}
+.modal-close:hover{background:#e94560}
+.agent-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.agent-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:22px;transition:all .3s;position:relative}
+.agent-card:hover{border-color:rgba(233,69,96,.3);transform:translateY(-4px)}
+.agent-card h4{color:#e94560;font-size:16px;margin-bottom:12px;font-weight:700}
+.agent-card p{color:#999;font-size:13px;margin-bottom:6px}
+.agent-card .actions{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap}
+.client-row{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:14px;padding:18px;margin-bottom:12px;transition:all .3s}
+.client-row:hover{border-color:rgba(233,69,96,.2);background:rgba(255,255,255,.04)}
+.client-row.killed{opacity:.4}
+.client-row.archived{opacity:.5}
+.client-row h4{color:#fff;font-size:15px;margin-bottom:10px;font-weight:700}
+.client-info{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;font-size:12px;color:#888;margin-bottom:10px}
+.client-info span strong{color:#ccc}
+.status-badges{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.progress-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-top:10px}
+.progress-item{background:rgba(0,0,0,.3);padding:8px 12px;border-radius:8px;font-size:11px;text-align:center;font-weight:600}
+.progress-item.done{background:rgba(46,204,113,.12);color:#2ecc71;border:1px solid rgba(46,204,113,.2)}
+.progress-item.pending{background:rgba(231,76,60,.1);color:#e74c3c;border:1px solid rgba(231,76,60,.15)}
+.day-badge{background:linear-gradient(135deg,#3498db,#2980b9);padding:4px 12px;border-radius:20px;font-size:11px;font-weight:800;display:inline-block;margin-right:8px}
+.day-badge.warning{background:linear-gradient(135deg,#f39c12,#e67e22)}
+.day-badge.danger{background:linear-gradient(135deg,#e74c3c,#c0392b);animation:pulse 1.5s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.7}}
-.loading{text-align:center;padding:30px;color:#bbb;font-size:14px}
-.spinner{width:35px;height:35px;border:3px solid rgba(255,255,255,.1);border-top-color:#e94560;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 10px}
+.loading{text-align:center;padding:30px;color:#888;font-size:14px}
+.spinner{width:35px;height:35px;border:3px solid rgba(255,255,255,.06);border-top-color:#e94560;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px}
 @keyframes spin{to{transform:rotate(360deg)}}
-.report-box{background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:20px;margin-top:15px;font-family:'Courier New',monospace;white-space:pre-wrap;font-size:13px;line-height:1.6}
-.section-title{margin-bottom:12px;font-size:16px;display:flex;align-items:center;gap:8px}
+.report-box{background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:22px;margin-top:16px;font-family:'Courier New',monospace;white-space:pre-wrap;font-size:13px;line-height:1.7}
+.section-title{margin-bottom:14px;font-size:16px;display:flex;align-items:center;gap:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px}
 .section-title.today{color:#2ecc71}
 .section-title.overall{color:#3498db}
-.target-banner{background:linear-gradient(135deg,rgba(233,69,96,.2),rgba(243,156,18,.2));border:2px solid #e94560;border-radius:20px;padding:25px;margin-bottom:25px;position:relative;overflow:hidden}
-.target-banner::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(to right,#e94560,#f39c12,#2ecc71);animation:slide 3s infinite}
+.target-banner{background:rgba(233,69,96,.08);border:2px solid rgba(233,69,96,.2);border-radius:24px;padding:28px;margin-bottom:28px;position:relative;overflow:hidden}
+.target-banner::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(to right,#e94560,#f39c12,#2ecc71);animation:slide 3s infinite}
 @keyframes slide{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
-.target-banner h2{color:#e94560;font-size:20px;margin-bottom:15px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.target-banner.achieved{background:linear-gradient(135deg,rgba(46,204,113,.2),rgba(39,174,96,.2));border-color:#2ecc71}
+.target-banner h2{color:#e94560;font-size:20px;margin-bottom:18px;font-weight:800}
+.target-banner.achieved{background:rgba(46,204,113,.08);border-color:rgba(46,204,113,.2)}
 .target-banner.achieved h2{color:#2ecc71}
-.target-banner.failed{background:linear-gradient(135deg,rgba(231,76,60,.3),rgba(192,57,43,.3));border-color:#e74c3c}
+.target-banner.failed{background:rgba(231,76,60,.12);border-color:rgba(231,76,60,.3)}
 .target-banner.failed h2{color:#e74c3c}
-.target-banner.no-target{background:rgba(149,165,166,.1);border-color:#95a5a6}
+.target-banner.no-target{background:rgba(149,165,166,.05);border-color:rgba(149,165,166,.15)}
 .target-banner.no-target h2{color:#95a5a6}
-.target-items{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;margin-bottom:15px}
-.target-item{background:rgba(0,0,0,.3);padding:15px;border-radius:10px;text-align:center}
-.target-item .label{color:#bbb;font-size:12px;margin-bottom:8px}
-.target-item .progress-text{font-size:20px;font-weight:700;color:#fff;margin-bottom:8px}
+.target-items{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:18px}
+.target-item{background:rgba(0,0,0,.25);padding:18px;border-radius:14px;text-align:center}
+.target-item .label{color:#888;font-size:12px;margin-bottom:10px;font-weight:600}
+.target-item .progress-text{font-size:22px;font-weight:800;color:#fff;margin-bottom:10px}
 .target-item .progress-text .done{color:#2ecc71}
 .target-item .progress-text .target{color:#e94560}
-.target-item .percentage{font-size:13px;font-weight:600;padding:3px 10px;border-radius:12px;display:inline-block}
-.target-item.completed{background:rgba(46,204,113,.15);border:1px solid #2ecc71}
-.target-item.partial{background:rgba(243,156,18,.15);border:1px solid #f39c12}
-.target-item.failed{background:rgba(231,76,60,.15);border:1px solid #e74c3c}
-.target-item.completed .percentage{background:#2ecc71;color:#fff}
-.target-item.partial .percentage{background:#f39c12;color:#fff}
-.target-item.failed .percentage{background:#e74c3c;color:#fff}
-.overall-progress{background:rgba(0,0,0,.3);padding:15px;border-radius:10px;margin-top:10px}
-.overall-progress .bar-wrap{background:rgba(255,255,255,.05);height:25px;border-radius:15px;overflow:hidden;margin-top:8px;position:relative}
-.overall-progress .bar{height:100%;background:linear-gradient(to right,#e74c3c,#f39c12,#2ecc71);border-radius:15px;transition:width 1s;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:13px;min-width:50px}
-.target-msg{margin-top:15px;padding:15px;border-radius:10px;text-align:center;font-weight:600;font-size:15px}
-.target-msg.success{background:rgba(46,204,113,.2);color:#2ecc71;border:1px solid #2ecc71}
-.target-msg.warn{background:rgba(243,156,18,.2);color:#f39c12;border:1px solid #f39c12}
-.target-msg.fail{background:rgba(231,76,60,.2);color:#e74c3c;border:1px solid #e74c3c}
-.target-set-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:20px;margin-bottom:15px}
-.target-set-card h4{color:#e94560;margin-bottom:15px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
-.target-progress-summary{font-size:12px;color:#bbb;background:rgba(0,0,0,.2);padding:8px 12px;border-radius:8px;margin-bottom:10px}
+.target-item .percentage{font-size:12px;font-weight:800;padding:4px 12px;border-radius:20px;display:inline-block}
+.target-item.completed{background:rgba(46,204,113,.1);border:1px solid rgba(46,204,113,.2)}
+.target-item.partial{background:rgba(243,156,18,.1);border:1px solid rgba(243,156,18,.2)}
+.target-item.failed{background:rgba(231,76,60,.1);border:1px solid rgba(231,76,60,.2)}
+.target-item.completed .percentage{background:rgba(46,204,113,.2);color:#2ecc71}
+.target-item.partial .percentage{background:rgba(243,156,18,.2);color:#f39c12}
+.target-item.failed .percentage{background:rgba(231,76,60,.2);color:#e74c3c}
+.overall-progress{background:rgba(0,0,0,.25);padding:18px;border-radius:14px;margin-top:12px}
+.overall-progress .bar-wrap{background:rgba(255,255,255,.04);height:28px;border-radius:20px;overflow:hidden;margin-top:10px}
+.overall-progress .bar{height:100%;background:linear-gradient(to right,#e74c3c,#f39c12,#2ecc71);border-radius:20px;transition:width 1s;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:12px;min-width:45px}
+.target-msg{margin-top:18px;padding:16px;border-radius:12px;text-align:center;font-weight:700;font-size:14px}
+.target-msg.success{background:rgba(46,204,113,.1);color:#2ecc71;border:1px solid rgba(46,204,113,.2)}
+.target-msg.warn{background:rgba(243,156,18,.1);color:#f39c12;border:1px solid rgba(243,156,18,.2)}
+.target-msg.fail{background:rgba(231,76,60,.1);color:#e74c3c;border:1px solid rgba(231,76,60,.2)}
+.target-set-card{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:22px;margin-bottom:16px}
+.target-set-card h4{color:#e94560;margin-bottom:16px;font-weight:700;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.target-progress-summary{font-size:12px;color:#888;background:rgba(0,0,0,.25);padding:10px 14px;border-radius:10px;margin-bottom:12px;font-weight:600}
 .target-progress-summary.achieved{color:#2ecc71}
 .target-progress-summary.failed{color:#e74c3c}
-.filter-count-header{color:#e94560;font-size:14px;font-weight:600;padding:10px;background:rgba(233,69,96,.1);border-radius:8px;margin-bottom:12px;text-align:center}
+.maint-status-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.maint-agent-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:16px}
+.maint-agent-card h5{color:#fff;font-size:14px;font-weight:700;margin-bottom:10px}
+.maint-platform{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-radius:8px;margin-bottom:6px;font-size:12px;font-weight:600}
+.maint-platform.complete{background:rgba(46,204,113,.12);color:#2ecc71}
+.maint-platform.progress{background:rgba(243,156,18,.12);color:#f39c12}
+.maint-platform.pending{background:rgba(231,76,60,.1);color:#e74c3c}
+.maint-platform.none{background:rgba(127,140,141,.1);color:#7f8c8d}
+.report-status-list{display:flex;flex-direction:column;gap:8px}
+.report-status-item{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-radius:10px;font-weight:600;font-size:13px}
+.report-status-item.done{background:rgba(46,204,113,.1);color:#2ecc71;border:1px solid rgba(46,204,113,.2)}
+.report-status-item.pending{background:rgba(231,76,60,.1);color:#e74c3c;border:1px solid rgba(231,76,60,.2)}
+.overview-target-mini{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.mini-target-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:14px}
+.mini-target-card h5{color:#fff;font-size:13px;margin-bottom:10px;font-weight:700;display:flex;justify-content:space-between}
+.mini-target-progress{background:rgba(255,255,255,.04);height:8px;border-radius:10px;overflow:hidden;margin:6px 0}
+.mini-target-progress .bar{height:100%;background:linear-gradient(to right,#e74c3c,#f39c12,#2ecc71);transition:width .5s}
+.mini-target-info{font-size:11px;color:#888;display:flex;justify-content:space-between;margin-top:6px}
 @media(max-width:600px){
-.dashboard{padding:12px}.navbar{padding:10px 12px}.card{padding:15px}.stat-card .number{font-size:20px}
-.target-banner{padding:18px}.target-banner h2{font-size:17px}
+.dashboard{padding:14px}.navbar{padding:10px 14px}.card{padding:18px}.stat-card .number{font-size:20px}
+.target-banner{padding:20px}.target-banner h2{font-size:17px}.auth-box{padding:30px}
 }
 </style>
 </head>
@@ -174,10 +192,10 @@ tbody tr.archived{opacity:.6;background:rgba(149,165,166,.05)}
 
 <div id="loginPage" class="page active">
 <div class="auth-container"><div class="auth-box">
-<div class="logo">🏢</div><h2>Client Management Pro</h2>
+<div class="logo">🏢</div><h2>CMS Pro</h2>
 <div id="loginAlert" class="alert alert-danger"></div>
-<div class="form-group"><label>📧 Email</label><input type="email" id="loginEmail" placeholder="Enter email"></div>
-<div class="form-group"><label>🔑 Password</label><input type="password" id="loginPassword" placeholder="Enter password"></div>
+<div class="form-group"><label>Email</label><input type="email" id="loginEmail" placeholder="Enter email"></div>
+<div class="form-group"><label>Password</label><input type="password" id="loginPassword" placeholder="Enter password"></div>
 <button class="btn btn-primary btn-block" onclick="loginUser()">🚀 Login</button>
 <div class="switch-auth">New Agent? <span onclick="showPage('registerPage')">Register Here</span></div>
 </div></div></div>
@@ -186,10 +204,10 @@ tbody tr.archived{opacity:.6;background:rgba(149,165,166,.05)}
 <div class="auth-container"><div class="auth-box">
 <div class="logo">✨</div><h2>Agent Registration</h2>
 <div id="registerAlert" class="alert alert-danger"></div>
-<div class="form-group"><label>👤 Full Name</label><input type="text" id="regName" placeholder="e.g. Laraib"></div>
-<div class="form-group"><label>🏷️ Agent Code</label><input type="text" id="regCode" placeholder="e.g. S-01"></div>
-<div class="form-group"><label>📧 Email</label><input type="email" id="regEmail" placeholder="Enter email"></div>
-<div class="form-group"><label>🔑 Password (6+)</label><input type="password" id="regPassword" placeholder="Create password"></div>
+<div class="form-group"><label>Full Name</label><input type="text" id="regName" placeholder="e.g. Laraib"></div>
+<div class="form-group"><label>Agent Code</label><input type="text" id="regCode" placeholder="e.g. S-01"></div>
+<div class="form-group"><label>Email</label><input type="email" id="regEmail" placeholder="Enter email"></div>
+<div class="form-group"><label>Password (6+)</label><input type="password" id="regPassword" placeholder="Create password"></div>
 <button class="btn btn-primary btn-block" onclick="registerUser()">✅ Create Account</button>
 <div class="switch-auth">Have account? <span onclick="showPage('loginPage')">Login</span></div>
 </div></div></div>
@@ -203,14 +221,14 @@ tbody tr.archived{opacity:.6;background:rgba(149,165,166,.05)}
 </div></nav>
 <div class="dashboard">
 <div id="targetBanner"></div>
-<h3 class="section-title today">📅 TODAY'S ACTIVITY</h3>
+<h3 class="section-title today">📅 This Month's Activity</h3>
 <div class="stats-grid">
-<div class="stat-card green"><div class="number" id="aTodayNew">0</div><div class="label">New Clients</div></div>
-<div class="stat-card green"><div class="number" id="aTodayTask">0</div><div class="label">Tasks Done</div></div>
+<div class="stat-card green"><div class="number" id="aTodayNew">0</div><div class="label">New Today</div></div>
+<div class="stat-card green"><div class="number" id="aTodayTask">0</div><div class="label">Tasks Today</div></div>
 <div class="stat-card green"><div class="number" id="aTodayDeposit">₹0</div><div class="label">Today Deposits</div></div>
 <div class="stat-card orange"><div class="number" id="aTodayWD">₹0</div><div class="label">Today Withdrawal</div></div>
 </div>
-<h3 class="section-title overall">📊 OVERALL PROGRESS</h3>
+<h3 class="section-title overall">📊 Overall Progress</h3>
 <div class="stats-grid">
 <div class="stat-card blue"><div class="number" id="aTotalClients">0</div><div class="label">Total Clients</div></div>
 <div class="stat-card blue"><div class="number" id="aActiveClients">0</div><div class="label">Active Clients</div></div>
@@ -218,17 +236,17 @@ tbody tr.archived{opacity:.6;background:rgba(149,165,166,.05)}
 <div class="stat-card orange"><div class="number" id="aKilled">0</div><div class="label">Killed/Archived</div></div>
 </div>
 <div class="stats-grid">
-<div class="stat-card green"><div class="number" id="aTotalDeposit">₹0</div><div class="label">Total Deposits</div></div>
-<div class="stat-card orange"><div class="number" id="aTotalWD">₹0</div><div class="label">Total Withdrawal</div></div>
-<div class="stat-card green"><div class="number" id="aLeftAmount">₹0</div><div class="label">💰 LEFT AMOUNT</div></div>
+<div class="stat-card green"><div class="number" id="aTotalDeposit">₹0</div><div class="label">Month Deposits</div></div>
+<div class="stat-card orange"><div class="number" id="aTotalWD">₹0</div><div class="label">Month Withdrawal</div></div>
+<div class="stat-card green"><div class="number" id="aLeftAmount">₹0</div><div class="label">💰 Left Amount</div></div>
 </div>
 <div id="agentWarnings"></div>
 <div class="tabs">
 <div class="tab active" onclick="switchTab('addClient',this)">➕ Add Client</div>
-<div class="tab" onclick="switchTab('clientMgmt',this)">📋 Client Mgmt</div>
+<div class="tab" onclick="switchTab('clientMgmt',this)">📋 Clients</div>
 <div class="tab" onclick="switchTab('socialAccounts',this)">📱 Accounts</div>
 <div class="tab" onclick="switchTab('dailyMaintenance',this)">🔄 Maintenance</div>
-<div class="tab" onclick="switchTab('dailyReport',this)">📝 Daily Report</div>
+<div class="tab" onclick="switchTab('dailyReport',this)">📝 Report</div>
 <div class="tab" onclick="switchTab('searchTab',this)">🔍 Search</div>
 </div>
 
@@ -284,7 +302,7 @@ tbody tr.archived{opacity:.6;background:rgba(149,165,166,.05)}
 </div>
 <div class="form-group" style="margin-top:15px"><label>FR Links (optional)</label><textarea id="maintFRLinks" placeholder="Paste links"></textarea></div>
 <button class="btn btn-primary" onclick="addMaintenance()">💾 Save</button></div>
-<div class="card"><h3>📋 Maintenance History</h3>
+<div class="card"><h3>📋 My Maintenance History</h3>
 <div id="maintList"><div class="loading"><div class="spinner"></div>Loading...</div></div></div></div>
 
 <div id="dailyReport" class="tab-content">
@@ -304,10 +322,10 @@ tbody tr.archived{opacity:.6;background:rgba(149,165,166,.05)}
 <div class="form-group"><label>Today second deposit (₹)</label><input type="number" id="r_dep2" value="0"></div>
 <div class="form-group"><label>Today withdrawal (₹)</label><input type="number" id="r_wd" value="0"></div>
 </div>
-<h4 style="color:#3498db;margin:15px 0 10px;font-size:14px">📈 Total (Overall)</h4>
+<h4 style="color:#3498db;margin:15px 0 10px;font-size:14px">📈 Month Total</h4>
 <div class="form-grid">
-<div class="form-group"><label>TOTAL DEPOSIT (₹)</label><input type="number" id="r_totalDep" value="0"></div>
-<div class="form-group"><label>TOTAL WITHDRAWAL (₹)</label><input type="number" id="r_totalWD" value="0"></div>
+<div class="form-group"><label>MONTH DEPOSIT (₹)</label><input type="number" id="r_totalDep" value="0"></div>
+<div class="form-group"><label>MONTH WITHDRAWAL (₹)</label><input type="number" id="r_totalWD" value="0"></div>
 </div>
 <h4 style="color:#e94560;margin:15px 0 10px;font-size:14px">🔜 Tomorrow Plan</h4>
 <div class="form-grid">
@@ -340,39 +358,39 @@ tbody tr.archived{opacity:.6;background:rgba(149,165,166,.05)}
 </div></nav>
 <div class="dashboard">
 
-<h3 class="section-title today">📅 TODAY OVERVIEW <button class="btn btn-info btn-sm" onclick="loadAdminDashboard()" style="margin-left:auto">🔄 Refresh</button></h3>
+<h3 class="section-title today">📅 Today Overview <button class="btn btn-info btn-sm" onclick="loadAdminDashboard()">🔄 Refresh</button></h3>
 <div class="stats-grid">
 <div class="stat-card green"><div class="number" id="admTodayNew">0</div><div class="label">Today New Clients</div></div>
 <div class="stat-card orange"><div class="number" id="admTodayArchive">0</div><div class="label">Today Archive/Kill</div></div>
-<div class="stat-card green"><div class="number" id="admTodayTask">0</div><div class="label">Today Tasks Done</div></div>
+<div class="stat-card green"><div class="number" id="admTodayTask">0</div><div class="label">Today Tasks</div></div>
 <div class="stat-card red"><div class="number" id="admMissingReports">0</div><div class="label">Missing Reports</div></div>
 </div>
 <div class="stats-grid">
 <div class="stat-card green"><div class="number" id="admTodayDep1">₹0</div><div class="label">Today 1st Deposit</div></div>
 <div class="stat-card green"><div class="number" id="admTodayDep2">₹0</div><div class="label">Today 2nd Deposit</div></div>
 <div class="stat-card orange"><div class="number" id="admTodayWD">₹0</div><div class="label">Today Withdrawal</div></div>
-<div class="stat-card purple"><div class="number" id="admTodayTotalDep">₹0</div><div class="label">Today Total Deposit</div></div>
+<div class="stat-card purple"><div class="number" id="admTodayTotalDep">₹0</div><div class="label">Today Total Dep</div></div>
 </div>
 <div class="stats-grid">
-<div class="stat-card orange"><div class="number" id="admTodayTotalWD">₹0</div><div class="label">Today Total Withdrawal</div></div>
-<div class="stat-card green"><div class="number" id="admTodayLeft">₹0</div><div class="label">💰 TODAY LEFT AMOUNT</div></div>
+<div class="stat-card orange"><div class="number" id="admTodayTotalWD">₹0</div><div class="label">Today Total WD</div></div>
+<div class="stat-card green"><div class="number" id="admTodayLeft">₹0</div><div class="label">💰 Today Left</div></div>
 </div>
 
-<h3 class="section-title overall">📊 OVERALL PROGRESS</h3>
+<h3 class="section-title overall">📊 This Month Progress</h3>
 <div class="stats-grid">
 <div class="stat-card blue"><div class="number" id="admTotalClients">0</div><div class="label">Total Clients</div></div>
 <div class="stat-card blue"><div class="number" id="admTotalArchive">0</div><div class="label">Total Archive/Kill</div></div>
-<div class="stat-card blue"><div class="number" id="admTotalTask">0</div><div class="label">Total Tasks Done</div></div>
+<div class="stat-card blue"><div class="number" id="admTotalTask">0</div><div class="label">Total Tasks</div></div>
 <div class="stat-card blue"><div class="number" id="admTotalAgents">0</div><div class="label">Total Agents</div></div>
 </div>
 <div class="stats-grid">
-<div class="stat-card green"><div class="number" id="admOvDep1">₹0</div><div class="label">Overall 1st Deposit</div></div>
-<div class="stat-card green"><div class="number" id="admOvDep2">₹0</div><div class="label">Overall 2nd Deposit</div></div>
-<div class="stat-card orange"><div class="number" id="admOvWD">₹0</div><div class="label">Overall Withdrawal</div></div>
-<div class="stat-card purple"><div class="number" id="admTotalDep">₹0</div><div class="label">TOTAL DEPOSIT</div></div>
+<div class="stat-card green"><div class="number" id="admOvDep1">₹0</div><div class="label">Month 1st Deposit</div></div>
+<div class="stat-card green"><div class="number" id="admOvDep2">₹0</div><div class="label">Month 2nd Deposit</div></div>
+<div class="stat-card orange"><div class="number" id="admOvWD">₹0</div><div class="label">Month Withdrawal</div></div>
+<div class="stat-card purple"><div class="number" id="admTotalDep">₹0</div><div class="label">MONTH DEPOSIT</div></div>
 </div>
 <div class="stats-grid">
-<div class="stat-card orange"><div class="number" id="admTotalWD">₹0</div><div class="label">TOTAL WITHDRAWAL</div></div>
+<div class="stat-card orange"><div class="number" id="admTotalWD">₹0</div><div class="label">MONTH WITHDRAWAL</div></div>
 <div class="stat-card green"><div class="number" id="admLeftAmount">₹0</div><div class="label">💰 LEFT AMOUNT</div></div>
 <div class="stat-card orange"><div class="number" id="admActiveAccounts">0</div><div class="label">Active Accounts</div></div>
 </div>
@@ -381,9 +399,9 @@ tbody tr.archived{opacity:.6;background:rgba(149,165,166,.05)}
 
 <div class="tabs">
 <div class="tab active" onclick="switchTab('admOverview',this)">📊 Overview</div>
-<div class="tab" onclick="switchTab('admTargets',this)">🎯 Set Targets</div>
+<div class="tab" onclick="switchTab('admTargets',this)">🎯 Targets</div>
 <div class="tab" onclick="switchTab('admAgents',this)">🧑‍💼 Agents</div>
-<div class="tab" onclick="switchTab('admClients',this)">👥 Client Details</div>
+<div class="tab" onclick="switchTab('admClients',this)">👥 Clients</div>
 <div class="tab" onclick="switchTab('admMaintenance',this)">🔄 Maintenance</div>
 <div class="tab" onclick="switchTab('admAccounts',this)">📱 Accounts</div>
 <div class="tab" onclick="switchTab('admReports',this)">📝 Reports</div>
@@ -392,15 +410,16 @@ tbody tr.archived{opacity:.6;background:rgba(149,165,166,.05)}
 </div>
 
 <div id="admOverview" class="tab-content active">
+<div class="card"><h3>🎯 Today's Targets Progress</h3><div id="admOverviewTargets"></div></div>
 <div class="card"><h3>📊 Today's Performance</h3><div id="admTodayPerf"></div></div>
-<div class="card"><h3>🚨 Pending Day 5+ Clients (Need Action!)</h3><div id="admPendingClients"></div></div>
+<div class="card"><h3>🚨 Pending Day 5+ Clients</h3><div id="admPendingClients"></div></div>
 </div>
 
 <div id="admTargets" class="tab-content">
 <div class="card">
-<h3>🎯 Set Today's Targets for Each Agent</h3>
+<h3>🎯 Set Today's Targets</h3>
 <div id="admTargetAlert" class="alert"></div>
-<p style="color:#bbb;margin-bottom:15px;font-size:13px">⚡ Targets save karte hi agent ko dikhne lagega!</p>
+<p style="color:#888;margin-bottom:15px;font-size:13px">⚡ Targets save karte hi agent ko dikhne lagega!</p>
 <div id="admTargetsList"></div>
 </div></div>
 
@@ -410,22 +429,19 @@ tbody tr.archived{opacity:.6;background:rgba(149,165,166,.05)}
 
 <div id="admClients" class="tab-content">
 <div class="card"><h3>👥 All Clients - Full Details</h3>
-
 <div class="search-box">
 <input type="text" id="admFilter" placeholder="🔍 Filter by name/phone/agent..." oninput="applyClientFilters()">
 </div>
-
 <div class="filter-tags">
-<div class="filter-title">📊 Status Filter</div>
+<div class="filter-title">📊 Status</div>
 <div class="filter-tag active" data-filter="status" data-value="all" onclick="setFilter(this)">All <span class="count" id="cnt_all">0</span></div>
 <div class="filter-tag" data-filter="status" data-value="active" onclick="setFilter(this)">🟢 Active <span class="count" id="cnt_active">0</span></div>
 <div class="filter-tag" data-filter="status" data-value="archived" onclick="setFilter(this)">📦 Archived <span class="count" id="cnt_archived">0</span></div>
 <div class="filter-tag" data-filter="status" data-value="killed" onclick="setFilter(this)">❌ Killed <span class="count" id="cnt_killed">0</span></div>
 </div>
-
 <div class="filter-tags">
-<div class="filter-title">📅 Day-wise Filter</div>
-<div class="filter-tag day" data-filter="day" data-value="all" onclick="setFilter(this)">All Days</div>
+<div class="filter-title">📅 Day-wise</div>
+<div class="filter-tag day active" data-filter="day" data-value="all" onclick="setFilter(this)">All Days</div>
 <div class="filter-tag day" data-filter="day" data-value="1" onclick="setFilter(this)">Day 1 <span class="count" id="cnt_day1">0</span></div>
 <div class="filter-tag day" data-filter="day" data-value="2" onclick="setFilter(this)">Day 2 <span class="count" id="cnt_day2">0</span></div>
 <div class="filter-tag day" data-filter="day" data-value="3" onclick="setFilter(this)">Day 3 <span class="count" id="cnt_day3">0</span></div>
@@ -435,23 +451,23 @@ tbody tr.archived{opacity:.6;background:rgba(149,165,166,.05)}
 <div class="filter-tag day" data-filter="day" data-value="7" onclick="setFilter(this)">Day 7 <span class="count" id="cnt_day7">0</span></div>
 <div class="filter-tag day" data-filter="day" data-value="7plus" onclick="setFilter(this)">Day 7+ <span class="count" id="cnt_day7plus">0</span></div>
 </div>
-
 <div class="filter-tags">
-<div class="filter-title">✅ Task & Deposit Filter</div>
-<div class="filter-tag task" data-filter="task" data-value="all" onclick="setFilter(this)">All</div>
-<div class="filter-tag task" data-filter="task" data-value="complete" onclick="setFilter(this)">✅ Task Complete <span class="count" id="cnt_taskComp">0</span></div>
-<div class="filter-tag task" data-filter="task" data-value="pending" onclick="setFilter(this)">⏳ Task Pending <span class="count" id="cnt_taskPend">0</span></div>
+<div class="filter-title">✅ Task & Deposit</div>
+<div class="filter-tag task active" data-filter="task" data-value="all" onclick="setFilter(this)">All</div>
+<div class="filter-tag task" data-filter="task" data-value="complete" onclick="setFilter(this)">✅ Complete <span class="count" id="cnt_taskComp">0</span></div>
+<div class="filter-tag task" data-filter="task" data-value="pending" onclick="setFilter(this)">⏳ Pending <span class="count" id="cnt_taskPend">0</span></div>
 <div class="filter-tag task" data-filter="task" data-value="not_interested" onclick="setFilter(this)">❌ Not Interested <span class="count" id="cnt_taskNot">0</span></div>
-<div class="filter-tag deposit" data-filter="deposit" data-value="dep1" onclick="setFilter(this)">💰 1st Deposit Done <span class="count" id="cnt_dep1">0</span></div>
-<div class="filter-tag deposit" data-filter="deposit" data-value="dep2" onclick="setFilter(this)">💰 2nd Deposit Done <span class="count" id="cnt_dep2">0</span></div>
+<div class="filter-tag deposit" data-filter="deposit" data-value="all" onclick="setFilter(this)">All Deposits</div>
+<div class="filter-tag deposit" data-filter="deposit" data-value="dep1" onclick="setFilter(this)">💰 1st Done <span class="count" id="cnt_dep1">0</span></div>
+<div class="filter-tag deposit" data-filter="deposit" data-value="dep2" onclick="setFilter(this)">💰 2nd Done <span class="count" id="cnt_dep2">0</span></div>
 <div class="filter-tag pending" data-filter="task" data-value="day5pending" onclick="setFilter(this)">⚠️ Day 5+ Pending <span class="count" id="cnt_day5pend">0</span></div>
 </div>
-
 <div class="filter-count-header" id="filterCountHeader">Showing all clients</div>
 <div id="admClientsList"></div></div></div>
 
 <div id="admMaintenance" class="tab-content">
-<div class="card"><h3>🔄 Today's Facebook/Account Maintenance</h3>
+<div class="card"><h3>🔄 Today's Maintenance Status - All Agents</h3>
+<p style="color:#888;font-size:13px;margin-bottom:15px">✅ Complete = All done | ⚠️ Progress = Some done | ❌ Pending = Nothing done</p>
 <div id="admMaintList"></div></div></div>
 
 <div id="admAccounts" class="tab-content">
@@ -462,11 +478,13 @@ tbody tr.archived{opacity:.6;background:rgba(149,165,166,.05)}
 </table></div></div></div>
 
 <div id="admReports" class="tab-content">
-<div class="card"><h3>📝 Today's Reports <span style="color:#e74c3c;font-size:13px" id="admMissingText"></span></h3>
+<div class="card"><h3>📝 Today's Report Status</h3>
+<div id="admReportStatus"></div></div>
+<div class="card"><h3>📄 Submitted Reports</h3>
 <div id="admReportsList"></div></div></div>
 
 <div id="admLeaderboard" class="tab-content">
-<div class="card"><h3>🏆 Today's Heroes & Failures (Based on Targets)</h3>
+<div class="card"><h3>🏆 Today's Leaderboard (Live Progress)</h3>
 <div id="leaderboardList"></div></div></div>
 
 <div id="admSearch" class="tab-content">
@@ -483,6 +501,13 @@ tbody tr.archived{opacity:.6;background:rgba(149,165,166,.05)}
 <div id="modalContent"></div>
 </div></div>
 
+<div class="modal" id="editAccModal">
+<div class="modal-box" style="max-width:500px">
+<button class="modal-close" onclick="closeModal('editAccModal')">✕</button>
+<h3>✏️ Edit Account</h3>
+<div id="editAccContent"></div>
+</div></div>
+
 <div class="modal" id="infoModal">
 <div class="modal-box" style="max-width:500px;text-align:center">
 <h3 id="infoTitle">Info</h3>
@@ -490,10 +515,19 @@ tbody tr.archived{opacity:.6;background:rgba(149,165,166,.05)}
 <button class="btn btn-primary" onclick="closeModal('infoModal')">OK</button>
 </div></div>
 
+<div class="modal" id="confirmModal">
+<div class="modal-box" style="max-width:450px;text-align:center">
+<h3 id="confirmTitle">Confirm</h3>
+<p id="confirmMsg" style="color:#bbb;margin:15px 0;line-height:1.6"></p>
+<div style="display:flex;gap:10px;justify-content:center;margin-top:20px">
+<button class="btn btn-danger" id="confirmYes">Yes, Delete</button>
+<button class="btn btn-warning" onclick="closeModal('confirmModal')">Cancel</button>
+</div></div></div>
+
 <script type="module">
 import{initializeApp}from"https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import{getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut,onAuthStateChanged}from"https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import{getFirestore,collection,addDoc,getDocs,query,where,doc,setDoc,getDoc,updateDoc,Timestamp}from"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import{getFirestore,collection,addDoc,getDocs,query,where,doc,setDoc,getDoc,updateDoc,deleteDoc,Timestamp}from"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig={
 apiKey:"AIzaSyBSR-uU2yUIaBb50tneY1jB49EG1UWQb6c",
@@ -513,8 +547,24 @@ let currentFilters={status:'all',day:'all',task:'all',deposit:'all',search:''};
 
 const $=id=>document.getElementById(id);
 const today=()=>new Date().toISOString().split('T')[0];
+const currentMonth=()=>new Date().getMonth();
+const currentYear=()=>new Date().getFullYear();
+
+// Check if date is in current month
+const isCurrentMonth=(dateStr)=>{
+if(!dateStr)return false;
+const d=new Date(dateStr);
+return d.getMonth()===currentMonth()&&d.getFullYear()===currentYear();
+};
+
 const showAlert=(id,msg,type='danger')=>{const el=$(id);el.innerHTML=msg;el.className=`alert alert-${type} show`;setTimeout(()=>el.classList.remove('show'),5000)};
 const showInfo=(title,msg)=>{$('infoTitle').innerHTML=title;$('infoMsg').innerHTML=msg;$('infoModal').classList.add('show')};
+const showConfirm=(title,msg,onYes)=>{
+$('confirmTitle').innerHTML=title;
+$('confirmMsg').innerHTML=msg;
+$('confirmModal').classList.add('show');
+$('confirmYes').onclick=()=>{closeModal('confirmModal');onYes();};
+};
 window.closeModal=id=>$(id).classList.remove('show');
 window.showPage=p=>{document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));$(p).classList.add('active')};
 
@@ -598,7 +648,7 @@ const tDoc=await getDoc(doc(db,"targets",targetId));
 if(!tDoc.exists()){
 $('targetBanner').innerHTML=`<div class="target-banner no-target">
 <h2>⚪ NO TARGET SET FOR TODAY</h2>
-<p style="color:#bbb">Admin ne abhi tak aaj ka target set nahi kiya.</p>
+<p style="color:#888">Admin ne abhi tak aaj ka target set nahi kiya.</p>
 </div>`;
 return}
 
@@ -623,19 +673,19 @@ const cls=(p)=>p>=100?'completed':p>=50?'partial':'failed';
 const bannerCls=overall>=100?'achieved':overall<50?'failed':'';
 
 let msg='';
-if(overall>=100)msg='<div class="target-msg success">🎉🏆 TARGET ACHIEVED! "I know you can do it, PROUD OF YOU!" ⭐⭐⭐</div>';
+if(overall>=100)msg='<div class="target-msg success">🎉🏆 TARGET ACHIEVED! I know you can do it, PROUD OF YOU! ⭐⭐⭐</div>';
 else if(overall>=75)msg='<div class="target-msg warn">⚡ Almost there! Push harder to complete your target!</div>';
-else if(overall>=50)msg='<div class="target-msg warn">⚠️ You\'re halfway. Speed up! Don\'t disappoint me!</div>';
+else if(overall>=50)msg='<div class="target-msg warn">⚠️ You are halfway. Speed up! Don\'t disappoint me!</div>';
 else msg='<div class="target-msg fail">😤 YOU MUST FOLLOW YOUR TARGET! Don\'t fail me today!</div>';
 
 $('targetBanner').innerHTML=`<div class="target-banner ${bannerCls}">
-<h2>🎯 YOUR TODAY'S TARGET (MUST FOLLOW!) <span style="font-size:13px;color:#bbb;font-weight:400">Set by Admin</span></h2>
+<h2>🎯 YOUR TODAY'S TARGET (MUST FOLLOW!)</h2>
 <div class="target-items">
 <div class="target-item ${cls(pNew)}"><div class="label">📋 New Clients</div><div class="progress-text"><span class="done">${todayNew}</span> / <span class="target">${tNew}</span></div><span class="percentage">${pNew}%</span></div>
 <div class="target-item ${cls(pTask)}"><div class="label">✅ Tasks Complete</div><div class="progress-text"><span class="done">${todayTask}</span> / <span class="target">${tTask}</span></div><span class="percentage">${pTask}%</span></div>
 <div class="target-item ${cls(pDep)}"><div class="label">💰 First Deposits</div><div class="progress-text"><span class="done">${todayDep}</span> / <span class="target">${tDep}</span></div><span class="percentage">${pDep}%</span></div>
 </div>
-<div class="overall-progress"><div style="display:flex;justify-content:space-between;color:#fff;font-size:13px;font-weight:600"><span>Overall Progress</span><span>${overall}% Achieved</span></div>
+<div class="overall-progress"><div style="display:flex;justify-content:space-between;color:#fff;font-size:13px;font-weight:700"><span>Overall Progress</span><span>${overall}% Achieved</span></div>
 <div class="bar-wrap"><div class="bar" style="width:${overall}%">${overall}%</div></div></div>
 ${msg}
 </div>`}
@@ -647,24 +697,34 @@ const rSnap=await getDocs(query(collection(db,"reports"),where("agentId","==",cu
 const reports=[];rSnap.forEach(d=>reports.push(d.data()));
 
 const t=today();
-let rTodayDep1=0,rTodayDep2=0,rTodayWD=0,rOvDep1=0,rOvDep2=0,rOvWD=0,rTotalDep=0,rTotalWD=0;
+let rTodayDep1=0,rTodayDep2=0,rTodayWD=0,rMonthDep1=0,rMonthDep2=0,rMonthWD=0,rMonthTotalDep=0,rMonthTotalWD=0;
 reports.forEach(r=>{
 if(r.date===t){rTodayDep1+=Number(r.dep1||0);rTodayDep2+=Number(r.dep2||0);rTodayWD+=Number(r.wd||0);}
-rOvDep1+=Number(r.dep1||0);rOvDep2+=Number(r.dep2||0);rOvWD+=Number(r.wd||0);
-if(Number(r.totalDep||0)>rTotalDep)rTotalDep=Number(r.totalDep||0);
-if(Number(r.totalWD||0)>rTotalWD)rTotalWD=Number(r.totalWD||0);
+if(isCurrentMonth(r.date)){
+rMonthDep1+=Number(r.dep1||0);
+rMonthDep2+=Number(r.dep2||0);
+rMonthWD+=Number(r.wd||0);
+if(Number(r.totalDep||0)>rMonthTotalDep)rMonthTotalDep=Number(r.totalDep||0);
+if(Number(r.totalWD||0)>rMonthTotalWD)rMonthTotalWD=Number(r.totalWD||0);
+}
 });
 
 const cTodayDep1=clients.filter(c=>c.depositDate===t).reduce((s,c)=>s+Number(c.depositAmount||0),0);
 const cTodayDep2=clients.filter(c=>c.secondDepositDate===t).reduce((s,c)=>s+Number(c.secondDeposit||0),0);
 const cTodayWD=clients.filter(c=>c.withdrawalDate===t).reduce((s,c)=>s+Number(c.withdrawal||0),0);
-const cOvDep=clients.reduce((s,c)=>s+Number(c.depositAmount||0)+Number(c.secondDeposit||0),0);
-const cOvWD=clients.reduce((s,c)=>s+Number(c.withdrawal||0),0);
+
+const cMonthDep=clients.filter(c=>isCurrentMonth(c.depositDate)||isCurrentMonth(c.secondDepositDate)).reduce((s,c)=>{
+let sum=0;
+if(isCurrentMonth(c.depositDate))sum+=Number(c.depositAmount||0);
+if(isCurrentMonth(c.secondDepositDate))sum+=Number(c.secondDeposit||0);
+return s+sum;
+},0);
+const cMonthWD=clients.filter(c=>isCurrentMonth(c.withdrawalDate)).reduce((s,c)=>s+Number(c.withdrawal||0),0);
 
 const todayDepFinal=Math.max(rTodayDep1+rTodayDep2,cTodayDep1+cTodayDep2);
 const todayWDFinal=Math.max(rTodayWD,cTodayWD);
-const totalDepFinal=Math.max(rOvDep1+rOvDep2,cOvDep,rTotalDep);
-const totalWDFinal=Math.max(rOvWD,cOvWD,rTotalWD);
+const monthDepFinal=Math.max(rMonthDep1+rMonthDep2,cMonthDep,rMonthTotalDep);
+const monthWDFinal=Math.max(rMonthWD,cMonthWD,rMonthTotalWD);
 
 $('aTodayNew').textContent=clients.filter(c=>c.date===t).length;
 $('aTodayTask').textContent=clients.filter(c=>c.taskCompleteDate===t).length;
@@ -673,9 +733,9 @@ $('aTodayWD').textContent='₹'+todayWDFinal.toLocaleString();
 $('aActiveClients').textContent=clients.filter(c=>(c.clientStatus||'active')==='active').length;
 $('aTotalClients').textContent=clients.length;
 $('aTotalTasks').textContent=clients.filter(c=>c.taskStatus==='complete').length;
-$('aTotalDeposit').textContent='₹'+totalDepFinal.toLocaleString();
-$('aTotalWD').textContent='₹'+totalWDFinal.toLocaleString();
-$('aLeftAmount').textContent='₹'+(totalDepFinal-totalWDFinal).toLocaleString();
+$('aTotalDeposit').textContent='₹'+monthDepFinal.toLocaleString();
+$('aTotalWD').textContent='₹'+monthWDFinal.toLocaleString();
+$('aLeftAmount').textContent='₹'+(monthDepFinal-monthWDFinal).toLocaleString();
 $('aKilled').textContent=clients.filter(c=>c.clientStatus==='killed'||c.clientStatus==='archived').length;
 
 await loadAgentTarget(clients);
@@ -692,16 +752,16 @@ const snap=await getDocs(query(collection(db,"clients"),where("agentId","==",cur
 const clients=[];snap.forEach(d=>clients.push({id:d.id,...d.data()}));
 const active=clients.filter(c=>(c.clientStatus||'active')==='active').sort((a,b)=>b.createdAt?.seconds-a.createdAt?.seconds);
 const dead=clients.filter(c=>c.clientStatus==='archived'||c.clientStatus==='killed');
-$('activeClientsList').innerHTML=active.length?active.map(c=>renderClient(c)).join(''):'<p style="color:#bbb;padding:20px;text-align:center">No active clients.</p>';
-$('archivedClientsList').innerHTML=dead.length?dead.map(c=>renderClient(c)).join(''):'<p style="color:#bbb;padding:15px;text-align:center;font-size:13px">None.</p>'};
+$('activeClientsList').innerHTML=active.length?active.map(c=>renderClient(c)).join(''):'<p style="color:#888;padding:20px;text-align:center">No active clients.</p>';
+$('archivedClientsList').innerHTML=dead.length?dead.map(c=>renderClient(c)).join(''):'<p style="color:#888;padding:15px;text-align:center;font-size:13px">None.</p>'};
 
 function renderClient(c){
 const day=calcDay(c.addedDate||c.date),dc=day>=7?'danger':day>=5?'warning':'',st=c.clientStatus||'active',rc=st==='killed'?'killed':st==='archived'?'archived':'';
 const pg=[{k:'screenshotShared',l:'📸 Screenshot'},{k:'storyShared',l:'📖 Story'},{k:'audioCall',l:'📞 Audio'},{k:'voiceMessage',l:'🎙️ Voice'},{k:'videoCall',l:'📹 Video'}];
 const ts=c.taskStatus||'pending';
 const tsBadge=ts==='complete'?'<span class="badge badge-complete">✅ Task Complete</span>':ts==='not_interested'?'<span class="badge badge-notint">❌ Not Interested</span>':'<span class="badge badge-pending">⏳ Task Pending</span>';
-const dep1Badge=Number(c.depositAmount||0)>0?`<span class="badge badge-deposit-done">💰 1st Dep: ₹${c.depositAmount}</span>`:'<span class="badge badge-deposit-pending">💵 1st Dep: Pending</span>';
-const dep2Badge=Number(c.secondDeposit||0)>0?`<span class="badge badge-deposit-done">💰 2nd Dep: ₹${c.secondDeposit}</span>`:'<span class="badge badge-deposit-pending">💵 2nd Dep: Pending</span>';
+const dep1Badge=Number(c.depositAmount||0)>0?`<span class="badge badge-deposit-done">💰 1st: ₹${Number(c.depositAmount).toLocaleString()}</span>`:'<span class="badge badge-deposit-pending">💵 1st: Pending</span>';
+const dep2Badge=Number(c.secondDeposit||0)>0?`<span class="badge badge-deposit-done">💰 2nd: ₹${Number(c.secondDeposit).toLocaleString()}</span>`:'<span class="badge badge-deposit-pending">💵 2nd: Pending</span>';
 return`<div class="client-row ${rc}">
 <h4><span class="day-badge ${dc}">Day ${day}/7</span>${c.clientName} (${c.clientPhone})
 <span class="badge badge-${st==='killed'?'kill':st==='archived'?'archive':'active'}" style="float:right">${st.toUpperCase()}</span></h4>
@@ -790,13 +850,52 @@ showAlert('accAlert','✅ Added!','success');$('accName').value='';$('accNumber'
 
 async function loadAccounts(){
 const snap=await getDocs(query(collection(db,"accounts"),where("agentId","==",currentUser.uid)));
-if(snap.empty){$('myAccountsList').innerHTML='<p style="color:#bbb;padding:15px;text-align:center">No accounts.</p>';return}
-let h='<div class="table-container"><table><thead><tr><th>Platform</th><th>Name</th><th>Number</th><th>Status</th><th>Action</th></tr></thead><tbody>';
+if(snap.empty){$('myAccountsList').innerHTML='<p style="color:#888;padding:15px;text-align:center">No accounts.</p>';return}
+let h='<div class="table-container"><table><thead><tr><th>Platform</th><th>Name</th><th>Number</th><th>Status</th><th>Actions</th></tr></thead><tbody>';
 snap.forEach(d=>{const a=d.data();
-h+=`<tr><td>${a.platform}</td><td>${a.name}</td><td>${a.number||'-'}</td><td><span class="badge badge-${a.status==='active'?'active':a.status==='ban'?'ban':'warning'}">${a.status.toUpperCase()}</span></td><td><button class="btn btn-warning btn-sm" onclick="toggleAcc('${d.id}','${a.status}')">Toggle</button></td></tr>`});
+h+=`<tr><td>${a.platform}</td><td>${a.name}</td><td>${a.number||'-'}</td><td><span class="badge badge-${a.status==='active'?'active':a.status==='ban'?'ban':'warning'}">${a.status.toUpperCase()}</span></td>
+<td><button class="btn btn-info btn-sm" onclick="editAccount('${d.id}')">✏️ Edit</button> <button class="btn btn-danger btn-sm" onclick="deleteAccount('${d.id}','${a.name}')">🗑️ Delete</button></td></tr>`});
 h+='</tbody></table></div>';$('myAccountsList').innerHTML=h}
 
-window.toggleAcc=async(id,s)=>{await updateDoc(doc(db,"accounts",id),{status:s==='active'?'ban':'active'});loadAccounts()};
+window.editAccount=async(id)=>{
+const d=await getDoc(doc(db,"accounts",id));if(!d.exists())return;const a=d.data();
+$('editAccContent').innerHTML=`
+<div class="form-group"><label>Platform</label><select id="ea_platform">
+<option ${a.platform==='Facebook'?'selected':''}>Facebook</option>
+<option ${a.platform==='WhatsApp'?'selected':''}>WhatsApp</option>
+<option ${a.platform==='Telegram'?'selected':''}>Telegram</option>
+<option ${a.platform==='Instagram'?'selected':''}>Instagram</option>
+</select></div>
+<div class="form-group"><label>Account Name/ID</label><input type="text" id="ea_name" value="${a.name}"></div>
+<div class="form-group"><label>Number</label><input type="text" id="ea_number" value="${a.number||''}"></div>
+<div class="form-group"><label>Status</label><select id="ea_status">
+<option value="active" ${a.status==='active'?'selected':''}>🟢 Active</option>
+<option value="ban" ${a.status==='ban'?'selected':''}>🔴 Banned</option>
+<option value="warning" ${a.status==='warning'?'selected':''}>🟡 Warning</option>
+</select></div>
+<div style="display:flex;gap:10px;margin-top:15px">
+<button class="btn btn-success" onclick="saveEditAccount('${id}')">💾 Save</button>
+<button class="btn btn-warning" onclick="closeModal('editAccModal')">Cancel</button>
+</div>`;
+$('editAccModal').classList.add('show');
+};
+
+window.saveEditAccount=async(id)=>{
+await updateDoc(doc(db,"accounts",id),{
+platform:$('ea_platform').value,name:$('ea_name').value.trim(),
+number:$('ea_number').value.trim(),status:$('ea_status').value
+});
+closeModal('editAccModal');loadAccounts();
+showInfo('✅ Updated!','Account details updated!');
+};
+
+window.deleteAccount=(id,name)=>{
+showConfirm('🗑️ Delete Account?',`Are you sure you want to delete <strong>${name}</strong>? This cannot be undone.`,async()=>{
+await deleteDoc(doc(db,"accounts",id));
+loadAccounts();
+showInfo('✅ Deleted!','Account has been deleted.');
+});
+};
 
 async function loadAccountsDropdown(){
 const snap=await getDocs(query(collection(db,"accounts"),where("agentId","==",currentUser.uid)));
@@ -814,10 +913,18 @@ showAlert('maintAlert','✅ Saved!','success');loadMaintenanceHistory()};
 async function loadMaintenanceHistory(){
 const snap=await getDocs(query(collection(db,"maintenance"),where("agentId","==",currentUser.uid)));
 const items=[];snap.forEach(d=>items.push({id:d.id,...d.data()}));items.sort((a,b)=>b.createdAt?.seconds-a.createdAt?.seconds);
-if(!items.length){$('maintList').innerHTML='<p style="color:#bbb;padding:15px;text-align:center">No history.</p>';return}
-let h='<div class="table-container"><table><thead><tr><th>Date</th><th>Story</th><th>Reel</th><th>Post</th><th>FR</th><th>WA Story</th><th>WA Contact</th></tr></thead><tbody>';
-items.slice(0,30).forEach(m=>{h+=`<tr><td>${m.date}</td><td>${m.story?'✅':'❌'}</td><td>${m.reel?'✅':'❌'}</td><td>${m.post?'✅':'❌'}</td><td>${m.friendRequests||0}</td><td>${m.waStory?'✅':'❌'}</td><td>${m.waContact?'✅':'❌'}</td></tr>`});
+if(!items.length){$('maintList').innerHTML='<p style="color:#888;padding:15px;text-align:center">No history.</p>';return}
+let h='<div class="table-container"><table><thead><tr><th>Date</th><th>Story</th><th>Reel</th><th>Post</th><th>FR</th><th>WA Story</th><th>WA Contact</th><th>Action</th></tr></thead><tbody>';
+items.slice(0,30).forEach(m=>{h+=`<tr><td>${m.date}</td><td>${m.story?'✅':'❌'}</td><td>${m.reel?'✅':'❌'}</td><td>${m.post?'✅':'❌'}</td><td>${m.friendRequests||0}</td><td>${m.waStory?'✅':'❌'}</td><td>${m.waContact?'✅':'❌'}</td>
+<td><button class="btn btn-danger btn-sm" onclick="deleteMaintenance('${m.id}')">🗑️</button></td></tr>`});
 h+='</tbody></table></div>';$('maintList').innerHTML=h}
+
+window.deleteMaintenance=(id)=>{
+showConfirm('🗑️ Delete Log?','Delete this maintenance log?',async()=>{
+await deleteDoc(doc(db,"maintenance",id));
+loadMaintenanceHistory();
+});
+};
 
 window.generateReport=async()=>{
 const t=today();
@@ -833,8 +940,8 @@ Today $20 given: ${$('r_bonus').value||0}
 Today first deposit: ₹${Number($('r_dep1').value||0).toLocaleString()}
 Today second deposit: ₹${Number($('r_dep2').value||0).toLocaleString()}
 Today withdrawal: ₹${Number($('r_wd').value||0).toLocaleString()}
-TOTAL DEPOSIT: ₹${Number($('r_totalDep').value||0).toLocaleString()}
-TOTAL WITHDRAWAL: ₹${Number($('r_totalWD').value||0).toLocaleString()}
+MONTH DEPOSIT: ₹${Number($('r_totalDep').value||0).toLocaleString()}
+MONTH WITHDRAWAL: ₹${Number($('r_totalWD').value||0).toLocaleString()}
 ━━━━━━━━━━━━━━━━━━━━━
 Tomorrow task: ${$('r_tmTask').value||0}
 Tomorrow 1st deposit: ${$('r_tmDep1').value||0}
@@ -873,6 +980,7 @@ if(!snap.empty){const r=snap.docs[0].data();
 $('reportMsg').value=r.msg||'';
 $('reportOutput').innerHTML=`<div class="alert alert-info show">ℹ️ Aaj ki report save hai. Update kar sakte hain.</div><div class="report-box" id="reportText">${r.text}</div>`}}
 
+// ===== ADMIN DASHBOARD =====
 window.loadAdminDashboard=async function(){
 const cSnap=await getDocs(collection(db,"clients"));
 const aSnap=await getDocs(collection(db,"agents"));
@@ -882,22 +990,26 @@ allClientsCache=[];cSnap.forEach(d=>allClientsCache.push({id:d.id,...d.data()}))
 const t=today();
 
 let rTodayDep1=0,rTodayDep2=0,rTodayWD=0,rTodayBonus=0,rTodayTask=0,rTodayNew=0;
-let rOvDep1=0,rOvDep2=0,rOvWD=0,rTotalDep=0,rTotalWD=0;
+let rMonthDep1=0,rMonthDep2=0,rMonthWD=0,rMonthTotalDep=0,rMonthTotalWD=0;
 
 rSnap.forEach(d=>{
 const r=d.data();
 if(r.date===t){rTodayDep1+=Number(r.dep1||0);rTodayDep2+=Number(r.dep2||0);rTodayWD+=Number(r.wd||0);rTodayBonus+=Number(r.bonus||0);rTodayTask+=Number(r.taskComp||0);rTodayNew+=Number(r.newClient||0);}
-rOvDep1+=Number(r.dep1||0);rOvDep2+=Number(r.dep2||0);rOvWD+=Number(r.wd||0);
-if(Number(r.totalDep||0)>rTotalDep)rTotalDep=Number(r.totalDep||0);
-if(Number(r.totalWD||0)>rTotalWD)rTotalWD=Number(r.totalWD||0);
+if(isCurrentMonth(r.date)){
+rMonthDep1+=Number(r.dep1||0);
+rMonthDep2+=Number(r.dep2||0);
+rMonthWD+=Number(r.wd||0);
+if(Number(r.totalDep||0)>rMonthTotalDep)rMonthTotalDep=Number(r.totalDep||0);
+if(Number(r.totalWD||0)>rMonthTotalWD)rMonthTotalWD=Number(r.totalWD||0);
+}
 });
 
 const cTodayDep1=allClientsCache.filter(c=>c.depositDate===t).reduce((s,c)=>s+Number(c.depositAmount||0),0);
 const cTodayDep2=allClientsCache.filter(c=>c.secondDepositDate===t).reduce((s,c)=>s+Number(c.secondDeposit||0),0);
 const cTodayWD=allClientsCache.filter(c=>c.withdrawalDate===t).reduce((s,c)=>s+Number(c.withdrawal||0),0);
-const cOvDep1=allClientsCache.reduce((s,c)=>s+Number(c.depositAmount||0),0);
-const cOvDep2=allClientsCache.reduce((s,c)=>s+Number(c.secondDeposit||0),0);
-const cOvWD=allClientsCache.reduce((s,c)=>s+Number(c.withdrawal||0),0);
+const cMonthDep1=allClientsCache.filter(c=>isCurrentMonth(c.depositDate)).reduce((s,c)=>s+Number(c.depositAmount||0),0);
+const cMonthDep2=allClientsCache.filter(c=>isCurrentMonth(c.secondDepositDate)).reduce((s,c)=>s+Number(c.secondDeposit||0),0);
+const cMonthWD=allClientsCache.filter(c=>isCurrentMonth(c.withdrawalDate)).reduce((s,c)=>s+Number(c.withdrawal||0),0);
 
 const todayDep1=Math.max(rTodayDep1,cTodayDep1);
 const todayDep2=Math.max(rTodayDep2,cTodayDep2);
@@ -905,10 +1017,10 @@ const todayWD=Math.max(rTodayWD,cTodayWD);
 const todayTotalDep=todayDep1+todayDep2;
 const todayLeft=todayTotalDep-todayWD;
 
-const ovDep1=Math.max(rOvDep1,cOvDep1);
-const ovDep2=Math.max(rOvDep2,cOvDep2);
-const ovWD=Math.max(rOvWD,cOvWD,rTotalWD);
-const totalDep=Math.max(ovDep1+ovDep2,rTotalDep);
+const ovDep1=Math.max(rMonthDep1,cMonthDep1);
+const ovDep2=Math.max(rMonthDep2,cMonthDep2);
+const ovWD=Math.max(rMonthWD,cMonthWD,rMonthTotalWD);
+const totalDep=Math.max(ovDep1+ovDep2,rMonthTotalDep);
 const leftAmount=totalDep-ovWD;
 
 const todayNew=Math.max(allClientsCache.filter(c=>c.date===t).length,rTodayNew);
@@ -953,19 +1065,59 @@ const d7=allClientsCache.filter(c=>(c.clientStatus||'active')==='active'&&calcDa
 if(d7.length)w+=`<div class="alert alert-danger show">🚨 <strong>${d7.length} clients on Day 7+!</strong> Urgent action needed!</div>`;
 $('adminWarnings').innerHTML=w;
 
+// Overview Targets Mini
+await loadOverviewTargets();
+
 const todayCs=allClientsCache.filter(c=>c.date===t);
 const pm={};todayCs.forEach(c=>{const k=c.agentDisplay||c.agentName;pm[k]=(pm[k]||0)+1});
-$('admTodayPerf').innerHTML=Object.keys(pm).length?`<div class="agent-grid">${Object.entries(pm).map(([k,v])=>`<div class="agent-card"><h4>🧑‍💼 ${k}</h4><p>📊 New Today: <strong style="color:#e94560;font-size:22px">${v}</strong></p></div>`).join('')}</div>`:'<p style="color:#bbb;padding:15px">No clients today.</p>';
+$('admTodayPerf').innerHTML=Object.keys(pm).length?`<div class="agent-grid">${Object.entries(pm).map(([k,v])=>`<div class="agent-card"><h4>🧑‍💼 ${k}</h4><p>📊 New Today: <strong style="color:#e94560;font-size:22px">${v}</strong></p></div>`).join('')}</div>`:'<p style="color:#888;padding:15px">No clients today.</p>';
 
 const pending=allClientsCache.filter(c=>(c.clientStatus||'active')==='active'&&calcDay(c.addedDate||c.date)>=5&&c.taskStatus!=='complete');
 if(pending.length){
 let h='';pending.forEach(c=>{const day=calcDay(c.addedDate||c.date);const dc=day>=7?'danger':'warning';
 const miss=[];if(!c.screenshotShared)miss.push('Screenshot');if(!c.storyShared)miss.push('Story');if(!c.audioCall)miss.push('Audio');if(!c.voiceMessage)miss.push('Voice');
-h+=`<div class="client-row"><h4><span class="day-badge ${dc}">Day ${day}/7</span>${c.clientName} (${c.clientPhone}) <span style="float:right;color:#bbb;font-size:12px">Agent: ${c.agentDisplay||c.agentName}</span></h4>
+h+=`<div class="client-row"><h4><span class="day-badge ${dc}">Day ${day}/7</span>${c.clientName} (${c.clientPhone}) <span style="float:right;color:#888;font-size:12px">Agent: ${c.agentDisplay||c.agentName}</span></h4>
 <div class="client-info"><span><strong>Platform:</strong> ${c.platform||'-'}</span><span><strong>Task:</strong> ⏳ ${c.taskStatus}</span></div>
 ${miss.length?`<div class="alert alert-warning show" style="margin:8px 0">⚠️ Missing: ${miss.join(', ')}</div>`:''}</div>`});
 $('admPendingClients').innerHTML=h;
 }else $('admPendingClients').innerHTML='<p style="color:#2ecc71;padding:15px">✅ No pending Day 5+ clients!</p>';
+}
+
+async function loadOverviewTargets(){
+const aSnap=await getDocs(collection(db,"agents"));
+const t=today();
+let h='<div class="overview-target-mini">';
+let hasAnyTarget=false;
+for(const d of aSnap.docs){
+const a=d.data();
+const targetId=`${a.agentId}_${t}`;
+const tDoc=await getDoc(doc(db,"targets",targetId));
+if(!tDoc.exists())continue;
+hasAnyTarget=true;
+const target=tDoc.data();
+const myClients=allClientsCache.filter(c=>c.agentId===a.agentId);
+const todayNew=myClients.filter(c=>c.date===t).length;
+const todayTask=myClients.filter(c=>c.taskCompleteDate===t).length;
+const todayDep=myClients.filter(c=>c.depositDate===t&&Number(c.depositAmount||0)>0).length;
+
+const tNew=Number(target.newClients)||0,tTask=Number(target.tasks)||0,tDep=Number(target.deposits)||0;
+const totalT=tNew+tTask+tDep;
+const totalD=Math.min(tNew,todayNew)+Math.min(tTask,todayTask)+Math.min(tDep,todayDep);
+const overall=totalT>0?Math.round((totalD/totalT)*100):0;
+
+const status=overall>=100?'✅ Completed':overall>0?'⚡ In Progress':'⏸️ Not Started';
+const color=overall>=100?'#2ecc71':overall>0?'#f39c12':'#e74c3c';
+
+h+=`<div class="mini-target-card">
+<h5>${a.displayName||a.name} <span style="color:${color};font-size:11px">${status}</span></h5>
+<div class="mini-target-progress"><div class="bar" style="width:${overall}%"></div></div>
+<div class="mini-target-info"><span>${overall}% done</span><span>Clients: ${todayNew}/${tNew}</span></div>
+<div class="mini-target-info"><span>Tasks: ${todayTask}/${tTask}</span><span>Deposits: ${todayDep}/${tDep}</span></div>
+</div>`;
+}
+h+='</div>';
+if(!hasAnyTarget)h='<p style="color:#888;padding:15px;text-align:center">No targets set today. Go to 🎯 Targets tab to set!</p>';
+$('admOverviewTargets').innerHTML=h;
 }
 
 async function loadAdminTargets(){
@@ -993,21 +1145,21 @@ const overall=totalT>0?Math.round((totalD/totalT)*100):0;
 
 let summaryClass='',summaryMsg='';
 if(totalT===0){summaryMsg='⚪ No target set yet'}
-else if(overall>=100){summaryClass='achieved';summaryMsg=`✅ ACHIEVED! ${overall}% - Today: ${todayNew}/${tNew} clients, ${todayTask}/${tTask} tasks, ${todayDep}/${tDep} deposits`}
-else{summaryClass='failed';summaryMsg=`📊 Progress: ${overall}% - Today: ${todayNew}/${tNew} clients, ${todayTask}/${tTask} tasks, ${todayDep}/${tDep} deposits`}
+else if(overall>=100){summaryClass='achieved';summaryMsg=`✅ ACHIEVED! ${overall}% - ${todayNew}/${tNew} clients, ${todayTask}/${tTask} tasks, ${todayDep}/${tDep} deposits`}
+else{summaryClass='failed';summaryMsg=`📊 Progress: ${overall}% - ${todayNew}/${tNew} clients, ${todayTask}/${tTask} tasks, ${todayDep}/${tDep} deposits`}
 
 h+=`<div class="target-set-card">
 <h4>🧑‍💼 ${a.displayName||a.name} <span class="badge ${overall>=100?'badge-active':overall>=50?'badge-warning':'badge-kill'}">${overall}%</span></h4>
 <div class="target-progress-summary ${summaryClass}">${summaryMsg}</div>
 <div class="form-grid">
-<div class="form-group"><label>📋 New Clients Target</label><input type="number" id="tgt_${a.agentId}_new" value="${tNew}" min="0"></div>
-<div class="form-group"><label>✅ Tasks Target</label><input type="number" id="tgt_${a.agentId}_task" value="${tTask}" min="0"></div>
-<div class="form-group"><label>💰 First Deposits Target</label><input type="number" id="tgt_${a.agentId}_dep" value="${tDep}" min="0"></div>
+<div class="form-group"><label>📋 New Clients</label><input type="number" id="tgt_${a.agentId}_new" value="${tNew}" min="0"></div>
+<div class="form-group"><label>✅ Tasks</label><input type="number" id="tgt_${a.agentId}_task" value="${tTask}" min="0"></div>
+<div class="form-group"><label>💰 First Deposits</label><input type="number" id="tgt_${a.agentId}_dep" value="${tDep}" min="0"></div>
 </div>
 <button class="btn btn-primary btn-sm" onclick="saveTarget('${a.agentId}','${(a.displayName||a.name).replace(/'/g,"\\'")}')">💾 Set Target</button>
 </div>`}
 
-if(!aSnap.size)h='<p style="color:#bbb;padding:20px">No agents registered yet.</p>';
+if(!aSnap.size)h='<p style="color:#888;padding:20px">No agents registered yet.</p>';
 $('admTargetsList').innerHTML=h}
 
 window.saveTarget=async(agentId,agentName)=>{
@@ -1028,18 +1180,21 @@ const r=await getDocs(collection(db,"reports"));
 const cc={},tc={},ds={},ws={},ac={},ar={};
 c.forEach(d=>{const x=d.data();cc[x.agentId]=(cc[x.agentId]||0)+1;
 if(x.taskStatus==='complete')tc[x.agentId]=(tc[x.agentId]||0)+1;
-ds[x.agentId]=(ds[x.agentId]||0)+Number(x.depositAmount||0)+Number(x.secondDeposit||0);
-ws[x.agentId]=(ws[x.agentId]||0)+Number(x.withdrawal||0);
+if(isCurrentMonth(x.depositDate))ds[x.agentId]=(ds[x.agentId]||0)+Number(x.depositAmount||0);
+if(isCurrentMonth(x.secondDepositDate))ds[x.agentId]=(ds[x.agentId]||0)+Number(x.secondDeposit||0);
+if(isCurrentMonth(x.withdrawalDate))ws[x.agentId]=(ws[x.agentId]||0)+Number(x.withdrawal||0);
 if((x.clientStatus||'active')==='active')ac[x.agentId]=(ac[x.agentId]||0)+1;
 if(x.clientStatus==='archived'||x.clientStatus==='killed')ar[x.agentId]=(ar[x.agentId]||0)+1});
 
 const rDep={},rWD={},rTotalDep={},rTotalWD={};
 r.forEach(d=>{
 const x=d.data();
+if(isCurrentMonth(x.date)){
 rDep[x.agentId]=(rDep[x.agentId]||0)+Number(x.dep1||0)+Number(x.dep2||0);
 rWD[x.agentId]=(rWD[x.agentId]||0)+Number(x.wd||0);
 if(Number(x.totalDep||0)>(rTotalDep[x.agentId]||0))rTotalDep[x.agentId]=Number(x.totalDep||0);
 if(Number(x.totalWD||0)>(rTotalWD[x.agentId]||0))rTotalWD[x.agentId]=Number(x.totalWD||0);
+}
 });
 
 let h='';a.forEach(d=>{const x=d.data();
@@ -1051,12 +1206,22 @@ h+=`<div class="agent-card"><h4>🧑‍💼 ${x.displayName||x.name}</h4>
 <p>👥 Total: <strong style="color:#e94560">${cc[x.agentId]||0}</strong></p>
 <p>🟢 Active: <strong style="color:#2ecc71">${ac[x.agentId]||0}</strong> | 📦 Dead: <strong style="color:#95a5a6">${ar[x.agentId]||0}</strong></p>
 <p>✅ Tasks: <strong style="color:#2ecc71">${tc[x.agentId]||0}</strong></p>
-<p>💰 Deposits: <strong style="color:#f39c12">₹${totalDeposit.toLocaleString()}</strong></p>
-<p>💸 WD: <strong style="color:#e74c3c">₹${totalWD.toLocaleString()}</strong></p>
-<p>📊 LEFT: <strong style="color:#2ecc71;font-size:16px">₹${left.toLocaleString()}</strong></p></div>`});
+<p>💰 Month Dep: <strong style="color:#f39c12">₹${totalDeposit.toLocaleString()}</strong></p>
+<p>💸 Month WD: <strong style="color:#e74c3c">₹${totalWD.toLocaleString()}</strong></p>
+<p>📊 LEFT: <strong style="color:#2ecc71;font-size:16px">₹${left.toLocaleString()}</strong></p>
+<div class="actions"><button class="btn btn-danger btn-sm" onclick="deleteAgent('${x.agentId}','${(x.displayName||x.name).replace(/'/g,"\\'")}')">🗑️ Delete Agent</button></div>
+</div>`});
 $('admAgentsList').innerHTML=h}
 
-// ===== ADMIN CLIENTS WITH FILTERS =====
+window.deleteAgent=(agentId,name)=>{
+showConfirm('🗑️ Delete Agent?',`Delete <strong>${name}</strong>?<br><br>⚠️ This will remove their profile but keep their clients/reports for records.`,async()=>{
+await deleteDoc(doc(db,"agents",agentId));
+loadAdminAgents();
+loadAdminDashboard();
+showInfo('✅ Deleted!',`${name} has been removed.`);
+});
+};
+
 async function loadAdminClients(){
 updateFilterCounts();
 applyClientFilters();
@@ -1068,12 +1233,8 @@ $('cnt_all').textContent=t.length;
 $('cnt_active').textContent=t.filter(c=>(c.clientStatus||'active')==='active').length;
 $('cnt_archived').textContent=t.filter(c=>c.clientStatus==='archived').length;
 $('cnt_killed').textContent=t.filter(c=>c.clientStatus==='killed').length;
-
-for(let i=1;i<=7;i++){
-$('cnt_day'+i).textContent=t.filter(c=>calcDay(c.addedDate||c.date)===i&&(c.clientStatus||'active')==='active').length;
-}
+for(let i=1;i<=7;i++){$('cnt_day'+i).textContent=t.filter(c=>calcDay(c.addedDate||c.date)===i&&(c.clientStatus||'active')==='active').length;}
 $('cnt_day7plus').textContent=t.filter(c=>calcDay(c.addedDate||c.date)>7&&(c.clientStatus||'active')==='active').length;
-
 $('cnt_taskComp').textContent=t.filter(c=>c.taskStatus==='complete').length;
 $('cnt_taskPend').textContent=t.filter(c=>(c.taskStatus||'pending')==='pending'&&(c.clientStatus||'active')==='active').length;
 $('cnt_taskNot').textContent=t.filter(c=>c.taskStatus==='not_interested').length;
@@ -1083,8 +1244,7 @@ $('cnt_day5pend').textContent=t.filter(c=>(c.clientStatus||'active')==='active'&
 }
 
 window.setFilter=(el)=>{
-const type=el.dataset.filter;
-const value=el.dataset.value;
+const type=el.dataset.filter;const value=el.dataset.value;
 document.querySelectorAll(`.filter-tag[data-filter="${type}"]`).forEach(t=>t.classList.remove('active'));
 el.classList.add('active');
 currentFilters[type]=value;
@@ -1095,34 +1255,27 @@ window.applyClientFilters=()=>{
 const q=($('admFilter').value||'').toLowerCase();
 currentFilters.search=q;
 let filtered=[...allClientsCache];
-
 if(q){filtered=filtered.filter(c=>(c.clientName||'').toLowerCase().includes(q)||(c.clientPhone||'').includes(q)||(c.agentDisplay||'').toLowerCase().includes(q))}
-
 if(currentFilters.status==='active')filtered=filtered.filter(c=>(c.clientStatus||'active')==='active');
 else if(currentFilters.status==='archived')filtered=filtered.filter(c=>c.clientStatus==='archived');
 else if(currentFilters.status==='killed')filtered=filtered.filter(c=>c.clientStatus==='killed');
-
 if(currentFilters.day!=='all'){
 if(currentFilters.day==='7plus')filtered=filtered.filter(c=>calcDay(c.addedDate||c.date)>7);
 else filtered=filtered.filter(c=>calcDay(c.addedDate||c.date)===Number(currentFilters.day));
 }
-
 if(currentFilters.task==='complete')filtered=filtered.filter(c=>c.taskStatus==='complete');
 else if(currentFilters.task==='pending')filtered=filtered.filter(c=>(c.taskStatus||'pending')==='pending');
 else if(currentFilters.task==='not_interested')filtered=filtered.filter(c=>c.taskStatus==='not_interested');
 else if(currentFilters.task==='day5pending')filtered=filtered.filter(c=>(c.clientStatus||'active')==='active'&&calcDay(c.addedDate||c.date)>=5&&c.taskStatus!=='complete');
-
 if(currentFilters.deposit==='dep1')filtered=filtered.filter(c=>Number(c.depositAmount||0)>0);
 else if(currentFilters.deposit==='dep2')filtered=filtered.filter(c=>Number(c.secondDeposit||0)>0);
-
 filtered.sort((a,b)=>{const o={active:1,archived:2,killed:3};return(o[a.clientStatus||'active']-o[b.clientStatus||'active'])||(b.createdAt?.seconds-a.createdAt?.seconds)});
-
 $('filterCountHeader').innerHTML=`📊 Showing <strong>${filtered.length}</strong> client(s) out of ${allClientsCache.length} total`;
 renderAdminClientList(filtered);
 };
 
 function renderAdminClientList(clients){
-if(!clients.length){$('admClientsList').innerHTML='<p style="color:#bbb;padding:20px;text-align:center">No clients match the filter.</p>';return}
+if(!clients.length){$('admClientsList').innerHTML='<p style="color:#888;padding:20px;text-align:center">No clients match the filter.</p>';return}
 let h='';clients.forEach(c=>{
 const day=calcDay(c.addedDate||c.date);const dc=day>=7?'danger':day>=5?'warning':'';
 const st=c.clientStatus||'active';const rc=st==='killed'?'killed':st==='archived'?'archived':'';
@@ -1131,9 +1284,8 @@ const miss=[];if(!c.screenshotShared)miss.push('SS');if(!c.storyShared)miss.push
 const ready=miss.length===0;
 const ts=c.taskStatus||'pending';
 const tsBadge=ts==='complete'?'<span class="badge badge-complete">✅ Task Complete</span>':ts==='not_interested'?'<span class="badge badge-notint">❌ Not Interested</span>':'<span class="badge badge-pending">⏳ Task Pending</span>';
-const dep1Badge=Number(c.depositAmount||0)>0?`<span class="badge badge-deposit-done">💰 1st Dep: ₹${Number(c.depositAmount).toLocaleString()}</span>`:'<span class="badge badge-deposit-pending">💵 1st Dep: Pending</span>';
-const dep2Badge=Number(c.secondDeposit||0)>0?`<span class="badge badge-deposit-done">💰 2nd Dep: ₹${Number(c.secondDeposit).toLocaleString()}</span>`:'<span class="badge badge-deposit-pending">💵 2nd Dep: Pending</span>';
-
+const dep1Badge=Number(c.depositAmount||0)>0?`<span class="badge badge-deposit-done">💰 1st: ₹${Number(c.depositAmount).toLocaleString()}</span>`:'<span class="badge badge-deposit-pending">💵 1st: Pending</span>';
+const dep2Badge=Number(c.secondDeposit||0)>0?`<span class="badge badge-deposit-done">💰 2nd: ₹${Number(c.secondDeposit).toLocaleString()}</span>`:'<span class="badge badge-deposit-pending">💵 2nd: Pending</span>';
 h+=`<div class="client-row ${rc}">
 <h4><span class="day-badge ${dc}">Day ${day}/7</span>${c.clientName} (${c.clientPhone}) 
 <span style="float:right"><span class="badge badge-${st==='killed'?'kill':st==='archived'?'archive':'active'}">${st.toUpperCase()}</span></span></h4>
@@ -1155,46 +1307,99 @@ const t=today();
 const mSnap=await getDocs(query(collection(db,"maintenance"),where("date","==",t)));
 const aSnap=await getDocs(collection(db,"agents"));
 const accSnap=await getDocs(collection(db,"accounts"));
-const accMap={};accSnap.forEach(d=>accMap[d.id]=d.data());
-const byAgent={};mSnap.forEach(d=>{const m=d.data();if(!byAgent[m.agentId])byAgent[m.agentId]={name:m.agentName,logs:[]};byAgent[m.agentId].logs.push({...m,acc:accMap[m.accountId]||{}})});
-const missing=[];aSnap.forEach(d=>{if(!byAgent[d.data().agentId])missing.push(d.data().displayName||d.data().name)});
-let h='';
-if(Object.keys(byAgent).length){
-h+='<h4 style="color:#2ecc71;margin-bottom:10px">✅ TODAY DONE:</h4>';
-Object.values(byAgent).forEach(a=>{
-h+=`<div class="agent-card" style="margin-bottom:10px"><h4>🧑‍💼 ${a.name}</h4>`;
-a.logs.forEach(l=>{
-h+=`<div style="background:rgba(0,0,0,.2);padding:10px;border-radius:8px;margin-top:8px;font-size:12px">
-<strong>${l.acc.platform||'-'} - ${l.acc.name||'-'}</strong><br>
-Story: ${l.story?'✅':'❌'} | Reel: ${l.reel?'✅':'❌'} | Post: ${l.post?'✅':'❌'} | FR: ${l.friendRequests||0} | WA Story: ${l.waStory?'✅':'❌'} | WA Contact: ${l.waContact?'✅':'❌'}
-</div>`});
-h+='</div>'})}
-if(missing.length){
-h+=`<h4 style="color:#e74c3c;margin:15px 0 10px">❌ NO MAINTENANCE TODAY (${missing.length}):</h4>
-<div class="alert alert-danger show">${missing.join(', ')}</div>`}
-if(!Object.keys(byAgent).length&&!missing.length)h='<p style="color:#bbb;padding:20px">No agents yet.</p>';
-$('admMaintList').innerHTML=h}
+
+const accByAgent={};
+accSnap.forEach(d=>{const a=d.data();if(!accByAgent[a.agentId])accByAgent[a.agentId]={};if(!accByAgent[a.agentId][a.platform])accByAgent[a.agentId][a.platform]=[];accByAgent[a.agentId][a.platform].push({id:d.id,...a})});
+
+const maintByAgent={};
+mSnap.forEach(d=>{const m=d.data();if(!maintByAgent[m.agentId])maintByAgent[m.agentId]=[];maintByAgent[m.agentId].push(m)});
+
+// Calculate status per agent per platform
+const agentStatus={};
+aSnap.forEach(d=>{
+const a=d.data();
+agentStatus[a.agentId]={name:a.displayName||a.name,platforms:{}};
+const platforms=accByAgent[a.agentId]||{};
+Object.keys(platforms).forEach(plat=>{
+const platAccs=platforms[plat];
+const platMaints=(maintByAgent[a.agentId]||[]).filter(m=>platAccs.some(pa=>pa.id===m.accountId));
+if(platMaints.length===0){
+agentStatus[a.agentId].platforms[plat]='pending';
+}else{
+// Check if all tasks are done for this platform
+let allDone=true;let anyDone=false;
+platMaints.forEach(m=>{
+const done=m.story&&m.reel&&m.post&&m.friendRequests>0;
+if(done)anyDone=true;
+else allDone=false;
+if(m.story||m.reel||m.post||m.friendRequests>0)anyDone=true;
+});
+agentStatus[a.agentId].platforms[plat]=allDone?'complete':anyDone?'progress':'pending';
+}
+});
+});
+
+// Sort: complete first, progress middle, pending last
+const sortedAgents=Object.entries(agentStatus).sort(([,a],[,b])=>{
+const score=(x)=>{const vals=Object.values(x.platforms);if(!vals.length)return 4;if(vals.every(v=>v==='complete'))return 1;if(vals.some(v=>v==='complete'||v==='progress'))return 2;return 3};
+return score(a)-score(b);
+});
+
+let h='<div class="maint-status-grid">';
+sortedAgents.forEach(([id,data])=>{
+h+=`<div class="maint-agent-card"><h5>🧑‍💼 ${data.name}</h5>`;
+if(Object.keys(data.platforms).length===0){
+h+='<div class="maint-platform none">⚪ No accounts added</div>';
+}else{
+Object.entries(data.platforms).forEach(([plat,status])=>{
+const icon=status==='complete'?'✅':status==='progress'?'⚡':'❌';
+const label=status==='complete'?'COMPLETE':status==='progress'?'IN PROGRESS':'PENDING';
+h+=`<div class="maint-platform ${status}">${icon} ${plat}<span>${label}</span></div>`;
+});
+}
+h+='</div>';
+});
+h+='</div>';
+$('admMaintList').innerHTML=h||'<p style="color:#888;padding:20px">No agents.</p>';
+}
 
 async function loadAdminAccounts(){
 const snap=await getDocs(collection(db,"accounts"));let h='';
 snap.forEach(d=>{const a=d.data();h+=`<tr><td>${a.agentName}</td><td>${a.platform}</td><td>${a.name}</td><td>${a.number||'-'}</td><td><span class="badge badge-${a.status==='active'?'active':a.status==='ban'?'ban':'warning'}">${a.status.toUpperCase()}</span></td></tr>`});
-$('admAccountsBody').innerHTML=h||'<tr><td colspan="5" style="text-align:center;padding:20px;color:#bbb">No accounts</td></tr>'}
+$('admAccountsBody').innerHTML=h||'<tr><td colspan="5" style="text-align:center;padding:20px;color:#888">No accounts</td></tr>'}
 
 async function loadAdminReports(){
-const t=today();const r=await getDocs(query(collection(db,"reports"),where("date","==",t)));
+const t=today();
+const r=await getDocs(query(collection(db,"reports"),where("date","==",t)));
 const a=await getDocs(collection(db,"agents"));
 const ri=new Set();const reps=[];r.forEach(d=>{reps.push(d.data());ri.add(d.data().agentId)});
-const miss=[];a.forEach(d=>{if(!ri.has(d.data().agentId))miss.push(d.data().displayName||d.data().name)});
-$('admMissingText').textContent=miss.length?`(${miss.length} missing: ${miss.join(', ')})`:'✅ All submitted';
-if(!reps.length){$('admReportsList').innerHTML='<p style="color:#bbb;padding:20px">No reports today.</p>';return}
+
+// Report Status
+let statusH='<div class="report-status-list">';
+a.forEach(d=>{
+const x=d.data();
+const done=ri.has(x.agentId);
+statusH+=`<div class="report-status-item ${done?'done':'pending'}">
+<span>🧑‍💼 ${x.displayName||x.name}</span>
+<span>${done?'✅ Submitted':'❌ Pending'}</span>
+</div>`;
+});
+statusH+='</div>';
+statusH+=`<div class="alert alert-info show" style="margin-top:15px">📊 <strong>${reps.length}</strong> submitted / <strong>${a.size-reps.length}</strong> pending out of <strong>${a.size}</strong> agents (${t})</div>`;
+$('admReportStatus').innerHTML=statusH;
+
+// Submitted Reports
+if(!reps.length){$('admReportsList').innerHTML='<p style="color:#888;padding:20px">No reports today.</p>';return}
 let h='';reps.forEach(r=>{h+=`<div class="card" style="margin-bottom:10px;padding:15px"><h4 style="color:#e94560">📝 ${r.agentName}</h4><div class="report-box" style="margin-top:10px">${r.text}</div></div>`});
 $('admReportsList').innerHTML=h}
 
 async function loadLeaderboard(){
 const aSnap=await getDocs(collection(db,"agents"));
 const cSnap=await getDocs(collection(db,"clients"));
+const rSnap=await getDocs(collection(db,"reports"));
 const t=today();
 const allClients=[];cSnap.forEach(d=>allClients.push(d.data()));
+const reportedAgents=new Set();rSnap.forEach(d=>{if(d.data().date===t)reportedAgents.add(d.data().agentId)});
 
 const results=[];
 for(const d of aSnap.docs){
@@ -1202,7 +1407,6 @@ const a=d.data();
 const targetId=`${a.agentId}_${t}`;
 const tDoc=await getDoc(doc(db,"targets",targetId));
 const target=tDoc.exists()?tDoc.data():null;
-
 const myClients=allClients.filter(c=>c.agentId===a.agentId);
 const todayNew=myClients.filter(c=>c.date===t).length;
 const todayTask=myClients.filter(c=>c.taskCompleteDate===t).length;
@@ -1216,58 +1420,71 @@ const totalD=Math.min(tNew,todayNew)+Math.min(tTask,todayTask)+Math.min(tDep,tod
 overall=totalT>0?Math.round((totalD/totalT)*100):0;
 hasTarget=totalT>0;
 }
-results.push({name:a.displayName||a.name,overall,hasTarget,todayNew,todayTask,todayDep,target});
+results.push({name:a.displayName||a.name,agentId:a.agentId,overall,hasTarget,todayNew,todayTask,todayDep,target,reported:reportedAgents.has(a.agentId)});
 }
 
-const winners=results.filter(r=>r.hasTarget&&r.overall>=100).sort((a,b)=>b.overall-a.overall);
-const partial=results.filter(r=>r.hasTarget&&r.overall>0&&r.overall<100).sort((a,b)=>b.overall-a.overall);
-const failed=results.filter(r=>r.hasTarget&&r.overall===0).sort((a,b)=>a.name.localeCompare(b.name));
-const noTarget=results.filter(r=>!r.hasTarget);
+// Categorize based on reports submission
+const reportSubmitted=results.filter(r=>r.reported);
+const reportPending=results.filter(r=>!r.reported);
+
+const winners=reportSubmitted.filter(r=>r.hasTarget&&r.overall>=100).sort((a,b)=>b.overall-a.overall);
+const failed_submitted=reportSubmitted.filter(r=>r.hasTarget&&r.overall<100).sort((a,b)=>b.overall-a.overall);
+
+// Before report - motivational
+const beforeReport=reportPending.filter(r=>r.hasTarget);
 
 let h='';
+
+// Before Report Submitted - Motivational
+if(beforeReport.length){
+h+='<h4 style="color:#3498db;margin-bottom:15px;font-size:18px">💪 KEEP GOING - I TRUST YOU! 💪</h4><div class="agent-grid">';
+const motivations=['💫 I TRUST YOU! You can do this!','⭐ Believe in yourself! You got this!','🚀 I know you\'ll achieve it! Keep pushing!','🌟 You have the power! Don\'t give up!','💪 Show me what you got! I trust you!'];
+beforeReport.forEach((r,i)=>{
+h+=`<div class="agent-card" style="border-color:#3498db"><h4>${r.name} <span class="badge badge-active">${r.overall}%</span></h4>
+<p style="color:#3498db;font-weight:700;margin:10px 0">"${motivations[i%motivations.length]}"</p>
+<p>📋 Clients: ${r.todayNew}/${r.target.newClients}</p>
+<p>✅ Tasks: ${r.todayTask}/${r.target.tasks}</p>
+<p>💰 Deposits: ${r.todayDep}/${r.target.deposits}</p>
+<p style="color:#f39c12;font-size:11px;margin-top:8px">⏰ Report not submitted yet</p></div>`});
+h+='</div>';
+}
+
+// After Report - Winners (Appreciation)
 if(winners.length){
-h+='<h4 style="color:#2ecc71;margin-bottom:15px;font-size:18px">🏆 TODAY\'S HEROES 🏆</h4><div class="agent-grid">';
+h+='<h4 style="color:#2ecc71;margin:25px 0 15px;font-size:18px">🏆 TODAY\'S HEROES 🏆</h4><div class="agent-grid">';
 const m=['🥇','🥈','🥉'];
+const msgs=['🌟 PROUD OF YOU! Superstar! ⭐⭐⭐','👏 Excellent work! You made me proud! ⭐⭐','✅ Well done! Keep this energy! ⭐','💎 Amazing! You are a champion!','🎯 Perfect execution! I am so proud!'];
 winners.forEach((r,i)=>{
-const msgs=['🌟 PROUD OF YOU! Superstar! ⭐⭐⭐','👏 Excellent work! Keep it up! ⭐⭐','✅ Target complete! Well done! ⭐'];
-h+=`<div class="agent-card" style="border-color:#2ecc71;background:rgba(46,204,113,.1)"><h4>${m[i]||'#'+(i+1)} ${r.name} <span class="badge badge-active">${r.overall}%</span></h4>
-<p style="color:#2ecc71;font-weight:600;margin:10px 0">"${msgs[i]||msgs[2]}"</p>
+h+=`<div class="agent-card" style="border-color:#2ecc71;background:rgba(46,204,113,.08)"><h4>${m[i]||'#'+(i+1)} ${r.name} <span class="badge badge-active">${r.overall}%</span></h4>
+<p style="color:#2ecc71;font-weight:700;margin:10px 0">"${msgs[i%msgs.length]}"</p>
 <p>📋 Clients: ${r.todayNew}/${r.target.newClients}</p>
 <p>✅ Tasks: ${r.todayTask}/${r.target.tasks}</p>
 <p>💰 Deposits: ${r.todayDep}/${r.target.deposits}</p></div>`});
 h+='</div>';
 }
 
-if(partial.length){
-h+='<h4 style="color:#f39c12;margin:25px 0 15px;font-size:18px">⚡ IN PROGRESS ⚡</h4><div class="agent-grid">';
-partial.forEach(r=>{
-h+=`<div class="agent-card" style="border-color:#f39c12"><h4>${r.name} <span class="badge badge-warning">${r.overall}%</span></h4>
-<p style="color:#f39c12;margin:10px 0">⏰ Hurry up! Complete your target!</p>
+// After Report - Failed (Insults)
+if(failed_submitted.length){
+h+='<h4 style="color:#e74c3c;margin:25px 0 15px;font-size:18px">😤 YOU DISAPPOINTED ME! 😤</h4><div class="agent-grid">';
+const insults=['😤 YOU DISAPPOINTED ME! You failed me!','💀 YOU FAILED ME! Shameful performance!','😡 VERY DISAPPOINTED! I expected better from you!','🚨 PATHETIC! You let me down!','💔 You broke my trust! Do better tomorrow!'];
+failed_submitted.forEach((r,i)=>{
+h+=`<div class="agent-card" style="border-color:#e74c3c;background:rgba(231,76,60,.08)"><h4>🔴 ${r.name} <span class="badge badge-kill">${r.overall}%</span></h4>
+<p style="color:#e74c3c;font-weight:700;margin:10px 0">"${insults[i%insults.length]}"</p>
 <p>📋 Clients: ${r.todayNew}/${r.target.newClients}</p>
 <p>✅ Tasks: ${r.todayTask}/${r.target.tasks}</p>
 <p>💰 Deposits: ${r.todayDep}/${r.target.deposits}</p></div>`});
 h+='</div>';
 }
 
-if(failed.length){
-h+='<h4 style="color:#e74c3c;margin:25px 0 15px;font-size:18px">😤 TODAY\'S FAILURES 😤</h4><div class="agent-grid">';
-const insults=['😤 DISAPPOINTED! You failed me!','💀 SHAMEFUL! Did nothing today!','😡 VERY DISAPPOINTED! Wake up!','🚨 PATHETIC! Where is your effort?'];
-failed.forEach((r,i)=>{
-h+=`<div class="agent-card" style="border-color:#e74c3c;background:rgba(231,76,60,.1)"><h4>🔴 ${r.name} <span class="badge badge-kill">${r.overall}%</span></h4>
-<p style="color:#e74c3c;font-weight:600;margin:10px 0">"${insults[i%insults.length]}"</p>
-<p>📋 Clients: ${r.todayNew}/${r.target.newClients}</p>
-<p>✅ Tasks: ${r.todayTask}/${r.target.tasks}</p>
-<p>💰 Deposits: ${r.todayDep}/${r.target.deposits}</p></div>`});
-h+='</div>';
-}
-
+// No Target Set
+const noTarget=results.filter(r=>!r.hasTarget);
 if(noTarget.length){
 h+='<h4 style="color:#95a5a6;margin:25px 0 15px;font-size:15px">⚪ NO TARGET SET</h4><div class="agent-grid">';
-noTarget.forEach(r=>{h+=`<div class="agent-card"><h4>${r.name}</h4><p style="color:#bbb">Set target for this agent</p></div>`});
+noTarget.forEach(r=>{h+=`<div class="agent-card"><h4>${r.name}</h4><p style="color:#888">Set target for this agent</p></div>`});
 h+='</div>';
 }
 
-if(!h)h='<p style="color:#bbb;padding:20px">No agents registered yet.</p>';
+if(!h)h='<p style="color:#888;padding:20px">No agents registered yet.</p>';
 $('leaderboardList').innerHTML=h}
 
 window.adminSearchClient=async()=>{
@@ -1278,5 +1495,3 @@ let h=`<div class="alert alert-warning show">⚠️ ${snap.size} record(s)</div>
 snap.forEach(d=>{const c=d.data();const s=c.clientStatus||'active';h+=`<tr><td>${c.date}</td><td>${c.agentDisplay||c.agentName}</td><td>${c.clientName}</td><td>${c.platform||'-'}</td><td><span class="badge badge-${s==='killed'?'kill':s==='archived'?'archive':'active'}">${s.toUpperCase()}</span></td></tr>`});
 h+='</tbody></table></div>';$('admSearchResults').innerHTML=h};
 </script>
-</body>
-</html>
