@@ -39,7 +39,7 @@ body{background-color: var(--bg-main); background-image: radial-gradient(at 0% 0
 .form-group textarea{resize:vertical;min-height:90px;font-family:inherit}
 
 /* Premium Dynamic Buttons */
-.btn{padding:12px 24px;border:none;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;transition: all .25s ease; display: inline-flex; align-items: center; justify-content: center; gap: 8px;}
+.btn{padding:12px 24px;border:none;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;transition: all .25s ease; display: inline-flex; align-items: center; justify-content: center; gap: 8px; user-select: none;}
 .btn:hover{transform:translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.3);}
 .btn:active{transform: translateY(0);}
 .btn-primary{background: var(--primary);color:#fff}
@@ -125,7 +125,7 @@ tbody tr.archived{opacity:.5;background:rgba(160,174,192,.03)}
 /* Custom Alert Systems */
 .alert{padding:14px 20px;border-radius:12px;margin-bottom:20px;font-weight:500;font-size:14px;display:none; animation: fadeIn 0.3s ease;}
 .alert.show{display:block}
-@keyframes fadeIn { from{opacity:0; transform: translateY(-5px);} to{opacity:1; transform: translateY(0));} }
+@keyframes fadeIn { from{opacity:0; transform: translateY(-5px);} to{opacity:1; transform: translateY(0);} }
 .alert-danger{background:rgba(239,71,58,.12);border:1px solid #ef473a;color:#ef473a}
 .alert-success{background:rgba(56,239,125,.12);border:1px solid #38ef7d;color:#38ef7d}
 .alert-warning{background:rgba(243,156,18,.12);border:1px solid #f39c12;color:#f39c12}
@@ -143,12 +143,17 @@ tbody tr.archived{opacity:.5;background:rgba(160,174,192,.03)}
 .target-item .progress-text{font-size:22px;font-weight:800;color:#fff;margin-bottom:8px}
 .overall-progress{background:rgba(0,0,0,.25);padding:20px;border-radius:14px;margin-top:20px; border: 1px solid var(--border-color);}
 .overall-progress .bar-wrap{background:rgba(255,255,255,.04);height:20px;border-radius:10px;overflow:hidden;margin-top:10px;}
-.overall-progress .bar{height:100%;background:linear-gradient(to right, #ef473a, #f39c12, #38ef7d);border-radius:10px;transition:width 1s ease-in-out;}
+.overall-progress .bar{height:100%;background:linear-gradient(to right, #ef473a, #f39c12, #38ef7d);border-radius:10px;width: 0%; transition:width 1s ease-in-out;}
 
 /* Sections Titles Custom Style */
 .section-title{margin: 15px 0 20px; font-size:14px; font-weight: 700; display:flex;align-items:center;gap:8px; letter-spacing: 1px; text-transform: uppercase;}
 .section-title.today{color:#38ef7d}
 .section-title.overall{color:#0072ff}
+
+/* Loading Animations */
+.loading{text-align:center;padding:30px;color:var(--text-muted);font-size:14px}
+.spinner{width:35px;height:35px;border:3px solid rgba(255,255,255,.1);border-top-color:#ff416c;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 10px}
+@keyframes spin{to{transform:rotate(360deg)}}
 
 /* Modal Popup Window Overlay styling */
 .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(5, 4, 10, 0.85);backdrop-filter: blur(8px); z-index:999;justify-content:center;align-items:center;padding:20px;}
@@ -239,7 +244,7 @@ tbody tr.archived{opacity:.5;background:rgba(160,174,192,.03)}
 <div id="repeatWarning" class="alert alert-warning"></div>
 <div class="form-grid">
 <div class="form-group"><label>📅 Select Date</label><input type="date" id="clientDate"></div>
-<div class="form-group"><label>📱 Client Phone *</label><input type="text" id="clientPhone" placeholder="03001234567" oninput="checkRepeat(this.value)"></div>
+<div class="form-group"><label>📱 Client Phone *</label><input type="text" id="clientPhone" placeholder="03001234567"></div>
 <div class="form-group"><label>👤 Client Name *</label><input type="text" id="clientName" placeholder="Full legal name"></div>
 <div class="form-group"><label>🎂 Client Age</label><input type="number" id="clientAge"></div>
 <div class="form-group"><label>📍 Demographics Location</label><input type="text" id="clientLocation"></div>
@@ -254,7 +259,7 @@ tbody tr.archived{opacity:.5;background:rgba(160,174,192,.03)}
 </div></div>
 
 <div id="clientMgmt" class="tab-content">
-<div class="card"><h3>📋 Active Accounts Directory <button class="btn btn-info btn-sm" onclick="loadClientMgmt()">🔄 Sync Data</button></h3>
+<div class="card"><h3>📋 Active Accounts Directory</h3>
 <div id="activeClientsList"><div class="loading"><div class="spinner"></div>Loading Active Data...</div></div></div>
 <div class="card"><h3>📦 Archives / Inactive Records</h3>
 <div id="archivedClientsList"></div></div></div>
@@ -340,90 +345,166 @@ tbody tr.archived{opacity:.5;background:rgba(160,174,192,.03)}
 <button class="btn btn-danger btn-sm" onclick="logoutUser()">Logout System</button>
 </div></nav>
 <div class="dashboard">
-
-<h3 class="section-title today">📅 CENTRAL CONTROL TODAY OVERVIEW <button class="btn btn-info btn-sm" onclick="loadAdminDashboard()" style="margin-left:auto">🔄 Sync Enterprise Dashboard</button></h3>
+<h3 class="section-title today">📅 CENTRAL CONTROL TODAY OVERVIEW</h3>
 <div class="stats-grid">
 <div class="stat-card green"><div class="number" id="admTodayNew">0</div><div class="label">Today New Clients</div></div>
 <div class="stat-card orange"><div class="number" id="admTodayArchive">0</div><div class="label">Today Archive/Kill</div></div>
 <div class="stat-card green"><div class="number" id="admTodayTask">0</div><div class="label">Today Tasks Done</div></div>
 <div class="stat-card red"><div class="number" id="admMissingReports">0</div><div class="label">Missing Reports</div></div>
 </div>
-<div class="stats-grid">
-<div class="stat-card green"><div class="number" id="admTodayDep1">₹0</div><div class="label">Today 1st Deposit</div></div>
-<div class="stat-card green"><div class="number" id="admTodayDep2">₹0</div><div class="label">Today 2nd Deposit</div></div>
-<div class="stat-card orange"><div class="number" id="admTodayWD">₹0</div><div class="label">Today Withdrawal</div></div>
-<div class="stat-card purple"><div class="number" id="admTodayTotalDep">₹0</div><div class="label">Today Total Deposit</div></div>
-</div>
-<div class="stats-grid">
-<div class="stat-card orange"><div class="number" id="admTodayTotalWD">₹0</div><div class="label">Today Total Withdrawal</div></div>
-<div class="stat-card green"><div class="number" id="admTodayLeft">₹0</div><div class="label">💰 TODAY NET CASHFLOW</div></div>
-</div>
-
-<h3 class="section-title overall">📊 CUMULATIVE LIFETIME ENTERPRISE METRICS</h3>
-<div class="stats-grid">
-<div class="stat-card blue"><div class="number" id="admTotalClients">0</div><div class="label">Total Clients</div></div>
-<div class="stat-card blue"><div class="number" id="admTotalArchive">0</div><div class="label">Total Archive/Kill</div></div>
-<div class="stat-card blue"><div class="number" id="admTotalTask">0</div><div class="label">Total Tasks Done</div></div>
-<div class="stat-card blue"><div class="number" id="admTotalAgents">0</div><div class="label">Total Managed Agents</div></div>
-</div>
-<div class="stats-grid">
-<div class="stat-card green"><div class="number" id="admOvDep1">₹0</div><div class="label">Overall 1st Deposit</div></div>
-<div class="stat-card green"><div class="number" id="admOvDep2">₹0</div><div class="label">Overall 2nd Deposit</div></div>
-<div class="stat-card orange"><div class="number" id="admOvWD">₹0</div><div class="label">Overall Withdrawal</div></div>
-<div class="stat-card purple"><div class="number" id="admTotalDep">₹0</div><div class="label">TOTAL LEDGER INFLOW</div></div>
-</div>
-<div class="stats-grid">
-<div class="stat-card orange"><div class="number" id="admTotalWD">₹0</div><div class="label">TOTAL LEDGER OUTFLOW</div></div>
-<div class="stat-card green"><div class="number" id="admLeftAmount">₹0</div><div class="label">💰 TOTAL RESERVED LIQUIDITY</div></div>
-<div class="stat-card orange"><div class="number" id="admActiveAccounts">0</div><div class="label">Active Node Assets</div></div>
-</div>
-
-<div id="adminWarnings"></div>
-
-<div class="tabs">
-<button class="tab active" onclick="switchTab('admOverview',this)">📊 Corporate Overview</button>
-<button class="tab" onclick="switchTab('admTargets',this)">🎯 Provision Goals</button>
-<button class="tab" onclick="switchTab('admAgents',this)">🧑‍💼 Agents Metrics</button>
-<button class="tab" onclick="switchTab('admClients',this)">👥 Client Framework</button>
-<button class="tab" onclick="switchTab('admMaintenance',this)">🔄 Sync Audits</button>
-<button class="tab" onclick="switchTab('admAccounts',this)">📱 Dynamic Nodes</button>
-<button class="tab" onclick="switchTab('admReports',this)">📝 Data Ledger Reports</button>
-<button class="tab" onclick="switchTab('admLeaderboard',this)">🏆 Ranks Board</button>
-<button class="tab" onclick="switchTab('admSearch',this)">🔍 Master Registry Query</button>
-</div>
-
-<div id="admOverview" class="tab-content active">
-<div class="card"><h3>📊 Modern Matrix Analysis Output</h3><div id="admTodayPerf"></div></div>
-<div class="card"><h3>🚨 Pending Actionable Accounts (Attention Threshold Exceeded!)</h3><div id="admPendingClients"></div></div>
-</div>
-
-<div id="admTargets" class="tab-content">
-<div class="card">
-<h3>🎯 Set Strategic Operations Milestone KPIs per Managed Agent Node</h3>
-<div id="admTargetAlert" class="alert"></div>
-<p style="color: var(--text-muted);margin-bottom:20px;font-size:13px">⚡ Updates deploy across client targets globally instantly on execution node.</p>
-<div id="admTargetsList"></div>
 </div></div>
 
-<div id="admAgents" class="tab-content">
-<div class="card"><h3>🧑‍💼 Active Network Agent Nodes Performance Stream</h3>
-<div id="admAgentsList" class="agent-grid"></div></div></div>
+<script type="module">
+  // 1. Firebase CDN Imports (Browser-friendly)
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+  import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-<div id="admClients" class="tab-content">
-<div class="card"><h3>👥 Enterprise Central Client Directory Registry Logs</h3>
-<div class="search-box">
-<input type="text" id="admFilter" placeholder="🔍 Direct search criteria via node parameters like agent names, unique tokens..." oninput="applyClientFilters()">
-</div>
-<div class="filter-tags">
-<div class="filter-title">📊 Granular Status Pipeline Sieve</div>
-<div class="filter-tag active" data-filter="status" data-value="all" onclick="setFilter(this)">All Logs <span class="count" id="cnt_all">0</span></div>
-<div class="filter-tag" data-filter="status" data-value="active" onclick="setFilter(this)">🟢 Active Node <span class="count" id="cnt_active">0</span></div>
-</div>
-</div>
-</div>
+  // 2. Exact Firebase Configuration Parameters
+  const firebaseConfig = {
+    apiKey: "AIzaSyBSR-uU2yUIaBb50tneY1jB49EG1UWQb6c",
+    authDomain: "client-management-system-cf3fa.firebaseapp.com",
+    projectId: "client-management-system-cf3fa",
+    storageBucket: "client-management-system-cf3fa.firebasestorage.app",
+    messagingSenderId: "23621940406",
+    appId: "1:23621940406:web:3b0ddaad0269cf4251a217"
+  };
 
-</div>
-</div>
+  // 3. Initialize Services
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getDatabase(app);
 
+  // --- PAGE SWITCHER ENGINE ---
+  window.showPage = function(pageId) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const targetPage = document.getElementById(pageId);
+    if (targetPage) targetPage.classList.add('active');
+  };
+
+  // --- TAB NAVIGATION ENGINE ---
+  window.switchTab = function(tabId, element) {
+    // Hide all tab contents under parent context
+    const tabContents = element.closest('.dashboard').querySelectorAll('.tab-content');
+    const tabs = element.closest('.tabs').querySelectorAll('.tab');
+    
+    tabContents.forEach(c => c.classList.remove('active'));
+    tabs.forEach(t => t.classList.remove('active'));
+    
+    document.getElementById(tabId).classList.add('active');
+    element.classList.add('active');
+  };
+
+  // --- ACTION LOGIN ---
+  window.loginUser = function() {
+    const email = document.getElementById("loginEmail").value.trim();
+    const password = document.getElementById("loginPassword").value;
+    const alertBox = document.getElementById("loginAlert");
+
+    if(!email || !password) {
+      alertBox.innerText = "❌ Please provide credentials in all input fields.";
+      alertBox.classList.add("show");
+      return;
+    }
+
+    // Execute authentication pipeline
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        alertBox.classList.remove("show");
+        alertBox.innerText = "";
+        
+        // Dynamic Role Assessment directly from Realtime DB Node
+        const userId = userCredential.user.uid;
+        get(ref(db, 'users/' + userId)).then((snapshot) => {
+          if (snapshot.exists()) {
+            const userData = snapshot.val();
+            if(userData.role === "admin") {
+              showPage("adminPage");
+            } else {
+              document.getElementById("agentBadge").innerText = userData.name || "Agent Node";
+              showPage("agentPage");
+            }
+          } else {
+            showPage("agentPage");
+          }
+        });
+      })
+      .catch((error) => {
+        alertBox.innerText = "🚨 Access Denied: " + error.message;
+        alertBox.classList.add("show");
+      });
+  };
+
+  // --- ACTION REGISTER ---
+  window.registerUser = function() {
+    const name = document.getElementById("regName").value.trim();
+    const code = document.getElementById("regCode").value.trim();
+    const email = document.getElementById("regEmail").value.trim();
+    const password = document.getElementById("regPassword").value;
+    const alertBox = document.getElementById("registerAlert");
+
+    if(!name || !code || !email || !password) {
+      alertBox.innerText = "❌ Every registry node field is mandatory.";
+      alertBox.classList.add("show");
+      return;
+    }
+
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const userId = userCredential.user.uid;
+        // Save mapping data matrix into the database
+        set(ref(db, 'users/' + userId), {
+          name: name,
+          code: code,
+          email: email,
+          role: "agent" // Default node fallback identity
+        }).then(() => {
+          alertBox.classList.remove("show");
+          showPage("agentPage");
+        });
+      })
+      .catch((error) => {
+        alertBox.innerText = "🚨 Registry Refused: " + error.message;
+        alertBox.classList.add("show");
+      });
+  };
+
+  // --- ACTION LOGOUT ---
+  window.logoutUser = function() {
+    signOut(auth).then(() => {
+      showPage("loginPage");
+    }).catch((error) => {
+      console.error("System structural pipeline error during exit sequence:", error);
+    });
+  };
+
+  // --- PERSISTENT SESSION TRACKER ---
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      get(ref(db, 'users/' + user.uid)).then((snapshot) => {
+        if (snapshot.exists() && snapshot.val().role === "admin") {
+          showPage("adminPage");
+        } else {
+          if(document.getElementById("agentBadge") && snapshot.exists()) {
+            document.getElementById("agentBadge").innerText = snapshot.val().name || "Agent Profile";
+          }
+          showPage("agentPage");
+        }
+      });
+    } else {
+      showPage("loginPage");
+    }
+  });
+
+  // --- PLACEHOLDERS FOR YOUR ADDITIONAL CUSTOM FUNCTIONS ---
+  window.addClient = function() { console.log("Profile submission pipeline active"); };
+  window.loadClientMgmt = function() { console.log("Sync active directory maps"); };
+  window.addAccount = function() { console.log("Account linkage committed"); };
+  window.addMaintenance = function() { console.log("Audit log tracked"); };
+  window.generateReport = function() { console.log("Matrix processed"); };
+  window.saveReport = function() { console.log("EOD snapshot stored"); };
+  window.copyReport = function() { console.log("Buffer buffered"); };
+  window.searchClient = function() { console.log("Sieve queries running"); };
+</script>
 </body>
 </html>
