@@ -773,6 +773,74 @@ return`<div class="client-row ${rc}">
 <div class="progress-grid">${pg.map(p=>`<div class="progress-item ${c[p.k]?'done':'pending'}">${c[p.k]?'✅':'❌'} ${p.l}</div>`).join('')}</div>
 ${st==='active'?`<div style="margin-top:10px"><button class="btn btn-info btn-sm" onclick="openClientModal('${c.id}')">⚙️ Manage</button></div>`:''}</div>`}
 
+// EDIT CLIENT (Basic Info)
+window.editClient=async id=>{
+const d=await getDoc(doc(db,"clients",id));if(!d.exists())return;const c={id,...d.data()};
+$('modalClientName').textContent='✏️ Edit Client: '+c.clientName;
+$('modalContent').innerHTML=`<div class="form-grid">
+<div class="form-group"><label>📅 Date</label><input type="date" id="e_date" value="${c.date||''}"></div>
+<div class="form-group"><label>📱 Phone *</label><input type="text" id="e_phone" value="${c.clientPhone||''}"></div>
+<div class="form-group"><label>👤 Name *</label><input type="text" id="e_name" value="${c.clientName||''}"></div>
+<div class="form-group"><label>🎂 Age</label><input type="number" id="e_age" value="${c.clientAge||''}"></div>
+<div class="form-group"><label>📍 Location</label><input type="text" id="e_location" value="${c.clientLocation||''}"></div>
+<div class="form-group"><label>💼 Profession</label><input type="text" id="e_profession" value="${c.clientProfession||''}"></div>
+<div class="form-group"><label>🔗 Facebook</label><input type="text" id="e_facebook" value="${c.clientFacebook||''}"></div>
+<div class="form-group"><label>📱 Platform</label><select id="e_platform">
+<option value="">Select</option>
+<option ${c.platform==='Facebook'?'selected':''}>Facebook</option>
+<option ${c.platform==='Instagram'?'selected':''}>Instagram</option>
+<option ${c.platform==='WhatsApp'?'selected':''}>WhatsApp</option>
+<option ${c.platform==='Telegram'?'selected':''}>Telegram</option>
+<option ${c.platform==='TikTok'?'selected':''}>TikTok</option>
+</select></div>
+<div class="form-group"><label>🧑 Model</label><select id="e_model">
+<option value="">Select</option>
+<option ${c.modelName==='Daisy'?'selected':''}>Daisy</option>
+<option ${c.modelName==='Bella'?'selected':''}>Bella</option>
+</select></div>
+<div class="form-group"><label>🎂 Model Age</label><input type="number" id="e_modelAge" value="${c.modelAge||''}"></div>
+<div class="form-group"><label>📍 Model Location</label><input type="text" id="e_modelLocation" value="${c.modelLocation||''}"></div>
+</div>
+<div style="margin-top:15px;display:flex;gap:10px;flex-wrap:wrap">
+<button class="btn btn-success" onclick="saveEditClient('${c.id}')">💾 Save Changes</button>
+<button class="btn btn-warning" onclick="closeModal('clientModal')">Cancel</button>
+</div>`;
+$('clientModal').classList.add('show');
+};
+
+window.saveEditClient=async id=>{
+const phone=$('e_phone').value.trim();
+const name=$('e_name').value.trim();
+if(!phone||!name)return showInfo('❌ Error!','Phone aur Name required hain!');
+await updateDoc(doc(db,"clients",id),{
+date:$('e_date').value,
+clientPhone:phone,
+clientName:name,
+clientAge:$('e_age').value,
+clientLocation:$('e_location').value,
+clientProfession:$('e_profession').value,
+clientFacebook:$('e_facebook').value,
+platform:$('e_platform').value,
+modelName:$('e_model').value,
+modelAge:$('e_modelAge').value,
+modelLocation:$('e_modelLocation').value
+});
+closeModal('clientModal');
+loadClientMgmt();
+loadAgentDashboard();
+showInfo('✅ Updated!','Client details successfully updated!');
+};
+
+// DELETE CLIENT
+window.deleteClient=(id,name)=>{
+showConfirm('🗑️ Delete Client?',`Are you sure you want to <strong style="color:#e74c3c">DELETE</strong> client:<br><br><strong>${name}</strong><br><br>⚠️ This action <strong>CANNOT be undone!</strong> All data will be lost.`,async()=>{
+await deleteDoc(doc(db,"clients",id));
+loadClientMgmt();
+loadAgentDashboard();
+showInfo('✅ Deleted!','Client has been permanently deleted.');
+});
+};
+  
 window.openClientModal=async id=>{
 const d=await getDoc(doc(db,"clients",id));if(!d.exists())return;const c={id,...d.data()};
 $('modalClientName').textContent='Manage: '+c.clientName;
