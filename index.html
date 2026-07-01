@@ -5,147 +5,169 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Client Management System Pro</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
-body{background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);min-height:100vh;color:#fff}
+:root {
+    --bg-main: #0b0914;
+    --bg-card: rgba(20, 18, 38, 0.6);
+    --border-color: rgba(255, 255, 255, 0.08);
+    --primary: linear-gradient(135deg, #ff416c, #ff4b2b);
+    --secondary: linear-gradient(135deg, #e94560, #c0392b);
+    --success: linear-gradient(135deg, #11998e, #38ef7d);
+    --warning: linear-gradient(135deg, #f39c12, #f1c40f);
+    --danger: linear-gradient(135deg, #cb2d3e, #ef473a);
+    --info: linear-gradient(135deg, #00c6ff, #0072ff);
+    --purple: linear-gradient(135deg, #7f00ff, #e100ff);
+    --text-main: #ffffff;
+    --text-muted: #a0aec0;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter', 'Segoe UI', sans-serif}
+body{background-color: var(--bg-main); background-image: radial-gradient(at 0% 0%, rgba(127, 0, 255, 0.15) 0px, transparent 50%), radial-gradient(at 100% 100%, rgba(233, 69, 96, 0.1) 0px, transparent 50%); min-height:100vh; color: var(--text-main); -webkit-font-smoothing: antialiased;}
 .page{display:none}.page.active{display:block}
+
+/* Auth Section UI Upgrade */
 .auth-container{display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px}
-.auth-box{background:rgba(255,255,255,0.05);backdrop-filter:blur(15px);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:40px;width:100%;max-width:450px}
-.auth-box h2{text-align:center;margin-bottom:30px;font-size:26px;background:linear-gradient(to right,#e94560,#f39c12);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.logo{text-align:center;font-size:50px;margin-bottom:10px}
-.form-group{margin-bottom:18px}
-.form-group label{display:block;margin-bottom:6px;color:#bbb;font-size:13px;font-weight:500}
-.form-group input,.form-group select,.form-group textarea{width:100%;padding:11px 14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;color:#fff;font-size:14px;outline:none;transition:.3s}
-.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:#e94560;background:rgba(255,255,255,0.1)}
-.form-group select option{background:#1a1a2e}
-.form-group textarea{resize:vertical;min-height:80px;font-family:inherit}
-.btn{padding:11px 22px;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:.3s}
-.btn-primary{background:linear-gradient(to right,#e94560,#c0392b);color:#fff}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 5px 20px rgba(233,69,96,.4)}
-.btn-success{background:linear-gradient(to right,#27ae60,#2ecc71);color:#fff}
-.btn-warning{background:linear-gradient(to right,#f39c12,#e67e22);color:#fff}
-.btn-danger{background:linear-gradient(to right,#c0392b,#e74c3c);color:#fff}
-.btn-info{background:linear-gradient(to right,#3498db,#2980b9);color:#fff}
-.btn-sm{padding:6px 12px;font-size:12px}
-.btn-block{width:100%;padding:13px;font-size:15px}
-.switch-auth{text-align:center;margin-top:15px;color:#bbb;font-size:13px}
-.switch-auth span{color:#e94560;cursor:pointer;font-weight:600}
-.navbar{background:rgba(0,0,0,.4);backdrop-filter:blur(15px);padding:12px 25px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,.08);position:sticky;top:0;z-index:100;flex-wrap:wrap;gap:10px}
-.navbar-brand{font-size:18px;font-weight:700;color:#e94560}
-.navbar-user{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.user-badge{background:linear-gradient(to right,#e94560,#c0392b);padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600}
-.dashboard{padding:20px;max-width:1500px;margin:0 auto}
-.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px;margin-bottom:20px}
-.stat-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:18px;text-align:center;transition:.3s}
-.stat-card:hover{transform:translateY(-3px);border-color:#e94560}
-.stat-card .number{font-size:24px;font-weight:700;color:#e94560}
-.stat-card .label{color:#bbb;font-size:11px;margin-top:5px}
-.stat-card.green .number{color:#2ecc71}
-.stat-card.orange .number{color:#f39c12}
-.stat-card.blue .number{color:#3498db}
-.stat-card.red .number{color:#e74c3c}
-.stat-card.purple .number{color:#9b59b6}
-.tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
-.tab{padding:9px 18px;border-radius:20px;cursor:pointer;font-size:13px;font-weight:600;transition:.3s;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#bbb}
-.tab.active{background:linear-gradient(to right,#e94560,#c0392b);color:#fff;border-color:transparent}
+.auth-box{background: var(--bg-card); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--border-color); border-radius: 24px; padding:45px 40px; width:100%; max-width:450px; box-shadow: 0 20px 40px rgba(0,0,0,0.4);}
+.auth-box h2{text-align:center;margin-bottom:30px;font-size:28px;font-weight: 700; background:linear-gradient(to right, #ff416c, #f39c12);-webkit-background-clip:text;-webkit-text-fill-color:transparent; letter-spacing: -0.5px;}
+.logo{text-align:center;font-size:55px;margin-bottom:15px; filter: drop-shadow(0 4px 12px rgba(233,69,96,0.3));}
+
+/* Modern Form Controls */
+.form-group{margin-bottom:20px}
+.form-group label{display:block;margin-bottom:8px;color: var(--text-muted);font-size:13px;font-weight:600; text-transform: uppercase; letter-spacing: 0.5px;}
+.form-group input, .form-group select, .form-group textarea{width:100%;padding:13px 16px;background: rgba(255, 255, 255, 0.04);border:1px solid var(--border-color);border-radius:12px;color:#fff;font-size:14px;outline:none;transition: all .3s cubic-bezier(0.4, 0, 0.2, 1);}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus{border-color:#ff416c;background:rgba(255,255,255,0.08); box-shadow: 0 0 15px rgba(255, 65, 108, 0.25);}
+.form-group select option{background:#131129; color: #fff;}
+.form-group textarea{resize:vertical;min-height:90px;font-family:inherit}
+
+/* Premium Dynamic Buttons */
+.btn{padding:12px 24px;border:none;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;transition: all .25s ease; display: inline-flex; align-items: center; justify-content: center; gap: 8px;}
+.btn:hover{transform:translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.3);}
+.btn:active{transform: translateY(0);}
+.btn-primary{background: var(--primary);color:#fff}
+.btn-primary:hover{box-shadow:0 6px 20px rgba(255,65,108,.35)}
+.btn-success{background: var(--success);color:#fff}
+.btn-success:hover{box-shadow:0 6px 20px rgba(56,239,125,.35)}
+.btn-warning{background: var(--warning);color:#fff}
+.btn-danger{background: var(--danger);color:#fff}
+.btn-danger:hover{box-shadow:0 6px 20px rgba(239,71,58,.35)}
+.btn-info{background: var(--info);color:#fff}
+.btn-sm{padding:8px 16px;font-size:12px; border-radius: 8px;}
+.btn-block{width:100%;padding:14px;font-size:15px}
+.switch-auth{text-align:center;margin-top:20px;color: var(--text-muted);font-size:14px}
+.switch-auth span{color:#ff416c;cursor:pointer;font-weight:600; transition: .2s;}
+.switch-auth span:hover{text-decoration: underline;}
+
+/* Glassmorphism Navigation Navbar */
+.navbar{background: rgba(11, 9, 20, 0.75); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); padding:16px 30px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border-color);position:sticky;top:0;z-index:100;gap:15px}
+.navbar-brand{font-size:22px;font-weight:800; background: var(--primary); -webkit-background-clip:text;-webkit-text-fill-color:transparent; letter-spacing: -0.5px;}
+.navbar-user{display:flex;align-items:center;gap:15px}
+.user-badge{background: var(--primary);padding:8px 16px;border-radius:30px;font-size:12px;font-weight:700; letter-spacing: 0.5px; box-shadow: 0 4px 12px rgba(255,65,108,0.25);}
+
+/* Dashboard Setup */
+.dashboard{padding:30px 20px;max-width:1600px;margin:0 auto}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;margin-bottom:25px}
+.stat-card{background: var(--bg-card); backdrop-filter: blur(10px); border:1px solid var(--border-color);border-radius:18px;padding:24px;text-align:left;position:relative; overflow:hidden; transition:all .3s ease;}
+.stat-card::after {content:''; position: absolute; bottom: 0; left: 0; width: 100%; height: 3px; background: transparent;}
+.stat-card:hover{transform:translateY(-5px);border-color: rgba(255,255,255,0.15); box-shadow: 0 12px 25px rgba(0,0,0,0.3);}
+.stat-card .number{font-size:32px;font-weight:800;color:#fff; line-height: 1.2; letter-spacing: -0.5px;}
+.stat-card .label{color: var(--text-muted);font-size:12px; font-weight: 600; text-transform: uppercase; margin-top:6px; letter-spacing: 0.5px;}
+
+.stat-card.green .number{color:#38ef7d} .stat-card.green::after{background: var(--success);}
+.stat-card.orange .number{color:#f39c12} .stat-card.orange::after{background: var(--warning);}
+.stat-card.blue .number{color:#0072ff} .stat-card.blue::after{background: var(--info);}
+.stat-card.red .number{color:#ef473a} .stat-card.red::after{background: var(--danger);}
+.stat-card.purple .number{color:#e100ff} .stat-card.purple::after{background: var(--purple);}
+
+/* Clean Dynamic Tabs */
+.tabs{display:flex;gap:10px;margin-bottom:25px;flex-wrap:wrap; background: rgba(255,255,255,0.02); padding: 8px; border-radius: 16px; border: 1px solid var(--border-color);}
+.tab{padding:10px 20px;border-radius:12px;cursor:pointer;font-size:14px;font-weight:600;transition:.25s ease;color: var(--text-muted); border: none; background: transparent;}
+.tab:hover{color: #fff; background: rgba(255,255,255,0.04);}
+.tab.active{background: var(--primary);color:#fff;box-shadow: 0 4px 15px rgba(255, 65, 108, 0.25);}
 .tab-content{display:none}.tab-content.active{display:block}
-.card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:15px;padding:25px;margin-bottom:20px}
-.card h3{font-size:18px;margin-bottom:20px;color:#e94560;border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
-.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px}
-.table-container{overflow-x:auto;border-radius:10px}
-table{width:100%;border-collapse:collapse;font-size:12px}
-thead tr{background:linear-gradient(to right,#e94560,#c0392b)}
-thead th{padding:12px 10px;text-align:left;font-weight:600;white-space:nowrap;font-size:11px}
-tbody tr{border-bottom:1px solid rgba(255,255,255,.05);transition:.3s}
-tbody tr:hover{background:rgba(255,255,255,.04)}
-tbody td{padding:10px;color:#ddd;white-space:nowrap}
-tbody tr.killed{opacity:.5;background:rgba(231,76,60,.05)}
-tbody tr.archived{opacity:.6;background:rgba(149,165,166,.05)}
-.badge{padding:3px 10px;border-radius:15px;font-size:11px;font-weight:600;display:inline-block}
-.badge-active{background:rgba(46,204,113,.2);color:#2ecc71;border:1px solid #2ecc71}
-.badge-repeat{background:rgba(233,69,96,.2);color:#e94560;border:1px solid #e94560}
-.badge-new{background:rgba(46,204,113,.2);color:#2ecc71;border:1px solid #2ecc71}
-.badge-archive{background:rgba(149,165,166,.2);color:#95a5a6;border:1px solid #95a5a6}
-.badge-kill{background:rgba(231,76,60,.2);color:#e74c3c;border:1px solid #e74c3c}
-.badge-ban{background:rgba(231,76,60,.2);color:#e74c3c;border:1px solid #e74c3c}
-.badge-warning{background:rgba(243,156,18,.2);color:#f39c12;border:1px solid #f39c12}
-.search-box{display:flex;gap:10px;margin-bottom:15px;flex-wrap:wrap}
-.search-box input{flex:1;min-width:200px;padding:11px 18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:25px;color:#fff;font-size:14px;outline:none}
-.search-box input:focus{border-color:#e94560}
-.alert{padding:13px 18px;border-radius:10px;margin-bottom:15px;font-weight:500;font-size:13px;display:none}
+
+/* Premium Layout Cards */
+.card{background: var(--bg-card); backdrop-filter: blur(10px); border:1px solid var(--border-color);border-radius:20px;padding:30px;margin-bottom:25px; box-shadow: 0 10px 30px rgba(0,0,0,0.15);}
+.card h3{font-size:20px; font-weight:700; margin-bottom:25px;color:#fff; border-bottom:1px solid var(--border-color);padding-bottom:15px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px; letter-spacing: -0.5px;}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
+
+/* Advanced Clean Responsive Tables */
+.table-container{overflow-x:auto;border-radius:14px; border: 1px solid var(--border-color); background: rgba(0,0,0,0.2);}
+table{width:100%;border-collapse:collapse;font-size:13px; text-align: left;}
+thead tr{background: rgba(255, 255, 255, 0.03); border-bottom: 1px solid var(--border-color);}
+thead th{padding:16px 18px; color: var(--text-muted); font-weight:600; text-transform: uppercase; font-size:11px; letter-spacing: 0.5px;}
+tbody tr{border-bottom:1px solid rgba(255,255,255,.02);transition:.2s;}
+tbody tr:hover{background:rgba(255,255,255,.02)}
+tbody td{padding:14px 18px;color:#e2e8f0;}
+tbody tr.killed{opacity:.4;background:rgba(239,71,58,.03)}
+tbody tr.archived{opacity:.5;background:rgba(160,174,192,.03)}
+
+/* Luxury Status Badges */
+.badge{padding:5px 12px;border-radius:30px;font-size:11px;font-weight:700;display:inline-flex;align-items:center; gap:5px; margin:2px; text-transform: uppercase; letter-spacing: 0.3px;}
+.badge-active{background:rgba(56,239,125,.12);color:#38ef7d;border:1px solid rgba(56,239,125,.25)}
+.badge-repeat{background:rgba(255,65,108,.12);color:#ff416c;border:1px solid rgba(255,65,108,.25)}
+.badge-new{background:rgba(56,239,125,.12);color:#38ef7d;border:1px solid rgba(56,239,125,.25)}
+.badge-archive{background:rgba(160,174,192,.12);color:#a0aec0;border:1px solid rgba(160,174,192,.25)}
+.badge-kill{background:rgba(239,71,58,.12);color:#ef473a;border:1px solid rgba(239,71,58,.25)}
+.badge-ban{background:rgba(239,71,58,.12);color:#ef473a;border:1px solid rgba(239,71,58,.25)}
+.badge-warning, .badge-pending{background:rgba(243,156,18,.12);color:#f39c12;border:1px solid rgba(243,156,18,.25)}
+.badge-complete{background:rgba(56,239,125,.12);color:#38ef7d;border:1px solid rgba(56,239,125,.25)}
+.badge-deposit-done{background:rgba(225,0,255,.12);color:#e100ff;border:1px solid rgba(225,0,255,.25)}
+
+/* Interactive Filters & Search */
+.search-box{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.search-box input{flex:1;min-width:250px;padding:13px 22px;background:rgba(255,255,255,.04);border:1px solid var(--border-color);border-radius:30px;color:#fff;font-size:14px;outline:none; transition: .3s;}
+.search-box input:focus{border-color:#ff416c; background: rgba(255,255,255,0.06); box-shadow: 0 0 15px rgba(255,65,108,0.15);}
+.filter-tags{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px;padding:16px;background:rgba(0,0,0,.2);border-radius:14px; border: 1px solid var(--border-color);}
+.filter-tag{padding:8px 16px;border-radius:30px;cursor:pointer;font-size:12px;font-weight:600;transition:.25s;background:rgba(255,255,255,.04);border:1px solid var(--border-color);color: var(--text-muted);user-select:none}
+.filter-tag:hover{background:rgba(255,255,255,.08);color:#fff}
+.filter-tag.active{background: var(--primary);color:#fff;border-color:transparent; box-shadow: 0 4px 12px rgba(255,65,108,0.25);}
+.filter-title{color: var(--text-muted);font-size:11px;font-weight:700;text-transform:uppercase;margin:4px 0 8px;width:100%; letter-spacing: 0.5px;}
+
+/* Custom Alert Systems */
+.alert{padding:14px 20px;border-radius:12px;margin-bottom:20px;font-weight:500;font-size:14px;display:none; animation: fadeIn 0.3s ease;}
 .alert.show{display:block}
-.alert-danger{background:rgba(231,76,60,.15);border:1px solid #e74c3c;color:#e74c3c}
-.alert-success{background:rgba(46,204,113,.15);border:1px solid #2ecc71;color:#2ecc71}
-.alert-warning{background:rgba(243,156,18,.15);border:1px solid #f39c12;color:#f39c12}
-.alert-info{background:rgba(52,152,219,.15);border:1px solid #3498db;color:#3498db}
-.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.8);z-index:999;justify-content:center;align-items:center;padding:20px;overflow-y:auto}
-.modal.show{display:flex}
-.modal-box{background:#1a1a2e;border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:25px;max-width:700px;width:100%;max-height:90vh;overflow-y:auto}
-.modal-box h3{color:#e94560;font-size:20px;margin-bottom:15px}
-.modal-close{float:right;background:rgba(255,255,255,.1);border:none;color:#fff;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:16px}
-.agent-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:15px}
-.agent-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:18px;transition:.3s}
-.agent-card:hover{border-color:#e94560;transform:translateY(-3px)}
-.agent-card h4{color:#e94560;font-size:16px;margin-bottom:10px}
-.agent-card p{color:#bbb;font-size:13px;margin-bottom:5px}
-.client-row{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:15px;margin-bottom:10px;transition:.3s}
-.client-row.killed{opacity:.5;background:rgba(231,76,60,.05)}
-.client-row.archived{opacity:.6;background:rgba(149,165,166,.05)}
-.client-row h4{color:#e94560;font-size:15px;margin-bottom:8px}
-.client-info{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;font-size:12px;color:#bbb;margin-bottom:10px}
-.client-info span strong{color:#fff}
-.progress-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-top:8px}
-.progress-item{background:rgba(0,0,0,.2);padding:6px 10px;border-radius:6px;font-size:11px;text-align:center}
-.progress-item.done{background:rgba(46,204,113,.2);color:#2ecc71}
-.progress-item.pending{background:rgba(231,76,60,.15);color:#e74c3c}
-.day-badge{background:linear-gradient(to right,#3498db,#2980b9);padding:3px 10px;border-radius:12px;font-size:11px;font-weight:700;display:inline-block;margin-right:5px}
-.day-badge.warning{background:linear-gradient(to right,#f39c12,#e67e22)}
-.day-badge.danger{background:linear-gradient(to right,#e74c3c,#c0392b);animation:pulse 1.5s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.7}}
-.loading{text-align:center;padding:30px;color:#bbb;font-size:14px}
-.spinner{width:35px;height:35px;border:3px solid rgba(255,255,255,.1);border-top-color:#e94560;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 10px}
-@keyframes spin{to{transform:rotate(360deg)}}
-.report-box{background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:20px;margin-top:15px;font-family:'Courier New',monospace;white-space:pre-wrap;font-size:13px;line-height:1.6}
-.section-title{margin-bottom:12px;font-size:16px;display:flex;align-items:center;gap:8px}
-.section-title.today{color:#2ecc71}
-.section-title.overall{color:#3498db}
-.target-banner{background:linear-gradient(135deg,rgba(233,69,96,.2),rgba(243,156,18,.2));border:2px solid #e94560;border-radius:20px;padding:25px;margin-bottom:25px;position:relative;overflow:hidden}
-.target-banner::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(to right,#e94560,#f39c12,#2ecc71);animation:slide 3s infinite}
+@keyframes fadeIn { from{opacity:0; transform: translateY(-5px);} to{opacity:1; transform: translateY(0));} }
+.alert-danger{background:rgba(239,71,58,.12);border:1px solid #ef473a;color:#ef473a}
+.alert-success{background:rgba(56,239,125,.12);border:1px solid #38ef7d;color:#38ef7d}
+.alert-warning{background:rgba(243,156,18,.12);border:1px solid #f39c12;color:#f39c12}
+
+/* Targets Dashboard Banner Upgrade */
+.target-banner{background: linear-gradient(135deg, rgba(255, 65, 108, 0.12), rgba(243, 156, 18, 0.12));border: 1px solid rgba(255, 65, 108, 0.3);border-radius:24px;padding:30px;margin-bottom:30px;position:relative;overflow:hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2);}
+.target-banner::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(to right,#ff416c,#f39c12,#38ef7d);animation:slide 4s linear infinite}
 @keyframes slide{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
-.target-banner h2{color:#e94560;font-size:20px;margin-bottom:15px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.target-banner.achieved{background:linear-gradient(135deg,rgba(46,204,113,.2),rgba(39,174,96,.2));border-color:#2ecc71}
-.target-banner.achieved h2{color:#2ecc71}
-.target-banner.failed{background:linear-gradient(135deg,rgba(231,76,60,.3),rgba(192,57,43,.3));border-color:#e74c3c}
-.target-banner.failed h2{color:#e74c3c}
-.target-banner.no-target{background:rgba(149,165,166,.1);border-color:#95a5a6}
-.target-banner.no-target h2{color:#95a5a6}
-.target-items{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;margin-bottom:15px}
-.target-item{background:rgba(0,0,0,.3);padding:15px;border-radius:10px;text-align:center}
-.target-item .label{color:#bbb;font-size:12px;margin-bottom:8px}
-.target-item .progress-text{font-size:20px;font-weight:700;color:#fff;margin-bottom:8px}
-.target-item .progress-text .done{color:#2ecc71}
-.target-item .progress-text .target{color:#e94560}
-.target-item .percentage{font-size:13px;font-weight:600;padding:3px 10px;border-radius:12px;display:inline-block}
-.target-item.completed{background:rgba(46,204,113,.15);border:1px solid #2ecc71}
-.target-item.partial{background:rgba(243,156,18,.15);border:1px solid #f39c12}
-.target-item.failed{background:rgba(231,76,60,.15);border:1px solid #e74c3c}
-.target-item.completed .percentage{background:#2ecc71;color:#fff}
-.target-item.partial .percentage{background:#f39c12;color:#fff}
-.target-item.failed .percentage{background:#e74c3c;color:#fff}
-.overall-progress{background:rgba(0,0,0,.3);padding:15px;border-radius:10px;margin-top:10px}
-.overall-progress .bar-wrap{background:rgba(255,255,255,.05);height:25px;border-radius:15px;overflow:hidden;margin-top:8px;position:relative}
-.overall-progress .bar{height:100%;background:linear-gradient(to right,#e74c3c,#f39c12,#2ecc71);border-radius:15px;transition:width 1s;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:13px;min-width:50px}
-.target-msg{margin-top:15px;padding:15px;border-radius:10px;text-align:center;font-weight:600;font-size:15px}
-.target-msg.success{background:rgba(46,204,113,.2);color:#2ecc71;border:1px solid #2ecc71}
-.target-msg.warn{background:rgba(243,156,18,.2);color:#f39c12;border:1px solid #f39c12}
-.target-msg.fail{background:rgba(231,76,60,.2);color:#e74c3c;border:1px solid #e74c3c}
-.target-set-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:20px;margin-bottom:15px}
-.target-set-card h4{color:#e94560;margin-bottom:15px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
-.target-progress-summary{font-size:12px;color:#bbb;background:rgba(0,0,0,.2);padding:8px 12px;border-radius:8px;margin-bottom:10px}
-.target-progress-summary.achieved{color:#2ecc71}
-.target-progress-summary.failed{color:#e74c3c}
-@media(max-width:600px){
-.dashboard{padding:12px}.navbar{padding:10px 12px}.card{padding:15px}.stat-card .number{font-size:20px}
-.target-banner{padding:18px}.target-banner h2{font-size:17px}
+.target-banner h2{color:#ff416c;font-size:22px; font-weight: 700; margin-bottom:20px;display:flex;align-items:center;gap:10px;flex-wrap:wrap; letter-spacing: -0.5px;}
+.target-banner.achieved{background:linear-gradient(135deg,rgba(56,239,125,.1),rgba(17,153,142,.1));border-color: rgba(56,239,125,0.3);}
+.target-banner.achieved h2{color:#38ef7d}
+.target-items{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;}
+.target-item{background:rgba(0,0,0,0.25);padding:18px;border-radius:14px;text-align:center; border: 1px solid var(--border-color);}
+.target-item .label{color: var(--text-muted);font-size:12px; font-weight: 600; text-transform: uppercase; margin-bottom:8px;}
+.target-item .progress-text{font-size:22px;font-weight:800;color:#fff;margin-bottom:8px}
+.overall-progress{background:rgba(0,0,0,.25);padding:20px;border-radius:14px;margin-top:20px; border: 1px solid var(--border-color);}
+.overall-progress .bar-wrap{background:rgba(255,255,255,.04);height:20px;border-radius:10px;overflow:hidden;margin-top:10px;}
+.overall-progress .bar{height:100%;background:linear-gradient(to right, #ef473a, #f39c12, #38ef7d);border-radius:10px;transition:width 1s ease-in-out;}
+
+/* Sections Titles Custom Style */
+.section-title{margin: 15px 0 20px; font-size:14px; font-weight: 700; display:flex;align-items:center;gap:8px; letter-spacing: 1px; text-transform: uppercase;}
+.section-title.today{color:#38ef7d}
+.section-title.overall{color:#0072ff}
+
+/* Modal Popup Window Overlay styling */
+.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(5, 4, 10, 0.85);backdrop-filter: blur(8px); z-index:999;justify-content:center;align-items:center;padding:20px;}
+.modal.show{display:flex}
+.modal-box{background:#121021;border:1px solid var(--border-color);border-radius:24px;padding:30px;max-width:700px;width:100%;max-height:90vh;overflow-y:auto; box-shadow: 0 25px 50px rgba(0,0,0,0.5);}
+
+/* Mobile UI Optimizations */
+@media(max-width:768px){
+    .dashboard{padding:15px 10px}
+    .navbar{padding:12px 15px}
+    .card{padding:20px 15px}
+    .stats-grid{grid-template-columns: repeat(2, 1fr); gap: 12px;}
+    .stat-card{padding: 16px;}
+    .stat-card .number{font-size:24px}
+    .tabs{gap: 5px; padding: 5px;}
+    .tab{padding: 8px 12px; font-size: 12px; border-radius: 8px;}
+}
+@media(max-width:480px){
+    .stats-grid{grid-template-columns: 1fr;}
 }
 </style>
 </head>
@@ -155,9 +177,9 @@ tbody tr.archived{opacity:.6;background:rgba(149,165,166,.05)}
 <div class="auth-container"><div class="auth-box">
 <div class="logo">🏢</div><h2>Client Management Pro</h2>
 <div id="loginAlert" class="alert alert-danger"></div>
-<div class="form-group"><label>📧 Email</label><input type="email" id="loginEmail" placeholder="Enter email"></div>
-<div class="form-group"><label>🔑 Password</label><input type="password" id="loginPassword" placeholder="Enter password"></div>
-<button class="btn btn-primary btn-block" onclick="loginUser()">🚀 Login</button>
+<div class="form-group"><label>📧 Email Address</label><input type="email" id="loginEmail" placeholder="Enter your email"></div>
+<div class="form-group"><label>🔑 Password</label><input type="password" id="loginPassword" placeholder="Enter your password"></div>
+<button class="btn btn-primary btn-block" onclick="loginUser()">🚀 Secure Login</button>
 <div class="switch-auth">New Agent? <span onclick="showPage('registerPage')">Register Here</span></div>
 </div></div></div>
 
@@ -167,159 +189,159 @@ tbody tr.archived{opacity:.6;background:rgba(149,165,166,.05)}
 <div id="registerAlert" class="alert alert-danger"></div>
 <div class="form-group"><label>👤 Full Name</label><input type="text" id="regName" placeholder="e.g. Laraib"></div>
 <div class="form-group"><label>🏷️ Agent Code</label><input type="text" id="regCode" placeholder="e.g. S-01"></div>
-<div class="form-group"><label>📧 Email</label><input type="email" id="regEmail" placeholder="Enter email"></div>
-<div class="form-group"><label>🔑 Password (6+)</label><input type="password" id="regPassword" placeholder="Create password"></div>
+<div class="form-group"><label>📧 Email Address</label><input type="email" id="regEmail" placeholder="Enter email"></div>
+<div class="form-group"><label>🔑 Password (6+ characters)</label><input type="password" id="regPassword" placeholder="Create robust password"></div>
 <button class="btn btn-primary btn-block" onclick="registerUser()">✅ Create Account</button>
-<div class="switch-auth">Have account? <span onclick="showPage('loginPage')">Login</span></div>
+<div class="switch-auth">Have account? <span onclick="showPage('loginPage')">Login Dashboard</span></div>
 </div></div></div>
 
 <div id="agentPage" class="page">
 <nav class="navbar">
-<div class="navbar-brand">🏢 CMS Pro</div>
+<div class="navbar-brand">🏢 CMS Pro Panel</div>
 <div class="navbar-user">
-<span class="user-badge" id="agentBadge">Agent</span>
+<span class="user-badge" id="agentBadge">Agent Account</span>
 <button class="btn btn-danger btn-sm" onclick="logoutUser()">Logout</button>
 </div></nav>
 <div class="dashboard">
 <div id="targetBanner"></div>
-<h3 class="section-title today">📅 TODAY'S ACTIVITY</h3>
+<h3 class="section-title today">📅 TODAY'S LIVE ACTIVITY</h3>
 <div class="stats-grid">
 <div class="stat-card green"><div class="number" id="aTodayNew">0</div><div class="label">New Clients</div></div>
 <div class="stat-card green"><div class="number" id="aTodayTask">0</div><div class="label">Tasks Done</div></div>
 <div class="stat-card green"><div class="number" id="aTodayDeposit">₹0</div><div class="label">Today Deposits</div></div>
 <div class="stat-card orange"><div class="number" id="aTodayWD">₹0</div><div class="label">Today Withdrawal</div></div>
 </div>
-<h3 class="section-title overall">📊 OVERALL PROGRESS</h3>
+<h3 class="section-title overall">📊 OVERALL DATA METRICS</h3>
 <div class="stats-grid">
 <div class="stat-card blue"><div class="number" id="aTotalClients">0</div><div class="label">Total Clients</div></div>
 <div class="stat-card blue"><div class="number" id="aActiveClients">0</div><div class="label">Active Clients</div></div>
 <div class="stat-card blue"><div class="number" id="aTotalTasks">0</div><div class="label">Total Tasks</div></div>
-<div class="stat-card orange"><div class="number" id="aKilled">0</div><div class="label">Killed/Archived</div></div>
+<div class="stat-card red"><div class="number" id="aKilled">0</div><div class="label">Killed/Archived</div></div>
 </div>
 <div class="stats-grid">
 <div class="stat-card green"><div class="number" id="aTotalDeposit">₹0</div><div class="label">Total Deposits</div></div>
 <div class="stat-card orange"><div class="number" id="aTotalWD">₹0</div><div class="label">Total Withdrawal</div></div>
-<div class="stat-card green"><div class="number" id="aLeftAmount">₹0</div><div class="label">💰 LEFT AMOUNT</div></div>
+<div class="stat-card purple"><div class="number" id="aLeftAmount">₹0</div><div class="label">💰 NET LEFT AMOUNT</div></div>
 </div>
 <div id="agentWarnings"></div>
 <div class="tabs">
-<div class="tab active" onclick="switchTab('addClient',this)">➕ Add Client</div>
-<div class="tab" onclick="switchTab('clientMgmt',this)">📋 Client Mgmt</div>
-<div class="tab" onclick="switchTab('socialAccounts',this)">📱 Accounts</div>
-<div class="tab" onclick="switchTab('dailyMaintenance',this)">🔄 Maintenance</div>
-<div class="tab" onclick="switchTab('dailyReport',this)">📝 Daily Report</div>
-<div class="tab" onclick="switchTab('searchTab',this)">🔍 Search</div>
+<button class="tab active" onclick="switchTab('addClient',this)">➕ Add Client</button>
+<button class="tab" onclick="switchTab('clientMgmt',this)">📋 Client Mgmt</button>
+<button class="tab" onclick="switchTab('socialAccounts',this)">📱 Accounts</button>
+<button class="tab" onclick="switchTab('dailyMaintenance',this)">🔄 Maintenance</button>
+<button class="tab" onclick="switchTab('dailyReport',this)">📝 Daily Report</button>
+<button class="tab" onclick="switchTab('searchTab',this)">🔍 Search</button>
 </div>
 
 <div id="addClient" class="tab-content active">
-<div class="card"><h3>➕ Add New Client</h3>
+<div class="card"><h3>➕ Add New Client Profile</h3>
 <div id="addClientAlert" class="alert"></div>
 <div id="repeatWarning" class="alert alert-warning"></div>
 <div class="form-grid">
-<div class="form-group"><label>📅 Date</label><input type="date" id="clientDate"></div>
+<div class="form-group"><label>📅 Select Date</label><input type="date" id="clientDate"></div>
 <div class="form-group"><label>📱 Client Phone *</label><input type="text" id="clientPhone" placeholder="03001234567" oninput="checkRepeat(this.value)"></div>
-<div class="form-group"><label>👤 Client Name *</label><input type="text" id="clientName" placeholder="Full name"></div>
-<div class="form-group"><label>🎂 Age</label><input type="number" id="clientAge"></div>
-<div class="form-group"><label>📍 Location</label><input type="text" id="clientLocation"></div>
-<div class="form-group"><label>💼 Profession</label><input type="text" id="clientProfession"></div>
-<div class="form-group"><label>🔗 Facebook Link</label><input type="text" id="clientFacebook"></div>
-<div class="form-group"><label>📱 Platform</label><select id="clientPlatform"><option value="">Select</option><option>Facebook</option><option>Instagram</option><option>WhatsApp</option><option>Telegram</option><option>TikTok</option></select></div>
-<div class="form-group"><label>🧑 Model</label><select id="modelName"><option value="">Select</option><option>Daisy</option><option>Bella</option></select></div>
-<div class="form-group"><label>🎂 Model Age</label><input type="number" id="modelAge"></div>
-<div class="form-group"><label>📍 Model Location</label><input type="text" id="modelLocation"></div>
+<div class="form-group"><label>👤 Client Name *</label><input type="text" id="clientName" placeholder="Full legal name"></div>
+<div class="form-group"><label>🎂 Client Age</label><input type="number" id="clientAge"></div>
+<div class="form-group"><label>📍 Demographics Location</label><input type="text" id="clientLocation"></div>
+<div class="form-group"><label>💼 Occupation / Profession</label><input type="text" id="clientProfession"></div>
+<div class="form-group"><label>🔗 Facebook Profile Link</label><input type="text" id="clientFacebook"></div>
+<div class="form-group"><label>📱 Social Platform</label><select id="clientPlatform"><option value="">Select Platform</option><option>Facebook</option><option>Instagram</option><option>WhatsApp</option><option>Telegram</option><option>TikTok</option></select></div>
+<div class="form-group"><label>🧑 Assigned Model</label><select id="modelName"><option value="">Select Model</option><option>Daisy</option><option>Bella</option></select></div>
+<div class="form-group"><label>🎂 Model Persona Age</label><input type="number" id="modelAge"></div>
+<div class="form-group"><label>📍 Model Target Location</label><input type="text" id="modelLocation"></div>
 </div><br>
-<button class="btn btn-primary" onclick="addClient()">✅ Save Client</button>
+<button class="btn btn-primary" onclick="addClient()">✅ Save Profile Securely</button>
 </div></div>
 
 <div id="clientMgmt" class="tab-content">
-<div class="card"><h3>📋 Active Clients <button class="btn btn-info btn-sm" onclick="loadClientMgmt()">🔄 Refresh</button></h3>
-<div id="activeClientsList"><div class="loading"><div class="spinner"></div>Loading...</div></div></div>
-<div class="card"><h3>📦 Archived / Killed</h3>
+<div class="card"><h3>📋 Active Accounts Directory <button class="btn btn-info btn-sm" onclick="loadClientMgmt()">🔄 Sync Data</button></h3>
+<div id="activeClientsList"><div class="loading"><div class="spinner"></div>Loading Active Data...</div></div></div>
+<div class="card"><h3>📦 Archives / Inactive Records</h3>
 <div id="archivedClientsList"></div></div></div>
 
 <div id="socialAccounts" class="tab-content">
-<div class="card"><h3>📱 Add Account</h3>
+<div class="card"><h3>📱 Link Social Media Asset</h3>
 <div id="accAlert" class="alert"></div>
 <div class="form-grid">
-<div class="form-group"><label>Platform</label><select id="accPlatform"><option>Facebook</option><option>WhatsApp</option><option>Telegram</option><option>Instagram</option></select></div>
-<div class="form-group"><label>Account Name/ID</label><input type="text" id="accName" placeholder="e.g. fb_account_1"></div>
-<div class="form-group"><label>Phone/Number</label><input type="text" id="accNumber" placeholder="Number"></div>
-<div class="form-group"><label>Status</label><select id="accStatus"><option value="active">🟢 Active</option><option value="ban">🔴 Banned</option><option value="warning">🟡 Warning</option></select></div>
-</div><br><button class="btn btn-primary" onclick="addAccount()">➕ Add Account</button></div>
-<div class="card"><h3>📋 My Accounts</h3>
-<div id="myAccountsList"><div class="loading"><div class="spinner"></div>Loading...</div></div></div></div>
+<div class="form-group"><label>Core Platform</label><select id="accPlatform"><option>Facebook</option><option>WhatsApp</option><option>Telegram</option><option>Instagram</option></select></div>
+<div class="form-group"><label>Account Handle/ID</label><input type="text" id="accName" placeholder="e.g. fb_account_1"></div>
+<div class="form-group"><label>Registered Phone Number</label><input type="text" id="accNumber" placeholder="Number"></div>
+<div class="form-group"><label>Network Status</label><select id="accStatus"><option value="active">🟢 Active State</option><option value="ban">🔴 Banned / Suspended</option><option value="warning">🟡 Compliance Warning</option></select></div>
+</div><br><button class="btn btn-primary" onclick="addAccount()">➕ Register Channel Asset</button></div>
+<div class="card"><h3>📋 Connected System Channels</h3>
+<div id="myAccountsList"><div class="loading"><div class="spinner"></div>Syncing Data Stream...</div></div></div></div>
 
 <div id="dailyMaintenance" class="tab-content">
-<div class="card"><h3>🔄 Daily Maintenance Log</h3>
+<div class="card"><h3>🔄 Daily Operations Maintenance Log</h3>
 <div id="maintAlert" class="alert"></div>
 <div class="form-grid">
-<div class="form-group"><label>Select Account</label><select id="maintAccount"><option value="">Loading...</option></select></div>
-<div class="form-group"><label>Story Lagai?</label><select id="maintStory"><option value="no">❌ No</option><option value="yes">✅ Yes</option></select></div>
-<div class="form-group"><label>Reel Upload?</label><select id="maintReel"><option value="no">❌ No</option><option value="yes">✅ Yes</option></select></div>
-<div class="form-group"><label>Post Lagai?</label><select id="maintPost"><option value="no">❌ No</option><option value="yes">✅ Yes</option></select></div>
-<div class="form-group"><label>Friend Requests (0-5)</label><input type="number" id="maintFR" min="0" max="5" value="0"></div>
-<div class="form-group"><label>WA Story?</label><select id="maintWAStory"><option value="no">❌ No</option><option value="yes">✅ Yes</option></select></div>
-<div class="form-group"><label>WA Contact?</label><select id="maintWAContact"><option value="no">❌ No</option><option value="yes">✅ Yes</option></select></div>
+<div class="form-group"><label>Select Target Account</label><select id="maintAccount"><option value="">Loading system assets...</option></select></div>
+<div class="form-group"><label>Story Added Status</label><select id="maintStory"><option value="no">❌ No</option><option value="yes">✅ Yes</option></select></div>
+<div class="form-group"><label>Reel Video Published</label><select id="maintReel"><option value="no">❌ No</option><option value="yes">✅ Yes</option></select></div>
+<div class="form-group"><label>Feed Post Shared</label><select id="maintPost"><option value="no">❌ No</option><option value="yes">✅ Yes</option></select></div>
+<div class="form-group"><label>Friend Outreaches (0-5)</label><input type="number" id="maintFR" min="0" max="5" value="0"></div>
+<div class="form-group"><label>WA Status Published</label><select id="maintWAStory"><option value="no">❌ No</option><option value="yes">✅ Yes</option></select></div>
+<div class="form-group"><label>WA Lead Contacted</label><select id="maintWAContact"><option value="no">❌ No</option><option value="yes">✅ Yes</option></select></div>
 </div>
-<div class="form-group" style="margin-top:15px"><label>FR Links (optional)</label><textarea id="maintFRLinks" placeholder="Paste links"></textarea></div>
-<button class="btn btn-primary" onclick="addMaintenance()">💾 Save</button></div>
-<div class="card"><h3>📋 Maintenance History</h3>
-<div id="maintList"><div class="loading"><div class="spinner"></div>Loading...</div></div></div></div>
+<div class="form-group" style="margin-top:15px"><label>FR Track Links (Optional Reference)</label><textarea id="maintFRLinks" placeholder="Paste tracking link directories..."></textarea></div>
+<button class="btn btn-primary" onclick="addMaintenance()">💾 Commit Audit Logs</button></div>
+<div class="card"><h3>📋 Channel Operational Logs</h3>
+<div id="maintList"><div class="loading"><div class="spinner"></div>Fetching history timeline...</div></div></div></div>
 
 <div id="dailyReport" class="tab-content">
-<div class="card"><h3>📝 Daily Report - Manual Entry</h3>
+<div class="card"><h3>📝 Operations EOD Report - Manual Entry Matrix</h3>
 <div id="reportAlert" class="alert"></div>
-<h4 style="color:#2ecc71;margin-bottom:10px;font-size:14px">📊 Client Stats</h4>
+<h4 style="color:#38ef7d;margin-bottom:12px;font-size:14px">📊 Acquisition Framework</h4>
 <div class="form-grid">
-<div class="form-group"><label>Today new client add</label><input type="number" id="r_newClient" value="0"></div>
-<div class="form-group"><label>Today client achieve</label><input type="number" id="r_achieve" value="0"></div>
-<div class="form-group"><label>Number of active clients</label><input type="number" id="r_active" value="0"></div>
+<div class="form-group"><label>Today Added New Lead</label><input type="number" id="r_newClient" value="0"></div>
+<div class="form-group"><label>Today Converted Leads</label><input type="number" id="r_achieve" value="0"></div>
+<div class="form-group"><label>Total Functional Base</label><input type="number" id="r_active" value="0"></div>
 </div>
-<h4 style="color:#f39c12;margin:15px 0 10px;font-size:14px">💰 Task & Deposits</h4>
+<h4 style="color:#f39c12;margin:20px 0 12px;font-size:14px">💰 Transaction Summary</h4>
 <div class="form-grid">
-<div class="form-group"><label>Today task complete</label><input type="number" id="r_taskComp" value="0"></div>
-<div class="form-group"><label>Today $20 given</label><input type="number" id="r_bonus" value="0"></div>
-<div class="form-group"><label>Today first deposit (₹)</label><input type="number" id="r_dep1" value="0"></div>
-<div class="form-group"><label>Today second deposit (₹)</label><input type="number" id="r_dep2" value="0"></div>
-<div class="form-group"><label>Today withdrawal (₹)</label><input type="number" id="r_wd" value="0"></div>
+<div class="form-group"><label>Tasks Accomplished</label><input type="number" id="r_taskComp" value="0"></div>
+<div class="form-group"><label>$20 Incentives Disbursed</label><input type="number" id="r_bonus" value="0"></div>
+<div class="form-group"><label>Initial Intake Deposit (₹)</label><input type="number" id="r_dep1" value="0"></div>
+<div class="form-group"><label>Subsequent Re-Deposit (₹)</label><input type="number" id="r_dep2" value="0"></div>
+<div class="form-group"><label>Payout Settlements (₹)</label><input type="number" id="r_wd" value="0"></div>
 </div>
-<h4 style="color:#3498db;margin:15px 0 10px;font-size:14px">📈 Total (Overall)</h4>
+<h4 style="color:#0072ff;margin:20px 0 12px;font-size:14px">📈 Financial Ledger Accumulation</h4>
 <div class="form-grid">
-<div class="form-group"><label>TOTAL DEPOSIT (₹)</label><input type="number" id="r_totalDep" value="0"></div>
-<div class="form-group"><label>TOTAL WITHDRAWAL (₹)</label><input type="number" id="r_totalWD" value="0"></div>
+<div class="form-group"><label>Cumulative Escrow Deposit (₹)</label><input type="number" id="r_totalDep" value="0"></div>
+<div class="form-group"><label>Cumulative Total Payouts (₹)</label><input type="number" id="r_totalWD" value="0"></div>
 </div>
-<h4 style="color:#e94560;margin:15px 0 10px;font-size:14px">🔜 Tomorrow Plan</h4>
+<h4 style="color:#ff416c;margin:20px 0 12px;font-size:14px">🔜 Next Operational Target Strategy</h4>
 <div class="form-grid">
-<div class="form-group"><label>Tomorrow task</label><input type="number" id="r_tmTask" value="0"></div>
-<div class="form-group"><label>Tomorrow 1st deposit</label><input type="number" id="r_tmDep1" value="0"></div>
-<div class="form-group"><label>Tomorrow 2nd deposit</label><input type="number" id="r_tmDep2" value="0"></div>
+<div class="form-group"><label>Tomorrow Pipeline Tasks</label><input type="number" id="r_tmTask" value="0"></div>
+<div class="form-group"><label>Tomorrow Intake Forecast</label><input type="number" id="r_tmDep1" value="0"></div>
+<div class="form-group"><label>Tomorrow Escrow Re-Intake</label><input type="number" id="r_tmDep2" value="0"></div>
 </div>
-<div class="form-group" style="margin-top:15px"><label>📝 Today Progress Message</label>
-<textarea id="reportMsg" placeholder="Your daily message..." rows="4"></textarea></div>
-<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
-<button class="btn btn-success" onclick="generateReport()">📊 Generate</button>
-<button class="btn btn-primary" onclick="saveReport()">💾 Save</button>
-<button class="btn btn-info" onclick="copyReport()">📋 Copy</button>
+<div class="form-group" style="margin-top:20px"><label>📝 Executive Performance Message Note</label>
+<textarea id="reportMsg" placeholder="Type tactical summary logs..." rows="4"></textarea></div>
+<div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:15px">
+<button class="btn btn-success" onclick="generateReport()">📊 Formulate Output</button>
+<button class="btn btn-primary" onclick="saveReport()">💾 Save Report</button>
+<button class="btn btn-info" onclick="copyReport()">📋 Clipboard Copy</button>
 </div><div id="reportOutput"></div></div></div>
 
 <div id="searchTab" class="tab-content">
-<div class="card"><h3>🔍 Search Client</h3>
+<div class="card"><h3>🔍 Fast Global Client Query Lookup</h3>
 <div class="search-box">
-<input type="text" id="searchPhone" placeholder="Enter phone...">
-<button class="btn btn-primary" onclick="searchClient()">🔍 Search</button>
+<input type="text" id="searchPhone" placeholder="Provide system phone record lookup...">
+<button class="btn btn-primary" onclick="searchClient()">🔍 Query System Database</button>
 </div><div id="searchResults"></div></div></div>
 </div></div>
 
 <div id="adminPage" class="page">
 <nav class="navbar">
-<div class="navbar-brand">🔐 Admin Panel</div>
+<div class="navbar-brand">🔐 System Admin Ecosystem</div>
 <div class="navbar-user">
-<span class="user-badge">👑 ADMIN</span>
-<button class="btn btn-danger btn-sm" onclick="logoutUser()">Logout</button>
+<span class="user-badge" style="background: var(--purple)">👑 OVERSEER ADMIN</span>
+<button class="btn btn-danger btn-sm" onclick="logoutUser()">Logout System</button>
 </div></nav>
 <div class="dashboard">
 
-<h3 class="section-title today">📅 TODAY OVERVIEW <button class="btn btn-info btn-sm" onclick="loadAdminDashboard()" style="margin-left:auto">🔄 Refresh</button></h3>
+<h3 class="section-title today">📅 CENTRAL CONTROL TODAY OVERVIEW <button class="btn btn-info btn-sm" onclick="loadAdminDashboard()" style="margin-left:auto">🔄 Sync Enterprise Dashboard</button></h3>
 <div class="stats-grid">
 <div class="stat-card green"><div class="number" id="admTodayNew">0</div><div class="label">Today New Clients</div></div>
 <div class="stat-card orange"><div class="number" id="admTodayArchive">0</div><div class="label">Today Archive/Kill</div></div>
@@ -334,885 +356,74 @@ tbody tr.archived{opacity:.6;background:rgba(149,165,166,.05)}
 </div>
 <div class="stats-grid">
 <div class="stat-card orange"><div class="number" id="admTodayTotalWD">₹0</div><div class="label">Today Total Withdrawal</div></div>
-<div class="stat-card green"><div class="number" id="admTodayLeft">₹0</div><div class="label">💰 TODAY LEFT AMOUNT</div></div>
+<div class="stat-card green"><div class="number" id="admTodayLeft">₹0</div><div class="label">💰 TODAY NET CASHFLOW</div></div>
 </div>
 
-<h3 class="section-title overall">📊 OVERALL PROGRESS</h3>
+<h3 class="section-title overall">📊 CUMULATIVE LIFETIME ENTERPRISE METRICS</h3>
 <div class="stats-grid">
 <div class="stat-card blue"><div class="number" id="admTotalClients">0</div><div class="label">Total Clients</div></div>
 <div class="stat-card blue"><div class="number" id="admTotalArchive">0</div><div class="label">Total Archive/Kill</div></div>
 <div class="stat-card blue"><div class="number" id="admTotalTask">0</div><div class="label">Total Tasks Done</div></div>
-<div class="stat-card blue"><div class="number" id="admTotalAgents">0</div><div class="label">Total Agents</div></div>
+<div class="stat-card blue"><div class="number" id="admTotalAgents">0</div><div class="label">Total Managed Agents</div></div>
 </div>
 <div class="stats-grid">
 <div class="stat-card green"><div class="number" id="admOvDep1">₹0</div><div class="label">Overall 1st Deposit</div></div>
 <div class="stat-card green"><div class="number" id="admOvDep2">₹0</div><div class="label">Overall 2nd Deposit</div></div>
 <div class="stat-card orange"><div class="number" id="admOvWD">₹0</div><div class="label">Overall Withdrawal</div></div>
-<div class="stat-card purple"><div class="number" id="admTotalDep">₹0</div><div class="label">TOTAL DEPOSIT</div></div>
+<div class="stat-card purple"><div class="number" id="admTotalDep">₹0</div><div class="label">TOTAL LEDGER INFLOW</div></div>
 </div>
 <div class="stats-grid">
-<div class="stat-card orange"><div class="number" id="admTotalWD">₹0</div><div class="label">TOTAL WITHDRAWAL</div></div>
-<div class="stat-card green"><div class="number" id="admLeftAmount">₹0</div><div class="label">💰 LEFT AMOUNT</div></div>
-<div class="stat-card orange"><div class="number" id="admActiveAccounts">0</div><div class="label">Active Accounts</div></div>
+<div class="stat-card orange"><div class="number" id="admTotalWD">₹0</div><div class="label">TOTAL LEDGER OUTFLOW</div></div>
+<div class="stat-card green"><div class="number" id="admLeftAmount">₹0</div><div class="label">💰 TOTAL RESERVED LIQUIDITY</div></div>
+<div class="stat-card orange"><div class="number" id="admActiveAccounts">0</div><div class="label">Active Node Assets</div></div>
 </div>
 
 <div id="adminWarnings"></div>
 
 <div class="tabs">
-<div class="tab active" onclick="switchTab('admOverview',this)">📊 Overview</div>
-<div class="tab" onclick="switchTab('admTargets',this)">🎯 Set Targets</div>
-<div class="tab" onclick="switchTab('admAgents',this)">🧑‍💼 Agents</div>
-<div class="tab" onclick="switchTab('admClients',this)">👥 Client Details</div>
-<div class="tab" onclick="switchTab('admMaintenance',this)">🔄 Maintenance</div>
-<div class="tab" onclick="switchTab('admAccounts',this)">📱 Accounts</div>
-<div class="tab" onclick="switchTab('admReports',this)">📝 Reports</div>
-<div class="tab" onclick="switchTab('admLeaderboard',this)">🏆 Leaderboard</div>
-<div class="tab" onclick="switchTab('admSearch',this)">🔍 Search</div>
+<button class="tab active" onclick="switchTab('admOverview',this)">📊 Corporate Overview</button>
+<button class="tab" onclick="switchTab('admTargets',this)">🎯 Provision Goals</button>
+<button class="tab" onclick="switchTab('admAgents',this)">🧑‍💼 Agents Metrics</button>
+<button class="tab" onclick="switchTab('admClients',this)">👥 Client Framework</button>
+<button class="tab" onclick="switchTab('admMaintenance',this)">🔄 Sync Audits</button>
+<button class="tab" onclick="switchTab('admAccounts',this)">📱 Dynamic Nodes</button>
+<button class="tab" onclick="switchTab('admReports',this)">📝 Data Ledger Reports</button>
+<button class="tab" onclick="switchTab('admLeaderboard',this)">🏆 Ranks Board</button>
+<button class="tab" onclick="switchTab('admSearch',this)">🔍 Master Registry Query</button>
 </div>
 
 <div id="admOverview" class="tab-content active">
-<div class="card"><h3>📊 Today's Performance</h3><div id="admTodayPerf"></div></div>
-<div class="card"><h3>🚨 Pending Day 5+ Clients (Need Action!)</h3><div id="admPendingClients"></div></div>
+<div class="card"><h3>📊 Modern Matrix Analysis Output</h3><div id="admTodayPerf"></div></div>
+<div class="card"><h3>🚨 Pending Actionable Accounts (Attention Threshold Exceeded!)</h3><div id="admPendingClients"></div></div>
 </div>
 
 <div id="admTargets" class="tab-content">
 <div class="card">
-<h3>🎯 Set Today's Targets for Each Agent</h3>
+<h3>🎯 Set Strategic Operations Milestone KPIs per Managed Agent Node</h3>
 <div id="admTargetAlert" class="alert"></div>
-<p style="color:#bbb;margin-bottom:15px;font-size:13px">⚡ Targets save karte hi agent ko dikhne lagega!</p>
+<p style="color: var(--text-muted);margin-bottom:20px;font-size:13px">⚡ Updates deploy across client targets globally instantly on execution node.</p>
 <div id="admTargetsList"></div>
 </div></div>
 
 <div id="admAgents" class="tab-content">
-<div class="card"><h3>🧑‍💼 All Agents Performance</h3>
+<div class="card"><h3>🧑‍💼 Active Network Agent Nodes Performance Stream</h3>
 <div id="admAgentsList" class="agent-grid"></div></div></div>
 
 <div id="admClients" class="tab-content">
-<div class="card"><h3>👥 All Clients - Full Details</h3>
+<div class="card"><h3>👥 Enterprise Central Client Directory Registry Logs</h3>
 <div class="search-box">
-<input type="text" id="admFilter" placeholder="Filter by name/phone/agent..." oninput="filterAdminClients(this.value)">
-<select id="admStatusFilter" onchange="filterAdminClients(document.getElementById('admFilter').value)" style="padding:11px 18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:25px;color:#fff">
-<option value="all">All Status</option>
-<option value="active">🟢 Active Only</option>
-<option value="archived">📦 Archived</option>
-<option value="killed">❌ Killed</option>
-<option value="pending">⚠️ Day 5+ Pending</option>
-</select>
+<input type="text" id="admFilter" placeholder="🔍 Direct search criteria via node parameters like agent names, unique tokens..." oninput="applyClientFilters()">
 </div>
-<div id="admClientsList"></div></div></div>
-
-<div id="admMaintenance" class="tab-content">
-<div class="card"><h3>🔄 Today's Facebook/Account Maintenance</h3>
-<div id="admMaintList"></div></div></div>
-
-<div id="admAccounts" class="tab-content">
-<div class="card"><h3>📱 All Social Accounts</h3>
-<div class="table-container"><table>
-<thead><tr><th>Agent</th><th>Platform</th><th>Account</th><th>Number</th><th>Status</th></tr></thead>
-<tbody id="admAccountsBody"></tbody>
-</table></div></div></div>
-
-<div id="admReports" class="tab-content">
-<div class="card"><h3>📝 Today's Reports <span style="color:#e74c3c;font-size:13px" id="admMissingText"></span></h3>
-<div id="admReportsList"></div></div></div>
-
-<div id="admLeaderboard" class="tab-content">
-<div class="card"><h3>🏆 Today's Heroes & Failures (Based on Targets)</h3>
-<div id="leaderboardList"></div></div></div>
-
-<div id="admSearch" class="tab-content">
-<div class="card"><h3>🔍 Search by Phone</h3>
-<div class="search-box"><input type="text" id="admSearchPhone" placeholder="Phone...">
-<button class="btn btn-primary" onclick="adminSearchClient()">🔍 Search</button></div>
-<div id="admSearchResults"></div></div></div>
-</div></div>
-
-<div class="modal" id="clientModal">
-<div class="modal-box">
-<button class="modal-close" onclick="closeModal('clientModal')">✕</button>
-<h3 id="modalClientName">Manage Client</h3>
-<div id="modalContent"></div>
-</div></div>
-
-<div class="modal" id="infoModal">
-<div class="modal-box" style="max-width:500px;text-align:center">
-<h3 id="infoTitle">Info</h3>
-<p id="infoMsg" style="color:#bbb;margin:15px 0;line-height:1.6"></p>
-<button class="btn btn-primary" onclick="closeModal('infoModal')">OK</button>
-</div></div>
-
-<script type="module">
-import{initializeApp}from"https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import{getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut,onAuthStateChanged}from"https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import{getFirestore,collection,addDoc,getDocs,query,where,doc,setDoc,getDoc,updateDoc,Timestamp}from"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-const firebaseConfig={
-apiKey:"AIzaSyBSR-uU2yUIaBb50tneY1jB49EG1UWQb6c",
-authDomain:"client-management-system-cf3fa.firebaseapp.com",
-projectId:"client-management-system-cf3fa",
-storageBucket:"client-management-system-cf3fa.firebasestorage.app",
-messagingSenderId:"23621940406",
-appId:"1:23621940406:web:3b0ddaad0269cf4251a217"
-};
-
-const app=initializeApp(firebaseConfig);
-const auth=getAuth(app);
-const db=getFirestore(app);
-const ADMIN_EMAIL="admin@cms.com";
-let currentUser=null,currentUserData=null,allClientsCache=[];
-
-const $=id=>document.getElementById(id);
-const today=()=>new Date().toISOString().split('T')[0];
-const showAlert=(id,msg,type='danger')=>{const el=$(id);el.innerHTML=msg;el.className=`alert alert-${type} show`;setTimeout(()=>el.classList.remove('show'),5000)};
-const showInfo=(title,msg)=>{$('infoTitle').innerHTML=title;$('infoMsg').innerHTML=msg;$('infoModal').classList.add('show')};
-window.closeModal=id=>$(id).classList.remove('show');
-window.showPage=p=>{document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));$(p).classList.add('active')};
-
-window.switchTab=(tabId,el)=>{
-const parent=el.closest('.dashboard');
-parent.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-parent.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
-el.classList.add('active');$(tabId).classList.add('active');
-if(tabId==='clientMgmt')loadClientMgmt();
-if(tabId==='socialAccounts')loadAccounts();
-if(tabId==='dailyMaintenance'){loadAccountsDropdown();loadMaintenanceHistory()}
-if(tabId==='dailyReport')loadPreviousReport();
-if(tabId==='admTargets')loadAdminTargets();
-if(tabId==='admAgents')loadAdminAgents();
-if(tabId==='admClients')loadAdminClients();
-if(tabId==='admMaintenance')loadAdminMaintenance();
-if(tabId==='admAccounts')loadAdminAccounts();
-if(tabId==='admReports')loadAdminReports();
-if(tabId==='admLeaderboard')loadLeaderboard();
-};
-
-onAuthStateChanged(auth,async user=>{
-if(user){currentUser=user;
-if(user.email===ADMIN_EMAIL){currentUserData={name:"Admin",code:"ADMIN",role:"admin"};showPage('adminPage');loadAdminDashboard()}
-else{const d=await getDoc(doc(db,"agents",user.uid));if(d.exists()){currentUserData=d.data();$('agentBadge').textContent=`${currentUserData.name} ${currentUserData.code}`;showPage('agentPage');$('clientDate').value=today();loadAgentDashboard()}}}
-else{currentUser=null;showPage('loginPage')}});
-
-window.registerUser=async()=>{
-const name=$('regName').value.trim(),code=$('regCode').value.trim().toUpperCase(),email=$('regEmail').value.trim(),pass=$('regPassword').value;
-if(!name||!code||!email||!pass)return showAlert('registerAlert','Fill all fields!');
-if(pass.length<6)return showAlert('registerAlert','Password 6+ chars!');
-try{const uc=await createUserWithEmailAndPassword(auth,email,pass);
-await setDoc(doc(db,"agents",uc.user.uid),{name,code,email,agentId:uc.user.uid,displayName:`${name} ${code}`,createdAt:Timestamp.now(),role:'agent'});
-showAlert('registerAlert','✅ Account created!','success')}catch(e){showAlert('registerAlert','❌ '+e.message)}};
-
-window.loginUser=async()=>{
-const email=$('loginEmail').value.trim(),pass=$('loginPassword').value;
-if(!email||!pass)return showAlert('loginAlert','Fill all fields!');
-try{await signInWithEmailAndPassword(auth,email,pass)}catch(e){showAlert('loginAlert','❌ Invalid credentials!')}};
-
-window.logoutUser=async()=>await signOut(auth);
-
-window.checkRepeat=async phone=>{
-if(phone.length<7){$('repeatWarning').classList.remove('show');return}
-const snap=await getDocs(query(collection(db,"clients"),where("clientPhone","==",phone)));
-if(snap.empty){$('repeatWarning').classList.remove('show');return}
-let msg='⚠️ <strong>REPEATED CLIENT!</strong><br>';
-snap.forEach(d=>{const c=d.data();const s=c.clientStatus||'active';
-msg+=`${s==='killed'?'❌ KILLED':s==='archived'?'📦 ARCHIVED':'🟢 ACTIVE'} - Agent: ${c.agentDisplay||c.agentName} | Date: ${c.date}<br>`});
-$('repeatWarning').innerHTML=msg;$('repeatWarning').classList.add('show')};
-
-window.addClient=async()=>{
-const phone=$('clientPhone').value.trim(),name=$('clientName').value.trim(),date=$('clientDate').value;
-if(!phone||!name||!date)return showAlert('addClientAlert','❌ Date, Phone, Name required!');
-const snap=await getDocs(query(collection(db,"clients"),where("clientPhone","==",phone)));
-try{await addDoc(collection(db,"clients"),{
-date,agentId:currentUser.uid,agentName:currentUserData.name,agentCode:currentUserData.code,
-agentDisplay:currentUserData.displayName,clientPhone:phone,clientName:name,
-clientAge:$('clientAge').value,clientLocation:$('clientLocation').value,
-clientProfession:$('clientProfession').value,clientFacebook:$('clientFacebook').value,
-platform:$('clientPlatform').value,modelName:$('modelName').value,
-modelAge:$('modelAge').value,modelLocation:$('modelLocation').value,
-isRepeat:!snap.empty,clientStatus:'active',
-screenshotShared:false,storyShared:false,audioCall:false,voiceMessage:false,videoCall:false,
-taskStatus:'pending',depositAmount:0,secondDeposit:0,withdrawal:0,bonus20:false,
-notes:'',expectedTaskDay:'',firstDepositDay:'',secondDepositDay:'',
-createdAt:Timestamp.now(),addedDate:date});
-showAlert('addClientAlert','✅ Client added!','success');
-['clientPhone','clientName','clientAge','clientLocation','clientProfession','clientFacebook'].forEach(i=>$(i).value='');
-$('clientPlatform').value='';$('modelName').value='';$('modelAge').value='';$('modelLocation').value='';
-$('clientDate').value=today();$('repeatWarning').classList.remove('show');loadAgentDashboard();
-}catch(e){showAlert('addClientAlert','❌ '+e.message)}};
-
-function calcDay(d){return Math.floor((new Date()-new Date(d))/(864e5))+1}
-
-async function loadAgentTarget(clients){
-const t=today();
-const targetId=`${currentUser.uid}_${t}`;
-const tDoc=await getDoc(doc(db,"targets",targetId));
-
-if(!tDoc.exists()){
-$('targetBanner').innerHTML=`<div class="target-banner no-target">
-<h2>⚪ NO TARGET SET FOR TODAY</h2>
-<p style="color:#bbb">Admin ne abhi tak aaj ka target set nahi kiya.</p>
-</div>`;
-return}
-
-const target=tDoc.data();
-const todayNew=clients.filter(c=>c.date===t).length;
-const todayTask=clients.filter(c=>c.taskCompleteDate===t).length;
-const todayDep=clients.filter(c=>c.depositDate===t&&Number(c.depositAmount||0)>0).length;
-
-const tNew=Number(target.newClients)||0;
-const tTask=Number(target.tasks)||0;
-const tDep=Number(target.deposits)||0;
-
-const pNew=tNew>0?Math.min(100,Math.round((todayNew/tNew)*100)):0;
-const pTask=tTask>0?Math.min(100,Math.round((todayTask/tTask)*100)):0;
-const pDep=tDep>0?Math.min(100,Math.round((todayDep/tDep)*100)):0;
-
-const totalT=tNew+tTask+tDep;
-const totalD=Math.min(tNew,todayNew)+Math.min(tTask,todayTask)+Math.min(tDep,todayDep);
-const overall=totalT>0?Math.round((totalD/totalT)*100):0;
-
-const cls=(p)=>p>=100?'completed':p>=50?'partial':'failed';
-const bannerCls=overall>=100?'achieved':overall<50?'failed':'';
-
-let msg='';
-if(overall>=100)msg='<div class="target-msg success">🎉🏆 TARGET ACHIEVED! "I know you can do it, PROUD OF YOU!" ⭐⭐⭐</div>';
-else if(overall>=75)msg='<div class="target-msg warn">⚡ Almost there! Push harder to complete your target!</div>';
-else if(overall>=50)msg='<div class="target-msg warn">⚠️ You\'re halfway. Speed up! Don\'t disappoint me!</div>';
-else msg='<div class="target-msg fail">😤 YOU MUST FOLLOW YOUR TARGET! Don\'t fail me today!</div>';
-
-$('targetBanner').innerHTML=`<div class="target-banner ${bannerCls}">
-<h2>🎯 YOUR TODAY'S TARGET (MUST FOLLOW!) <span style="font-size:13px;color:#bbb;font-weight:400">Set by Admin</span></h2>
-<div class="target-items">
-<div class="target-item ${cls(pNew)}">
-<div class="label">📋 New Clients</div>
-<div class="progress-text"><span class="done">${todayNew}</span> / <span class="target">${tNew}</span></div>
-<span class="percentage">${pNew}%</span>
-</div>
-<div class="target-item ${cls(pTask)}">
-<div class="label">✅ Tasks Complete</div>
-<div class="progress-text"><span class="done">${todayTask}</span> / <span class="target">${tTask}</span></div>
-<span class="percentage">${pTask}%</span>
-</div>
-<div class="target-item ${cls(pDep)}">
-<div class="label">💰 First Deposits</div>
-<div class="progress-text"><span class="done">${todayDep}</span> / <span class="target">${tDep}</span></div>
-<span class="percentage">${pDep}%</span>
+<div class="filter-tags">
+<div class="filter-title">📊 Granular Status Pipeline Sieve</div>
+<div class="filter-tag active" data-filter="status" data-value="all" onclick="setFilter(this)">All Logs <span class="count" id="cnt_all">0</span></div>
+<div class="filter-tag" data-filter="status" data-value="active" onclick="setFilter(this)">🟢 Active Node <span class="count" id="cnt_active">0</span></div>
 </div>
 </div>
-<div class="overall-progress">
-<div style="display:flex;justify-content:space-between;color:#fff;font-size:13px;font-weight:600">
-<span>Overall Progress</span><span>${overall}% Achieved</span>
 </div>
-<div class="bar-wrap"><div class="bar" style="width:${overall}%">${overall}%</div></div>
+
 </div>
-${msg}
-</div>`}
-
-async function loadAgentDashboard(){
-const snap=await getDocs(query(collection(db,"clients"),where("agentId","==",currentUser.uid)));
-const clients=[];snap.forEach(d=>clients.push({id:d.id,...d.data()}));
-const rSnap=await getDocs(query(collection(db,"reports"),where("agentId","==",currentUser.uid)));
-const reports=[];rSnap.forEach(d=>reports.push(d.data()));
-
-const t=today();
-
-// FROM REPORTS
-let rTodayDep1=0,rTodayDep2=0,rTodayWD=0,rOvDep1=0,rOvDep2=0,rOvWD=0,rTotalDep=0,rTotalWD=0;
-reports.forEach(r=>{
-if(r.date===t){
-rTodayDep1+=Number(r.dep1||0);
-rTodayDep2+=Number(r.dep2||0);
-rTodayWD+=Number(r.wd||0);
-}
-rOvDep1+=Number(r.dep1||0);
-rOvDep2+=Number(r.dep2||0);
-rOvWD+=Number(r.wd||0);
-if(Number(r.totalDep||0)>rTotalDep)rTotalDep=Number(r.totalDep||0);
-if(Number(r.totalWD||0)>rTotalWD)rTotalWD=Number(r.totalWD||0);
-});
-
-// FROM CLIENTS
-const cTodayDep1=clients.filter(c=>c.depositDate===t).reduce((s,c)=>s+Number(c.depositAmount||0),0);
-const cTodayDep2=clients.filter(c=>c.secondDepositDate===t).reduce((s,c)=>s+Number(c.secondDeposit||0),0);
-const cTodayWD=clients.filter(c=>c.withdrawalDate===t).reduce((s,c)=>s+Number(c.withdrawal||0),0);
-const cOvDep=clients.reduce((s,c)=>s+Number(c.depositAmount||0)+Number(c.secondDeposit||0),0);
-const cOvWD=clients.reduce((s,c)=>s+Number(c.withdrawal||0),0);
-
-// USE MAX
-const todayDepFinal=Math.max(rTodayDep1+rTodayDep2,cTodayDep1+cTodayDep2);
-const todayWDFinal=Math.max(rTodayWD,cTodayWD);
-const totalDepFinal=Math.max(rOvDep1+rOvDep2,cOvDep,rTotalDep);
-const totalWDFinal=Math.max(rOvWD,cOvWD,rTotalWD);
-
-$('aTodayNew').textContent=clients.filter(c=>c.date===t).length;
-$('aTodayTask').textContent=clients.filter(c=>c.taskCompleteDate===t).length;
-$('aTodayDeposit').textContent='₹'+todayDepFinal.toLocaleString();
-$('aTodayWD').textContent='₹'+todayWDFinal.toLocaleString();
-$('aActiveClients').textContent=clients.filter(c=>(c.clientStatus||'active')==='active').length;
-$('aTotalClients').textContent=clients.length;
-$('aTotalTasks').textContent=clients.filter(c=>c.taskStatus==='complete').length;
-$('aTotalDeposit').textContent='₹'+totalDepFinal.toLocaleString();
-$('aTotalWD').textContent='₹'+totalWDFinal.toLocaleString();
-$('aLeftAmount').textContent='₹'+(totalDepFinal-totalWDFinal).toLocaleString();
-$('aKilled').textContent=clients.filter(c=>c.clientStatus==='killed'||c.clientStatus==='archived').length;
-
-await loadAgentTarget(clients);
-
-let w='';
-const d5=clients.filter(c=>(c.clientStatus||'active')==='active'&&calcDay(c.addedDate||c.date)>=5);
-if(d5.length)w+=`<div class="alert alert-warning show">⏰ <strong>${d5.length} client(s) Day 5+</strong> - Task karwao!</div>`;
-const d7=clients.filter(c=>(c.clientStatus||'active')==='active'&&calcDay(c.addedDate||c.date)>=7);
-if(d7.length)w+=`<div class="alert alert-danger show">🚨 <strong>${d7.length} client(s) Day 7!</strong> - Urgent!</div>`;
-$('agentWarnings').innerHTML=w}
-
-window.loadClientMgmt=async()=>{
-const snap=await getDocs(query(collection(db,"clients"),where("agentId","==",currentUser.uid)));
-const clients=[];snap.forEach(d=>clients.push({id:d.id,...d.data()}));
-const active=clients.filter(c=>(c.clientStatus||'active')==='active').sort((a,b)=>b.createdAt?.seconds-a.createdAt?.seconds);
-const dead=clients.filter(c=>c.clientStatus==='archived'||c.clientStatus==='killed');
-$('activeClientsList').innerHTML=active.length?active.map(c=>renderClient(c)).join(''):'<p style="color:#bbb;padding:20px;text-align:center">No active clients.</p>';
-$('archivedClientsList').innerHTML=dead.length?dead.map(c=>renderClient(c)).join(''):'<p style="color:#bbb;padding:15px;text-align:center;font-size:13px">None.</p>'};
-
-function renderClient(c){
-const day=calcDay(c.addedDate||c.date),dc=day>=7?'danger':day>=5?'warning':'',st=c.clientStatus||'active',rc=st==='killed'?'killed':st==='archived'?'archived':'';
-const pg=[{k:'screenshotShared',l:'📸 Screenshot'},{k:'storyShared',l:'📖 Story'},{k:'audioCall',l:'📞 Audio'},{k:'voiceMessage',l:'🎙️ Voice'},{k:'videoCall',l:'📹 Video'}];
-return`<div class="client-row ${rc}">
-<h4><span class="day-badge ${dc}">Day ${day}/7</span>${c.clientName} (${c.clientPhone})
-<span class="badge badge-${st==='killed'?'kill':st==='archived'?'archive':'active'}" style="float:right">${st.toUpperCase()}</span></h4>
-<div class="client-info">
-<span><strong>Platform:</strong> ${c.platform||'-'}</span><span><strong>Model:</strong> ${c.modelName||'-'}</span>
-<span><strong>Location:</strong> ${c.clientLocation||'-'}</span><span><strong>Task:</strong> ${c.taskStatus||'pending'}</span>
-<span><strong>1st Dep:</strong> ₹${c.depositAmount||0}</span><span><strong>2nd Dep:</strong> ₹${c.secondDeposit||0}</span>
-<span><strong>WD:</strong> ₹${c.withdrawal||0}</span></div>
-<div class="progress-grid">${pg.map(p=>`<div class="progress-item ${c[p.k]?'done':'pending'}">${c[p.k]?'✅':'❌'} ${p.l}</div>`).join('')}</div>
-${st==='active'?`<div style="margin-top:10px"><button class="btn btn-info btn-sm" onclick="openClientModal('${c.id}')">⚙️ Manage</button></div>`:''}</div>`}
-
-window.openClientModal=async id=>{
-const d=await getDoc(doc(db,"clients",id));if(!d.exists())return;const c={id,...d.data()};
-$('modalClientName').textContent='Manage: '+c.clientName;
-const days=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
-$('modalContent').innerHTML=`<div class="form-grid">
-<div class="form-group"><label>📸 Screenshot</label><select id="m_ss"><option value="false"${!c.screenshotShared?' selected':''}>❌ No</option><option value="true"${c.screenshotShared?' selected':''}>✅ Yes</option></select></div>
-<div class="form-group"><label>📖 Story</label><select id="m_st"><option value="false"${!c.storyShared?' selected':''}>❌ No</option><option value="true"${c.storyShared?' selected':''}>✅ Yes</option></select></div>
-<div class="form-group"><label>📞 Audio Call</label><select id="m_ac"><option value="false"${!c.audioCall?' selected':''}>❌ No</option><option value="true"${c.audioCall?' selected':''}>✅ Yes</option></select></div>
-<div class="form-group"><label>🎙️ Voice Msg</label><select id="m_vm"><option value="false"${!c.voiceMessage?' selected':''}>❌ No</option><option value="true"${c.voiceMessage?' selected':''}>✅ Yes</option></select></div>
-<div class="form-group"><label>📹 Video Call</label><select id="m_vc"><option value="false"${!c.videoCall?' selected':''}>❌ No</option><option value="true"${c.videoCall?' selected':''}>✅ Yes</option></select></div>
-<div class="form-group"><label>🧑 Model</label><select id="m_model"><option value="Daisy"${c.modelName==='Daisy'?' selected':''}>Daisy</option><option value="Bella"${c.modelName==='Bella'?' selected':''}>Bella</option></select></div>
-<div class="form-group"><label>Expected Task Day</label><select id="m_etd"><option value="">-</option>${days.map(d=>`<option${c.expectedTaskDay===d?' selected':''}>${d}</option>`).join('')}</select></div>
-<div class="form-group"><label>1st Deposit Day</label><select id="m_fdd"><option value="">-</option>${days.map(d=>`<option${c.firstDepositDay===d?' selected':''}>${d}</option>`).join('')}</select></div>
-<div class="form-group"><label>2nd Deposit Day</label><select id="m_sdd"><option value="">-</option>${days.map(d=>`<option${c.secondDepositDay===d?' selected':''}>${d}</option>`).join('')}</select></div>
-<div class="form-group"><label>Task Status</label><select id="m_ts"><option value="pending"${c.taskStatus==='pending'?' selected':''}>⏳ Pending</option><option value="complete"${c.taskStatus==='complete'?' selected':''}>✅ Complete</option><option value="not_interested"${c.taskStatus==='not_interested'?' selected':''}>❌ Not Interested</option></select></div>
-<div class="form-group"><label>1st Deposit (₹)</label><input type="number" id="m_dep" value="${c.depositAmount||0}"></div>
-<div class="form-group"><label>2nd Deposit (₹)</label><input type="number" id="m_dep2" value="${c.secondDeposit||0}"></div>
-<div class="form-group"><label>Withdrawal (₹)</label><input type="number" id="m_wd" value="${c.withdrawal||0}"></div>
-<div class="form-group"><label>$20 Bonus?</label><select id="m_b20"><option value="false"${!c.bonus20?' selected':''}>❌ No</option><option value="true"${c.bonus20?' selected':''}>✅ Yes</option></select></div>
-<div class="form-group"><label>Client Status</label><select id="m_cs"><option value="active"${c.clientStatus==='active'?' selected':''}>🟢 Active</option><option value="archived"${c.clientStatus==='archived'?' selected':''}>📦 Archive</option><option value="killed"${c.clientStatus==='killed'?' selected':''}>❌ Kill</option></select></div>
 </div>
-<div class="form-group" style="margin-top:15px"><label>Notes</label><textarea id="m_notes" rows="2">${c.notes||''}</textarea></div>
-<div style="margin-top:15px;display:flex;gap:10px;flex-wrap:wrap">
-<button class="btn btn-success" onclick="saveClient('${c.id}')">💾 Save</button>
-<button class="btn btn-warning" onclick="closeModal('clientModal')">Cancel</button></div>`;
-$('clientModal').classList.add('show')};
 
-window.saveClient=async id=>{
-const d=await getDoc(doc(db,"clients",id));const old=d.data();const newTS=$('m_ts').value;const newCS=$('m_cs').value;
-const newDep1=Number($('m_dep').value)||0;
-const newDep2=Number($('m_dep2').value)||0;
-const newWD=Number($('m_wd').value)||0;
-const oldDep1=Number(old.depositAmount)||0;
-const oldDep2=Number(old.secondDeposit)||0;
-const oldWD=Number(old.withdrawal)||0;
-
-if(newTS==='complete'&&old.taskStatus!=='complete'){
-const miss=[];if($('m_ss').value!=='true')miss.push('Screenshot');if($('m_st').value!=='true')miss.push('Story');
-if($('m_ac').value!=='true')miss.push('Audio Call');if($('m_vm').value!=='true')miss.push('Voice Message');
-if(miss.length)showInfo('⚠️ Warning!',`Missing: ❌ ${miss.join(', ')}<br><br><strong style="color:#f39c12">Admin alert jayega!</strong>`)}
-
-const up={screenshotShared:$('m_ss').value==='true',storyShared:$('m_st').value==='true',audioCall:$('m_ac').value==='true',
-voiceMessage:$('m_vm').value==='true',videoCall:$('m_vc').value==='true',modelName:$('m_model').value,
-expectedTaskDay:$('m_etd').value,firstDepositDay:$('m_fdd').value,secondDepositDay:$('m_sdd').value,
-taskStatus:newTS,depositAmount:newDep1,secondDeposit:newDep2,
-withdrawal:newWD,bonus20:$('m_b20').value==='true',clientStatus:newCS,notes:$('m_notes').value};
-
-if(newTS==='complete'&&old.taskStatus!=='complete')up.taskCompleteDate=today();
-if(newDep1!==oldDep1&&newDep1>0)up.depositDate=today();
-if(newDep2!==oldDep2&&newDep2>0)up.secondDepositDate=today();
-if(newWD!==oldWD&&newWD>0)up.withdrawalDate=today();
-if((newCS==='archived'||newCS==='killed')&&old.clientStatus==='active')up.statusChangeDate=today();
-
-await updateDoc(doc(db,"clients",id),up);
-closeModal('clientModal');
-loadClientMgmt();
-loadAgentDashboard();
-showInfo('✅ Saved!','Client details updated!');
-};
-
-window.searchClient=async()=>{
-const phone=$('searchPhone').value.trim();if(!phone)return;
-const snap=await getDocs(query(collection(db,"clients"),where("clientPhone","==",phone)));
-if(snap.empty){$('searchResults').innerHTML='<div class="alert alert-success show">✅ NEW client!</div>';return}
-let h=`<div class="alert alert-warning show">⚠️ ${snap.size} record(s)!</div><div class="table-container"><table><thead><tr><th>Date</th><th>Agent</th><th>Name</th><th>Platform</th><th>Status</th></tr></thead><tbody>`;
-snap.forEach(d=>{const c=d.data();const s=c.clientStatus||'active';
-h+=`<tr><td>${c.date}</td><td>${c.agentDisplay||c.agentName}</td><td>${c.clientName}</td><td>${c.platform||'-'}</td><td><span class="badge badge-${s==='killed'?'kill':s==='archived'?'archive':'active'}">${s.toUpperCase()}</span></td></tr>`});
-h+='</tbody></table></div>';$('searchResults').innerHTML=h};
-
-window.addAccount=async()=>{
-const name=$('accName').value.trim();if(!name)return showAlert('accAlert','Name required!');
-await addDoc(collection(db,"accounts"),{platform:$('accPlatform').value,name,number:$('accNumber').value.trim(),status:$('accStatus').value,
-agentId:currentUser.uid,agentName:currentUserData.displayName,createdAt:Timestamp.now()});
-showAlert('accAlert','✅ Added!','success');$('accName').value='';$('accNumber').value='';loadAccounts()};
-
-async function loadAccounts(){
-const snap=await getDocs(query(collection(db,"accounts"),where("agentId","==",currentUser.uid)));
-if(snap.empty){$('myAccountsList').innerHTML='<p style="color:#bbb;padding:15px;text-align:center">No accounts.</p>';return}
-let h='<div class="table-container"><table><thead><tr><th>Platform</th><th>Name</th><th>Number</th><th>Status</th><th>Action</th></tr></thead><tbody>';
-snap.forEach(d=>{const a=d.data();
-h+=`<tr><td>${a.platform}</td><td>${a.name}</td><td>${a.number||'-'}</td><td><span class="badge badge-${a.status==='active'?'active':a.status==='ban'?'ban':'warning'}">${a.status.toUpperCase()}</span></td><td><button class="btn btn-warning btn-sm" onclick="toggleAcc('${d.id}','${a.status}')">Toggle</button></td></tr>`});
-h+='</tbody></table></div>';$('myAccountsList').innerHTML=h}
-
-window.toggleAcc=async(id,s)=>{await updateDoc(doc(db,"accounts",id),{status:s==='active'?'ban':'active'});loadAccounts()};
-
-async function loadAccountsDropdown(){
-const snap=await getDocs(query(collection(db,"accounts"),where("agentId","==",currentUser.uid)));
-let h='<option value="">Select</option>';snap.forEach(d=>{const a=d.data();h+=`<option value="${d.id}">${a.platform} - ${a.name}</option>`});
-$('maintAccount').innerHTML=h}
-
-window.addMaintenance=async()=>{
-if(!$('maintAccount').value)return showAlert('maintAlert','Select account!');
-await addDoc(collection(db,"maintenance"),{accountId:$('maintAccount').value,agentId:currentUser.uid,agentName:currentUserData.displayName,date:today(),
-story:$('maintStory').value==='yes',reel:$('maintReel').value==='yes',post:$('maintPost').value==='yes',
-friendRequests:Number($('maintFR').value)||0,frLinks:$('maintFRLinks').value,
-waStory:$('maintWAStory').value==='yes',waContact:$('maintWAContact').value==='yes',createdAt:Timestamp.now()});
-showAlert('maintAlert','✅ Saved!','success');loadMaintenanceHistory()};
-
-async function loadMaintenanceHistory(){
-const snap=await getDocs(query(collection(db,"maintenance"),where("agentId","==",currentUser.uid)));
-const items=[];snap.forEach(d=>items.push({id:d.id,...d.data()}));items.sort((a,b)=>b.createdAt?.seconds-a.createdAt?.seconds);
-if(!items.length){$('maintList').innerHTML='<p style="color:#bbb;padding:15px;text-align:center">No history.</p>';return}
-let h='<div class="table-container"><table><thead><tr><th>Date</th><th>Story</th><th>Reel</th><th>Post</th><th>FR</th><th>WA Story</th><th>WA Contact</th></tr></thead><tbody>';
-items.slice(0,30).forEach(m=>{h+=`<tr><td>${m.date}</td><td>${m.story?'✅':'❌'}</td><td>${m.reel?'✅':'❌'}</td><td>${m.post?'✅':'❌'}</td><td>${m.friendRequests||0}</td><td>${m.waStory?'✅':'❌'}</td><td>${m.waContact?'✅':'❌'}</td></tr>`});
-h+='</tbody></table></div>';$('maintList').innerHTML=h}
-
-window.generateReport=async()=>{
-const t=today();
-const report=`📊 Today Report - ${t}
-Agent: ${currentUserData.displayName}
-━━━━━━━━━━━━━━━━━━━━━
-Today new client add: ${$('r_newClient').value||0}
-Today client achieve: ${$('r_achieve').value||0}
-Number of active clients: ${$('r_active').value||0}
-━━━━━━━━━━━━━━━━━━━━━
-Today task complete: ${$('r_taskComp').value||0}
-Today $20 given: ${$('r_bonus').value||0}
-Today first deposit: ₹${Number($('r_dep1').value||0).toLocaleString()}
-Today second deposit: ₹${Number($('r_dep2').value||0).toLocaleString()}
-Today withdrawal: ₹${Number($('r_wd').value||0).toLocaleString()}
-TOTAL DEPOSIT: ₹${Number($('r_totalDep').value||0).toLocaleString()}
-TOTAL WITHDRAWAL: ₹${Number($('r_totalWD').value||0).toLocaleString()}
-━━━━━━━━━━━━━━━━━━━━━
-Tomorrow task: ${$('r_tmTask').value||0}
-Tomorrow 1st deposit: ${$('r_tmDep1').value||0}
-Tomorrow 2nd deposit: ${$('r_tmDep2').value||0}
-━━━━━━━━━━━━━━━━━━━━━
-Today progress:
-${$('reportMsg').value||'[Add your daily message]'}
-━━━━━━━━━━━━━━━━━━━━━`;
-$('reportOutput').innerHTML=`<div class="report-box" id="reportText">${report}</div>`;
-return report};
-
-window.copyReport=async()=>{
-let t=$('reportText')?.textContent;
-if(!t){await generateReport();t=$('reportText').textContent}
-navigator.clipboard.writeText(t);showInfo('✅ Copied!','Report copied! Paste in WhatsApp.')};
-
-window.saveReport=async()=>{
-await generateReport();const text=$('reportText').textContent;const msg=$('reportMsg').value;
-if(!msg)return showAlert('reportAlert','❌ Write progress message!');
-const t=today();const existing=await getDocs(query(collection(db,"reports"),where("agentId","==",currentUser.uid),where("date","==",t)));
-const data={agentId:currentUser.uid,agentName:currentUserData.displayName,date:t,text,msg,
-newClient:Number($('r_newClient').value)||0,achieve:Number($('r_achieve').value)||0,active:Number($('r_active').value)||0,
-taskComp:Number($('r_taskComp').value)||0,bonus:Number($('r_bonus').value)||0,
-dep1:Number($('r_dep1').value)||0,dep2:Number($('r_dep2').value)||0,wd:Number($('r_wd').value)||0,
-totalDep:Number($('r_totalDep').value)||0,totalWD:Number($('r_totalWD').value)||0,
-tmTask:Number($('r_tmTask').value)||0,tmDep1:Number($('r_tmDep1').value)||0,tmDep2:Number($('r_tmDep2').value)||0,
-updatedAt:Timestamp.now()};
-if(!existing.empty){await updateDoc(doc(db,"reports",existing.docs[0].id),data);showAlert('reportAlert','✅ Updated!','success')}
-else{data.createdAt=Timestamp.now();await addDoc(collection(db,"reports"),data);showAlert('reportAlert','✅ Saved!','success')}
-loadAgentDashboard();};
-
-async function loadPreviousReport(){
-const t=today();const snap=await getDocs(query(collection(db,"reports"),where("agentId","==",currentUser.uid),where("date","==",t)));
-if(!snap.empty){const r=snap.docs[0].data();
-['r_newClient','r_achieve','r_active','r_taskComp','r_bonus','r_dep1','r_dep2','r_wd','r_totalDep','r_totalWD','r_tmTask','r_tmDep1','r_tmDep2'].forEach(id=>{const k=id.replace('r_','');$(id).value=r[k]||0});
-$('reportMsg').value=r.msg||'';
-$('reportOutput').innerHTML=`<div class="alert alert-info show">ℹ️ Aaj ki report save hai. Update kar sakte hain.</div><div class="report-box" id="reportText">${r.text}</div>`}}
-
-// ===== ADMIN DASHBOARD - FIXED: Data From Both Reports & Clients =====
-window.loadAdminDashboard=async function(){
-const cSnap=await getDocs(collection(db,"clients"));
-const aSnap=await getDocs(collection(db,"agents"));
-const accSnap=await getDocs(collection(db,"accounts"));
-const rSnap=await getDocs(collection(db,"reports"));
-allClientsCache=[];cSnap.forEach(d=>allClientsCache.push({id:d.id,...d.data()}));
-const t=today();
-
-// ===== FROM REPORTS =====
-let rTodayDep1=0,rTodayDep2=0,rTodayWD=0,rTodayBonus=0,rTodayTask=0,rTodayNew=0;
-let rOvDep1=0,rOvDep2=0,rOvWD=0,rTotalDep=0,rTotalWD=0;
-
-rSnap.forEach(d=>{
-const r=d.data();
-if(r.date===t){
-rTodayDep1+=Number(r.dep1||0);
-rTodayDep2+=Number(r.dep2||0);
-rTodayWD+=Number(r.wd||0);
-rTodayBonus+=Number(r.bonus||0);
-rTodayTask+=Number(r.taskComp||0);
-rTodayNew+=Number(r.newClient||0);
-}
-rOvDep1+=Number(r.dep1||0);
-rOvDep2+=Number(r.dep2||0);
-rOvWD+=Number(r.wd||0);
-if(Number(r.totalDep||0)>rTotalDep)rTotalDep=Number(r.totalDep||0);
-if(Number(r.totalWD||0)>rTotalWD)rTotalWD=Number(r.totalWD||0);
-});
-
-// ===== FROM CLIENTS =====
-const cTodayDep1=allClientsCache.filter(c=>c.depositDate===t).reduce((s,c)=>s+Number(c.depositAmount||0),0);
-const cTodayDep2=allClientsCache.filter(c=>c.secondDepositDate===t).reduce((s,c)=>s+Number(c.secondDeposit||0),0);
-const cTodayWD=allClientsCache.filter(c=>c.withdrawalDate===t).reduce((s,c)=>s+Number(c.withdrawal||0),0);
-const cOvDep1=allClientsCache.reduce((s,c)=>s+Number(c.depositAmount||0),0);
-const cOvDep2=allClientsCache.reduce((s,c)=>s+Number(c.secondDeposit||0),0);
-const cOvWD=allClientsCache.reduce((s,c)=>s+Number(c.withdrawal||0),0);
-
-// ===== USE MAX (whichever is higher) =====
-const todayDep1=Math.max(rTodayDep1,cTodayDep1);
-const todayDep2=Math.max(rTodayDep2,cTodayDep2);
-const todayWD=Math.max(rTodayWD,cTodayWD);
-const todayTotalDep=todayDep1+todayDep2;
-const todayLeft=todayTotalDep-todayWD;
-
-const ovDep1=Math.max(rOvDep1,cOvDep1);
-const ovDep2=Math.max(rOvDep2,cOvDep2);
-const ovWD=Math.max(rOvWD,cOvWD,rTotalWD);
-const totalDep=Math.max(ovDep1+ovDep2,rTotalDep);
-const leftAmount=totalDep-ovWD;
-
-// ===== TODAY STATS =====
-const todayNew=Math.max(allClientsCache.filter(c=>c.date===t).length,rTodayNew);
-const todayArchive=allClientsCache.filter(c=>(c.clientStatus==='archived'||c.clientStatus==='killed')&&c.statusChangeDate===t).length;
-const todayTask=Math.max(allClientsCache.filter(c=>c.taskCompleteDate===t).length,rTodayTask);
-
-$('admTodayNew').textContent=todayNew;
-$('admTodayArchive').textContent=todayArchive;
-$('admTodayTask').textContent=todayTask;
-$('admTodayDep1').textContent='₹'+todayDep1.toLocaleString();
-$('admTodayDep2').textContent='₹'+todayDep2.toLocaleString();
-$('admTodayWD').textContent='₹'+todayWD.toLocaleString();
-$('admTodayTotalDep').textContent='₹'+todayTotalDep.toLocaleString();
-$('admTodayTotalWD').textContent='₹'+todayWD.toLocaleString();
-$('admTodayLeft').textContent='₹'+todayLeft.toLocaleString();
-
-// ===== OVERALL =====
-const totalClients=allClientsCache.length;
-const totalArchive=allClientsCache.filter(c=>c.clientStatus==='archived'||c.clientStatus==='killed').length;
-const totalTask=allClientsCache.filter(c=>c.taskStatus==='complete').length;
-const activeA=[];accSnap.forEach(d=>{if(d.data().status==='active')activeA.push(1)});
-
-$('admTotalClients').textContent=totalClients;
-$('admTotalArchive').textContent=totalArchive;
-$('admTotalTask').textContent=totalTask;
-$('admTotalAgents').textContent=aSnap.size;
-$('admOvDep1').textContent='₹'+ovDep1.toLocaleString();
-$('admOvDep2').textContent='₹'+ovDep2.toLocaleString();
-$('admOvWD').textContent='₹'+ovWD.toLocaleString();
-$('admTotalDep').textContent='₹'+totalDep.toLocaleString();
-$('admTotalWD').textContent='₹'+ovWD.toLocaleString();
-$('admLeftAmount').textContent='₹'+leftAmount.toLocaleString();
-$('admActiveAccounts').textContent=activeA.length;
-
-// ===== MISSING REPORTS =====
-const reported=new Set();rSnap.forEach(d=>{if(d.data().date===t)reported.add(d.data().agentId)});
-const missing=aSnap.size-reported.size;
-$('admMissingReports').textContent=missing;
-
-// ===== WARNINGS =====
-let w='';
-if(missing>0){const m=[];aSnap.forEach(d=>{if(!reported.has(d.data().agentId))m.push(d.data().displayName||d.data().name)});
-w+=`<div class="alert alert-danger show">⚠️ <strong>${missing} agents report missing:</strong> ${m.join(', ')}</div>`}
-const d7=allClientsCache.filter(c=>(c.clientStatus||'active')==='active'&&calcDay(c.addedDate||c.date)>=7);
-if(d7.length)w+=`<div class="alert alert-danger show">🚨 <strong>${d7.length} clients on Day 7+!</strong> Urgent action needed!</div>`;
-$('adminWarnings').innerHTML=w;
-
-// ===== TODAY PERFORMANCE =====
-const todayCs=allClientsCache.filter(c=>c.date===t);
-const pm={};todayCs.forEach(c=>{const k=c.agentDisplay||c.agentName;pm[k]=(pm[k]||0)+1});
-$('admTodayPerf').innerHTML=Object.keys(pm).length?`<div class="agent-grid">${Object.entries(pm).map(([k,v])=>`<div class="agent-card"><h4>🧑‍💼 ${k}</h4><p>📊 New Today: <strong style="color:#e94560;font-size:22px">${v}</strong></p></div>`).join('')}</div>`:'<p style="color:#bbb;padding:15px">No clients today.</p>';
-
-// ===== PENDING =====
-const pending=allClientsCache.filter(c=>(c.clientStatus||'active')==='active'&&calcDay(c.addedDate||c.date)>=5&&c.taskStatus!=='complete');
-if(pending.length){
-let h='';pending.forEach(c=>{const day=calcDay(c.addedDate||c.date);const dc=day>=7?'danger':'warning';
-const miss=[];if(!c.screenshotShared)miss.push('Screenshot');if(!c.storyShared)miss.push('Story');if(!c.audioCall)miss.push('Audio');if(!c.voiceMessage)miss.push('Voice');
-h+=`<div class="client-row"><h4><span class="day-badge ${dc}">Day ${day}/7</span>${c.clientName} (${c.clientPhone}) <span style="float:right;color:#bbb;font-size:12px">Agent: ${c.agentDisplay||c.agentName}</span></h4>
-<div class="client-info"><span><strong>Platform:</strong> ${c.platform||'-'}</span><span><strong>Task:</strong> ⏳ ${c.taskStatus}</span></div>
-${miss.length?`<div class="alert alert-warning show" style="margin:8px 0">⚠️ Missing: ${miss.join(', ')}</div>`:''}</div>`});
-$('admPendingClients').innerHTML=h;
-}else $('admPendingClients').innerHTML='<p style="color:#2ecc71;padding:15px">✅ No pending Day 5+ clients!</p>';
-}
-
-async function loadAdminTargets(){
-const aSnap=await getDocs(collection(db,"agents"));
-const cSnap=await getDocs(collection(db,"clients"));
-const t=today();
-const allClients=[];cSnap.forEach(d=>allClients.push(d.data()));
-
-let h='';
-for(const d of aSnap.docs){
-const a=d.data();
-const targetId=`${a.agentId}_${t}`;
-const tDoc=await getDoc(doc(db,"targets",targetId));
-const target=tDoc.exists()?tDoc.data():{newClients:0,tasks:0,deposits:0};
-
-const myClients=allClients.filter(c=>c.agentId===a.agentId);
-const todayNew=myClients.filter(c=>c.date===t).length;
-const todayTask=myClients.filter(c=>c.taskCompleteDate===t).length;
-const todayDep=myClients.filter(c=>c.depositDate===t&&Number(c.depositAmount||0)>0).length;
-
-const tNew=Number(target.newClients)||0,tTask=Number(target.tasks)||0,tDep=Number(target.deposits)||0;
-const totalT=tNew+tTask+tDep;
-const totalD=Math.min(tNew,todayNew)+Math.min(tTask,todayTask)+Math.min(tDep,todayDep);
-const overall=totalT>0?Math.round((totalD/totalT)*100):0;
-
-let summaryClass='',summaryMsg='';
-if(totalT===0){summaryMsg='⚪ No target set yet'}
-else if(overall>=100){summaryClass='achieved';summaryMsg=`✅ ACHIEVED! ${overall}% - Today: ${todayNew}/${tNew} clients, ${todayTask}/${tTask} tasks, ${todayDep}/${tDep} deposits`}
-else{summaryClass='failed';summaryMsg=`📊 Progress: ${overall}% - Today: ${todayNew}/${tNew} clients, ${todayTask}/${tTask} tasks, ${todayDep}/${tDep} deposits`}
-
-h+=`<div class="target-set-card">
-<h4>🧑‍💼 ${a.displayName||a.name} <span class="badge ${overall>=100?'badge-active':overall>=50?'badge-warning':'badge-kill'}">${overall}%</span></h4>
-<div class="target-progress-summary ${summaryClass}">${summaryMsg}</div>
-<div class="form-grid">
-<div class="form-group"><label>📋 New Clients Target</label><input type="number" id="tgt_${a.agentId}_new" value="${tNew}" min="0"></div>
-<div class="form-group"><label>✅ Tasks Target</label><input type="number" id="tgt_${a.agentId}_task" value="${tTask}" min="0"></div>
-<div class="form-group"><label>💰 First Deposits Target</label><input type="number" id="tgt_${a.agentId}_dep" value="${tDep}" min="0"></div>
-</div>
-<button class="btn btn-primary btn-sm" onclick="saveTarget('${a.agentId}','${(a.displayName||a.name).replace(/'/g,"\\'")}')">💾 Set Target</button>
-</div>`}
-
-if(!aSnap.size)h='<p style="color:#bbb;padding:20px">No agents registered yet.</p>';
-$('admTargetsList').innerHTML=h}
-
-window.saveTarget=async(agentId,agentName)=>{
-const t=today();
-const targetId=`${agentId}_${t}`;
-const newClients=Number($(`tgt_${agentId}_new`).value)||0;
-const tasks=Number($(`tgt_${agentId}_task`).value)||0;
-const deposits=Number($(`tgt_${agentId}_dep`).value)||0;
-await setDoc(doc(db,"targets",targetId),{agentId,agentName,date:t,newClients,tasks,deposits,setAt:Timestamp.now()});
-showAlert('admTargetAlert',`✅ Target set for ${agentName}!`,'success');
-loadAdminTargets()};
-
-// ===== ADMIN AGENTS - Uses Reports + Clients =====
-async function loadAdminAgents(){
-const a=await getDocs(collection(db,"agents"));
-const c=await getDocs(collection(db,"clients"));
-const r=await getDocs(collection(db,"reports"));
-
-const cc={},tc={},ds={},ws={},ac={},ar={};
-c.forEach(d=>{const x=d.data();cc[x.agentId]=(cc[x.agentId]||0)+1;
-if(x.taskStatus==='complete')tc[x.agentId]=(tc[x.agentId]||0)+1;
-ds[x.agentId]=(ds[x.agentId]||0)+Number(x.depositAmount||0)+Number(x.secondDeposit||0);
-ws[x.agentId]=(ws[x.agentId]||0)+Number(x.withdrawal||0);
-if((x.clientStatus||'active')==='active')ac[x.agentId]=(ac[x.agentId]||0)+1;
-if(x.clientStatus==='archived'||x.clientStatus==='killed')ar[x.agentId]=(ar[x.agentId]||0)+1});
-
-const rDep={},rWD={},rTotalDep={},rTotalWD={};
-r.forEach(d=>{
-const x=d.data();
-rDep[x.agentId]=(rDep[x.agentId]||0)+Number(x.dep1||0)+Number(x.dep2||0);
-rWD[x.agentId]=(rWD[x.agentId]||0)+Number(x.wd||0);
-if(Number(x.totalDep||0)>(rTotalDep[x.agentId]||0))rTotalDep[x.agentId]=Number(x.totalDep||0);
-if(Number(x.totalWD||0)>(rTotalWD[x.agentId]||0))rTotalWD[x.agentId]=Number(x.totalWD||0);
-});
-
-let h='';a.forEach(d=>{const x=d.data();
-const totalDeposit=Math.max(ds[x.agentId]||0,rDep[x.agentId]||0,rTotalDep[x.agentId]||0);
-const totalWD=Math.max(ws[x.agentId]||0,rWD[x.agentId]||0,rTotalWD[x.agentId]||0);
-const left=totalDeposit-totalWD;
-h+=`<div class="agent-card"><h4>🧑‍💼 ${x.displayName||x.name}</h4>
-<p>📧 ${x.email}</p><p>🏷️ Code: ${x.code}</p>
-<p>👥 Total: <strong style="color:#e94560">${cc[x.agentId]||0}</strong></p>
-<p>🟢 Active: <strong style="color:#2ecc71">${ac[x.agentId]||0}</strong> | 📦 Dead: <strong style="color:#95a5a6">${ar[x.agentId]||0}</strong></p>
-<p>✅ Tasks: <strong style="color:#2ecc71">${tc[x.agentId]||0}</strong></p>
-<p>💰 Deposits: <strong style="color:#f39c12">₹${totalDeposit.toLocaleString()}</strong></p>
-<p>💸 WD: <strong style="color:#e74c3c">₹${totalWD.toLocaleString()}</strong></p>
-<p>📊 LEFT: <strong style="color:#2ecc71;font-size:16px">₹${left.toLocaleString()}</strong></p></div>`});
-$('admAgentsList').innerHTML=h}
-
-async function loadAdminClients(){
-const c=[...allClientsCache].sort((a,b)=>{const o={active:1,archived:2,killed:3};return(o[a.clientStatus||'active']-o[b.clientStatus||'active'])||(b.createdAt?.seconds-a.createdAt?.seconds)});
-renderAdminClientList(c)}
-
-function renderAdminClientList(clients){
-if(!clients.length){$('admClientsList').innerHTML='<p style="color:#bbb;padding:20px">No clients.</p>';return}
-let h='';clients.forEach(c=>{
-const day=calcDay(c.addedDate||c.date);const dc=day>=7?'danger':day>=5?'warning':'';
-const st=c.clientStatus||'active';const rc=st==='killed'?'killed':st==='archived'?'archived':'';
-const pg=[{k:'screenshotShared',l:'📸 SS'},{k:'storyShared',l:'📖 Story'},{k:'audioCall',l:'📞 Audio'},{k:'voiceMessage',l:'🎙️ Voice'},{k:'videoCall',l:'📹 Video'}];
-const miss=[];if(!c.screenshotShared)miss.push('SS');if(!c.storyShared)miss.push('Story');if(!c.audioCall)miss.push('Audio');if(!c.voiceMessage)miss.push('Voice');
-const ready=miss.length===0;
-h+=`<div class="client-row ${rc}">
-<h4><span class="day-badge ${dc}">Day ${day}/7</span>${c.clientName} (${c.clientPhone}) 
-<span style="float:right"><span class="badge badge-${st==='killed'?'kill':st==='archived'?'archive':'active'}">${st.toUpperCase()}</span></span></h4>
-<div class="client-info">
-<span><strong>Agent:</strong> ${c.agentDisplay||c.agentName}</span>
-<span><strong>Platform:</strong> ${c.platform||'-'}</span>
-<span><strong>Model:</strong> ${c.modelName||'-'}</span>
-<span><strong>Location:</strong> ${c.clientLocation||'-'}</span>
-<span><strong>Task:</strong> ${c.taskStatus||'pending'}</span>
-<span><strong>1st Dep:</strong> ₹${c.depositAmount||0}</span>
-<span><strong>2nd Dep:</strong> ₹${c.secondDeposit||0}</span>
-<span><strong>WD:</strong> ₹${c.withdrawal||0}</span></div>
-<div class="progress-grid">${pg.map(p=>`<div class="progress-item ${c[p.k]?'done':'pending'}">${c[p.k]?'✅':'❌'} ${p.l}</div>`).join('')}</div>
-${st==='active'&&day>=5?`<div class="alert ${ready?'alert-success':'alert-warning'} show" style="margin-top:8px">${ready?'✅ READY FOR TASK!':'⚠️ NOT READY - Missing: '+miss.join(', ')}</div>`:''}
-</div>`});
-$('admClientsList').innerHTML=h}
-
-window.filterAdminClients=q=>{
-q=(q||'').toLowerCase();const status=$('admStatusFilter').value;
-let filtered=allClientsCache.filter(c=>(c.clientName||'').toLowerCase().includes(q)||(c.clientPhone||'').includes(q)||(c.agentDisplay||'').toLowerCase().includes(q));
-if(status==='active')filtered=filtered.filter(c=>(c.clientStatus||'active')==='active');
-else if(status==='archived')filtered=filtered.filter(c=>c.clientStatus==='archived');
-else if(status==='killed')filtered=filtered.filter(c=>c.clientStatus==='killed');
-else if(status==='pending')filtered=filtered.filter(c=>(c.clientStatus||'active')==='active'&&calcDay(c.addedDate||c.date)>=5&&c.taskStatus!=='complete');
-renderAdminClientList(filtered)};
-
-async function loadAdminMaintenance(){
-const t=today();
-const mSnap=await getDocs(query(collection(db,"maintenance"),where("date","==",t)));
-const aSnap=await getDocs(collection(db,"agents"));
-const accSnap=await getDocs(collection(db,"accounts"));
-const accMap={};accSnap.forEach(d=>accMap[d.id]=d.data());
-const byAgent={};mSnap.forEach(d=>{const m=d.data();if(!byAgent[m.agentId])byAgent[m.agentId]={name:m.agentName,logs:[]};byAgent[m.agentId].logs.push({...m,acc:accMap[m.accountId]||{}})});
-const missing=[];aSnap.forEach(d=>{if(!byAgent[d.data().agentId])missing.push(d.data().displayName||d.data().name)});
-let h='';
-if(Object.keys(byAgent).length){
-h+='<h4 style="color:#2ecc71;margin-bottom:10px">✅ TODAY DONE:</h4>';
-Object.values(byAgent).forEach(a=>{
-h+=`<div class="agent-card" style="margin-bottom:10px"><h4>🧑‍💼 ${a.name}</h4>`;
-a.logs.forEach(l=>{
-h+=`<div style="background:rgba(0,0,0,.2);padding:10px;border-radius:8px;margin-top:8px;font-size:12px">
-<strong>${l.acc.platform||'-'} - ${l.acc.name||'-'}</strong><br>
-Story: ${l.story?'✅':'❌'} | Reel: ${l.reel?'✅':'❌'} | Post: ${l.post?'✅':'❌'} | FR: ${l.friendRequests||0} | WA Story: ${l.waStory?'✅':'❌'} | WA Contact: ${l.waContact?'✅':'❌'}
-</div>`});
-h+='</div>'})}
-if(missing.length){
-h+=`<h4 style="color:#e74c3c;margin:15px 0 10px">❌ NO MAINTENANCE TODAY (${missing.length}):</h4>
-<div class="alert alert-danger show">${missing.join(', ')}</div>`}
-if(!Object.keys(byAgent).length&&!missing.length)h='<p style="color:#bbb;padding:20px">No agents yet.</p>';
-$('admMaintList').innerHTML=h}
-
-async function loadAdminAccounts(){
-const snap=await getDocs(collection(db,"accounts"));let h='';
-snap.forEach(d=>{const a=d.data();h+=`<tr><td>${a.agentName}</td><td>${a.platform}</td><td>${a.name}</td><td>${a.number||'-'}</td><td><span class="badge badge-${a.status==='active'?'active':a.status==='ban'?'ban':'warning'}">${a.status.toUpperCase()}</span></td></tr>`});
-$('admAccountsBody').innerHTML=h||'<tr><td colspan="5" style="text-align:center;padding:20px;color:#bbb">No accounts</td></tr>'}
-
-async function loadAdminReports(){
-const t=today();const r=await getDocs(query(collection(db,"reports"),where("date","==",t)));
-const a=await getDocs(collection(db,"agents"));
-const ri=new Set();const reps=[];r.forEach(d=>{reps.push(d.data());ri.add(d.data().agentId)});
-const miss=[];a.forEach(d=>{if(!ri.has(d.data().agentId))miss.push(d.data().displayName||d.data().name)});
-$('admMissingText').textContent=miss.length?`(${miss.length} missing: ${miss.join(', ')})`:'✅ All submitted';
-if(!reps.length){$('admReportsList').innerHTML='<p style="color:#bbb;padding:20px">No reports today.</p>';return}
-let h='';reps.forEach(r=>{h+=`<div class="card" style="margin-bottom:10px;padding:15px"><h4 style="color:#e94560">📝 ${r.agentName}</h4><div class="report-box" style="margin-top:10px">${r.text}</div></div>`});
-$('admReportsList').innerHTML=h}
-
-async function loadLeaderboard(){
-const aSnap=await getDocs(collection(db,"agents"));
-const cSnap=await getDocs(collection(db,"clients"));
-const t=today();
-const allClients=[];cSnap.forEach(d=>allClients.push(d.data()));
-
-const results=[];
-for(const d of aSnap.docs){
-const a=d.data();
-const targetId=`${a.agentId}_${t}`;
-const tDoc=await getDoc(doc(db,"targets",targetId));
-const target=tDoc.exists()?tDoc.data():null;
-
-const myClients=allClients.filter(c=>c.agentId===a.agentId);
-const todayNew=myClients.filter(c=>c.date===t).length;
-const todayTask=myClients.filter(c=>c.taskCompleteDate===t).length;
-const todayDep=myClients.filter(c=>c.depositDate===t&&Number(c.depositAmount||0)>0).length;
-
-let overall=0,hasTarget=false;
-if(target){
-const tNew=Number(target.newClients)||0,tTask=Number(target.tasks)||0,tDep=Number(target.deposits)||0;
-const totalT=tNew+tTask+tDep;
-const totalD=Math.min(tNew,todayNew)+Math.min(tTask,todayTask)+Math.min(tDep,todayDep);
-overall=totalT>0?Math.round((totalD/totalT)*100):0;
-hasTarget=totalT>0;
-}
-results.push({name:a.displayName||a.name,overall,hasTarget,todayNew,todayTask,todayDep,target});
-}
-
-const winners=results.filter(r=>r.hasTarget&&r.overall>=100).sort((a,b)=>b.overall-a.overall);
-const partial=results.filter(r=>r.hasTarget&&r.overall>0&&r.overall<100).sort((a,b)=>b.overall-a.overall);
-const failed=results.filter(r=>r.hasTarget&&r.overall===0).sort((a,b)=>a.name.localeCompare(b.name));
-const noTarget=results.filter(r=>!r.hasTarget);
-
-let h='';
-if(winners.length){
-h+='<h4 style="color:#2ecc71;margin-bottom:15px;font-size:18px">🏆 TODAY\'S HEROES 🏆</h4><div class="agent-grid">';
-const m=['🥇','🥈','🥉'];
-winners.forEach((r,i)=>{
-const msgs=['🌟 PROUD OF YOU! Superstar! ⭐⭐⭐','👏 Excellent work! Keep it up! ⭐⭐','✅ Target complete! Well done! ⭐'];
-h+=`<div class="agent-card" style="border-color:#2ecc71;background:rgba(46,204,113,.1)"><h4>${m[i]||'#'+(i+1)} ${r.name} <span class="badge badge-active">${r.overall}%</span></h4>
-<p style="color:#2ecc71;font-weight:600;margin:10px 0">"${msgs[i]||msgs[2]}"</p>
-<p>📋 Clients: ${r.todayNew}/${r.target.newClients}</p>
-<p>✅ Tasks: ${r.todayTask}/${r.target.tasks}</p>
-<p>💰 Deposits: ${r.todayDep}/${r.target.deposits}</p></div>`});
-h+='</div>';
-}
-
-if(partial.length){
-h+='<h4 style="color:#f39c12;margin:25px 0 15px;font-size:18px">⚡ IN PROGRESS ⚡</h4><div class="agent-grid">';
-partial.forEach(r=>{
-h+=`<div class="agent-card" style="border-color:#f39c12"><h4>${r.name} <span class="badge badge-warning">${r.overall}%</span></h4>
-<p style="color:#f39c12;margin:10px 0">⏰ Hurry up! Complete your target!</p>
-<p>📋 Clients: ${r.todayNew}/${r.target.newClients}</p>
-<p>✅ Tasks: ${r.todayTask}/${r.target.tasks}</p>
-<p>💰 Deposits: ${r.todayDep}/${r.target.deposits}</p></div>`});
-h+='</div>';
-}
-
-if(failed.length){
-h+='<h4 style="color:#e74c3c;margin:25px 0 15px;font-size:18px">😤 TODAY\'S FAILURES 😤</h4><div class="agent-grid">';
-const insults=['😤 DISAPPOINTED! You failed me!','💀 SHAMEFUL! Did nothing today!','😡 VERY DISAPPOINTED! Wake up!','🚨 PATHETIC! Where is your effort?'];
-failed.forEach((r,i)=>{
-h+=`<div class="agent-card" style="border-color:#e74c3c;background:rgba(231,76,60,.1)"><h4>🔴 ${r.name} <span class="badge badge-kill">${r.overall}%</span></h4>
-<p style="color:#e74c3c;font-weight:600;margin:10px 0">"${insults[i%insults.length]}"</p>
-<p>📋 Clients: ${r.todayNew}/${r.target.newClients}</p>
-<p>✅ Tasks: ${r.todayTask}/${r.target.tasks}</p>
-<p>💰 Deposits: ${r.todayDep}/${r.target.deposits}</p></div>`});
-h+='</div>';
-}
-
-if(noTarget.length){
-h+='<h4 style="color:#95a5a6;margin:25px 0 15px;font-size:15px">⚪ NO TARGET SET</h4><div class="agent-grid">';
-noTarget.forEach(r=>{h+=`<div class="agent-card"><h4>${r.name}</h4><p style="color:#bbb">Set target for this agent</p></div>`});
-h+='</div>';
-}
-
-if(!h)h='<p style="color:#bbb;padding:20px">No agents registered yet.</p>';
-$('leaderboardList').innerHTML=h}
-
-window.adminSearchClient=async()=>{
-const phone=$('admSearchPhone').value.trim();if(!phone)return;
-const snap=await getDocs(query(collection(db,"clients"),where("clientPhone","==",phone)));
-if(snap.empty){$('admSearchResults').innerHTML='<div class="alert alert-success show">✅ NEW client!</div>';return}
-let h=`<div class="alert alert-warning show">⚠️ ${snap.size} record(s)</div><div class="table-container"><table><thead><tr><th>Date</th><th>Agent</th><th>Name</th><th>Platform</th><th>Status</th></tr></thead><tbody>`;
-snap.forEach(d=>{const c=d.data();const s=c.clientStatus||'active';h+=`<tr><td>${c.date}</td><td>${c.agentDisplay||c.agentName}</td><td>${c.clientName}</td><td>${c.platform||'-'}</td><td><span class="badge badge-${s==='killed'?'kill':s==='archived'?'archive':'active'}">${s.toUpperCase()}</span></td></tr>`});
-h+='</tbody></table></div>';$('admSearchResults').innerHTML=h};
-</script>
 </body>
 </html>
